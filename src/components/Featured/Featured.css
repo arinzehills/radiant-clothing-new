@@ -1,0 +1,23 @@
+.skills_select {
+  width: 90px;
+  height: 83px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.blue {
+  background: linear-gradient(to top, #2255ff, #1477ff);
+}
+.orange {
+  background: linear-gradient(to top, #ff8304, #ffc12a);
+}
+.light-blue {
+  background: linear-gradient(to top, #1477ff, #72e9f3);
+}
+.purple {
+  background: linear-gradient(to top, #3a0667, #6500ff);
+}

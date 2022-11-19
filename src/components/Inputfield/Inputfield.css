@@ -1,0 +1,58 @@
+.input {
+  height: 45px;
+  width: 300px;
+  border: none;
+  border-radius: 10px;
+  padding-left: 30px;
+  margin-top: 1rem;
+}
+.ipn--small {
+  width: 15rem;
+}
+.ipn--medium {
+  width: 19rem;
+}
+.ipn--large {
+  width: 25rem;
+}
+.ipn--wide {
+  width: 30rem;
+}
+.input--outline {
+  border: 1.2px solid rgb(193, 189, 189);
+  border-radius: 2px;
+  height: 40px;
+  padding-left: 5px;
+  outline-color: var(--light-purple);
+  width: 98%;
+  margin-top: 0;
+}
+.input-primary {
+  border: 1px solid white;
+}
+.input-shadow-orange {
+  box-shadow: 0 10px 30px 2px rgba(256, 156, 0, 0.2);
+}
+.input-shadow-purple {
+  box-shadow: 0 10px 30px 2px rgba(131, 8, 255, 0.2);
+}
+.purple-input {
+  /* background: #f4263e48; */
+  color: grey;
+  border: 0.5px solid var(--mypurple);
+  box-shadow: 0 0 6px 0 rgb(78 42 222 / 2%), 0 6px 18px 0 rgb(78 42 222 / 2%);
+  transition: border-width 350ms, border-color 350ms, color 350ms;
+  outline-color: var(--light-purple);
+}
+.purple-input::placeholder {
+  color: grey;
+}
+.purple-input:active {
+  border: 1px springgreen solid;
+}
+.orange-input {
+  background: rgba(255, 166, 0, 0.3);
+}
+
+@media screen and (max-width: 960px) {
+}

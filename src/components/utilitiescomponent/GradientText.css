@@ -1,0 +1,47 @@
+/* body {
+  background: #333;
+  text-align: center;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.no-linear-wipe {
+  text-align: center;
+  background: linear-gradient(
+    to right,
+    var(--light-gold) 20%,
+    var(--dark-gold) 40%,
+    var(--lightblue-blue) 60%,
+    var(--lightblue-light-blue) 80%
+  );
+  background-size: 200% auto;
+  color: #000;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.linear-wipe {
+  text-align: center;
+  background: linear-gradient(
+    to right,
+    var(--light-gold) 20%,
+    var(--dark-gold) 40%,
+    var(--light-gold) 60%,
+    var(--lightblue-light-blue) 80%
+  );
+  background-size: 200% auto;
+  color: #000;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 1s linear infinite;
+}
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}

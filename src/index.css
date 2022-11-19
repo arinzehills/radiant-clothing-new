@@ -1,0 +1,57 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+.centerClass {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gold_color {
+  background: linear-gradient(85deg, #daa520, #daa520, #905b0b) !important;
+}
+.gold_color_light {
+  background: linear-gradient(
+    85deg,
+    #daa520,
+    #905b0b,
+    #daa520,
+    #f7c477
+  ) !important;
+}
+/* font style */
+.italics {
+  /* font-style: italic; */
+  /* font-family: "Anton", sans-serif; */
+  font-family: "Dancing Script";
+  color: var(--light-gold);
+  line-height: 0.5px;
+}
+.gold_color_text {
+  color: var(--light-gold);
+  line-height: 0.5px;
+}
+.avenir_class {
+  font-family: "Avenir", Helvetica, sans-serif;
+}
+/* for justification and arrangement */
+.class_justify_contents_column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.class_justify_contents_row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
