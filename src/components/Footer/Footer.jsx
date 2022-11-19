@@ -77,10 +77,10 @@ function Footer() {
             <FooterIcon iconName={"FaWhatsapp"} />
             <FooterIcon iconName={"FaLinkedin"} />
           </div>
-          <GradientText
+          {/* <GradientText
             text={" RADIANT CLOTHING"}
             style={{ lineHeight: 1, fontSize: "2vw", textAlign: "left" }}
-          />
+          /> */}
           <p>&copy; 2022</p>
         </div>
       </>
