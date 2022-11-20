@@ -21,7 +21,7 @@ const Homepage = () => {
   return (
     <>
       <div style={{ marginTop: "12rem" }}></div>
-      {/* <HeroSlider /> */}
+      <HeroSlider />
       <Featured />
     </>
   );

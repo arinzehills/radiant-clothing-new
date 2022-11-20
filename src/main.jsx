@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
 
 import { createBrowserHistory } from "history";
 import { wrapHistory } from "oaf-react-router";
@@ -9,10 +9,13 @@ import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
 
 const history = createBrowserHistory();
 wrapHistory(history);
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.render(
   <React.StrictMode>
+    {/* <BrowserRouter> */}
     <HistoryRouter history={history}>
       <App />
     </HistoryRouter>
-  </React.StrictMode>
+    {/* </BrowserRouter> */}
+  </React.StrictMode>,
+  document.getElementById("root")
 );
