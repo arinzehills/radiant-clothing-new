@@ -1,0 +1,101 @@
+.admin_section {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  /* flex-direction: column; */
+}
+
+.admin_grid {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  gap: 0.1rem;
+  /* grid-auto-columns: minmax(150px, 150px); */
+  grid-template-areas:
+    "content content"
+    "content content"
+    "content sidebar";
+}
+.grid-sidebar {
+  /* grid-area: content; */
+}
+.grid-card {
+  /* box-shadow: 0 10px 30px 20px rgba(182, 178, 178, 0.2);
+   */
+
+  height: 95px;
+  width: 189px;
+  box-shadow: 0 0 6px 20px rgb(78 42 222 / 2%), 0 6px 18px 0 rgb(78 42 222 / 2%);
+}
+.grid-card h3 {
+  font-weight: 500;
+  color: grey;
+  text-transform: capitalize;
+  text-align: left;
+}
+.grid-card h4 {
+  font-weight: 500;
+  font-size: 9px;
+}
+.admin_revenue {
+  height: 300px;
+  width: 230px;
+  border-radius: 20px;
+  color: white;
+  margin: 0.5rem;
+  margin-left: 1rem;
+  /* box-shadow: 0 10px 30px 20px rgb(131 8 255 / 20%); */
+  box-shadow: 0 0 6px 0 rgb(78 42 222 / 2%), 0 6px 18px 0 rgb(131 8 255 / 20%);
+
+  background: linear-gradient(
+    to top right,
+    var(--dark-blue),
+    var(--light-purple)
+  );
+}
+.admin_revenue:hover {
+  box-shadow: 0 10px 30px 20px rgb(131 8 255 / 20%);
+  transition: all 0.5s ease;
+  transform: scale(1.05);
+}
+.revenue_chart {
+  border-radius: 15px;
+  margin-top: -7.5rem;
+  padding: 10px;
+  box-shadow: 0 10px 30px 20px rgba(182, 178, 178, 0.2);
+  width: 70%;
+}
+.revenue_chart h1 {
+  font-weight: 600;
+  font-size: 20px;
+  text-align: left;
+}
+@media screen and (max-width: 960px) {
+  .admin_section {
+    flex-direction: column;
+    /* align-items: center; */
+  }
+  .admin_grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+  }
+  .grid-card {
+    /* max-width: 150px; */
+    /* width: 100%; */
+  }
+  .revenue_chart {
+    margin-top: 20px;
+    width: 90%;
+  }
+}
+@media screen and (min-width: 160px) and (max-width: 460px) {
+  .grid-card {
+    width: 85%;
+    height: 110px;
+  }
+  .admin_revenue {
+    width: 90%;
+  }
+}

@@ -16,6 +16,9 @@ code {
   justify-content: center;
   align-items: center;
 }
+.errors {
+  color: var(--danger);
+}
 .gold_color {
   background: linear-gradient(85deg, #daa520, #daa520, #905b0b) !important;
 }
@@ -42,6 +45,11 @@ code {
 }
 .avenir_class {
   font-family: "Avenir", Helvetica, sans-serif;
+  line-height: 0;
+}
+
+.avenir_class.grey {
+  color: grey;
 }
 /* for justification and arrangement */
 .class_justify_contents_column {
@@ -54,4 +62,14 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+/* For visibility */
+.showTip {
+  display: none;
+  font-size: 13px;
+  transition: all 10s ease-in;
+  position: absolute;
+  background: #daa520b1;
+  padding: 2px;
+  margin-bottom: 3.6rem;
 }

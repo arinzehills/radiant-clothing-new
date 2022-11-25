@@ -7,6 +7,8 @@ import App from "./App";
 import "./index.css";
 import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
 
+window.baseUrl = import.meta.env.VITE_REACT_APP_API_URL;
+
 const history = createBrowserHistory();
 wrapHistory(history);
 ReactDOM.render(

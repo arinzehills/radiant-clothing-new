@@ -24,9 +24,9 @@ const InputWithIcon = ({
           display: "flex",
           width:
             window.innerWidth < 660
-              ? "109%"
+              ? "79%"
               : window.innerWidth < 960
-              ? "105%"
+              ? "85%"
               : "107%",
           justifyContent: "space-between",
           alignItems: "flex-end",
@@ -36,7 +36,11 @@ const InputWithIcon = ({
           type={inputType}
           {...inputData}
           name={name}
-          style={{ width: "100%", height: inputHeight ?? 50 }}
+          style={{
+            width: "100%",
+            height: inputHeight ?? 50,
+            overFlow: "ellipses",
+          }}
           onHandleChange={onHandleChange}
           ref={ref}
           value={value}

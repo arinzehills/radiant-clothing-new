@@ -1,10 +1,10 @@
 .input {
   height: 45px;
   width: 300px;
-  border: none;
+  border: 1px solid #ececec;
   border-radius: 10px;
   padding-left: 30px;
-  margin-top: 1rem;
+  margin-top: 0.3rem;
 }
 .ipn--small {
   width: 15rem;
@@ -16,7 +16,7 @@
   width: 25rem;
 }
 .ipn--wide {
-  width: 30rem;
+  width: 100%;
 }
 .input--outline {
   border: 1.2px solid rgb(193, 189, 189);

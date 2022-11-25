@@ -1,0 +1,42 @@
+.slider {
+  position: relative;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: red; */
+}
+.slider-image {
+  width: 1000px;
+  height: 600px;
+  border-radius: 10px;
+}
+.slider-arrow-right {
+  position: absolute;
+  top: 50%;
+  right: 32px;
+  font-size: 3rem;
+  color: black;
+  z-index: 10;
+  cursor: pointer;
+  user-select: none;
+}
+.slider-arrow-left {
+  position: absolute;
+  top: 50%;
+  left: 32px;
+  font-size: 3rem;
+  color: black;
+  z-index: 10;
+  cursor: pointer;
+  user-select: none;
+}
+.myslide {
+  opacity: 0.5;
+  transition: 1s ease;
+}
+.myslide.myslide-active {
+  opacity: 1;
+  transition: 1s ease;
+  transform: scale(1.08);
+}

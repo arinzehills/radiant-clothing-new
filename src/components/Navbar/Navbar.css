@@ -12,9 +12,16 @@
   /* brand colors */
   --black: #000;
   --white: #fff;
-  --light-gold:#daa520;
+  --light-gold: #daa520;
   --dark-gold: #905b0b;
-  --orange-gradient:linear-gradient(to top, rgb(247, 111, 93), rgba(255, 145, 0, 0.827))
+  --orange-gradient: linear-gradient(
+    to top,
+    rgb(247, 111, 93),
+    rgba(255, 145, 0, 0.827)
+  ) !important;
+  /* rgb(247, 111, 93),
+    rgba(255, 145, 0, 0.827) 
+    !important */
   --gold-gradient: linear-gradient(
     85deg,
     #daa520,
@@ -73,6 +80,9 @@
   /* padding-right: 180px; */
   font-family: Arial, Helvetica, sans-serif;
 }
+.navbar-logo img {
+  height: 90px;
+}
 .nav-menu {
   display: flex;
   align-items: center;
@@ -113,7 +123,11 @@
 .nav-links::before {
   content: "";
   /* background: #54b3d6; */
- background: linear-gradient(to top, rgb(247, 111, 93), rgba(255, 145, 0, 0.827));
+  background: linear-gradient(
+    to top,
+    rgb(247, 111, 93),
+    rgba(255, 145, 0, 0.827)
+  );
   display: block;
   position: absolute;
   bottom: -3px;
@@ -213,11 +227,13 @@
 
   .navbar-logo {
     position: absolute;
-    top: 0px;
-    left: -20px;
-    transform: translate(-5%, -20%);
+    top: 10px;
+    left: -0px;
+    /* transform: translate(-5%, -20%); */
   }
-
+  .navbar-logo img {
+    height: 60px;
+  }
   .menu-icon {
     display: block;
     position: absolute;

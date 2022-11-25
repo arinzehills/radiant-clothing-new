@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import IconAndCircle from "../IconAndCircle/IconAndCircle";
 import InputField from "../Inputfield/InputField";
 import InputWithIcon from "../InputWithIcon/InputWithIcon";
+import "./UpperNav.css";
 
 const UpperNavbar = () => {
   return (
@@ -11,28 +12,41 @@ const UpperNavbar = () => {
       <div
         style={{
           background: "black",
-          display: "flex",
           justifyContent: "space-between",
-          alignItems: "center",
           padding: "0 25px",
+          height: window.innerWidth < 660 && "190px",
         }}
+        className="class_justify_contents_row"
       >
-        <Link to="/" className="navbar-logo" onClick={() => closeMobileMenu(1)}>
-          <img
-            src="images/logo.png"
-            style={{ height: 90 }}
-            alt="radiant-clothing-logo"
-          />
-        </Link>
-        <div style={{ width: "700px" }}>
-          <InputWithIcon
-            //   inputSize={"ipn--wide"}
-            inputHeight={"45px"}
-            inputData={{
-              label: "Search for products, brands and categories...",
-            }}
-            iconName={"ic:outline-search"}
-          />
+        {/* for logo and text field */}
+        <div
+          className="class_justify_contents_row"
+          style={{ flexDirection: window.innerWidth < 660 && "column" }}
+        >
+          <Link
+            to="/"
+            className="navbar-logo"
+            onClick={() => closeMobileMenu(1)}
+          >
+            <img
+              src="images/logo.png"
+              // style={{ height: 90 }}
+              alt="radiant-clothing-logo"
+            />
+          </Link>
+          <div style={{ width: "700px" }}>
+            <InputWithIcon
+              // inputSize={"ipn--wide"}
+              inputHeight={"45px"}
+              inputData={{
+                label:
+                  window.innerWidth < 770
+                    ? "Search products.."
+                    : "Search for products, brands and categories...",
+              }}
+              iconName={"ic:outline-search"}
+            />
+          </div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
           <CartIcon icon="material-symbols:shopping-cart" color="white" />
@@ -48,15 +62,15 @@ const CartIcon = () => {
       <div
         style={{
           // background: "white",
-          height: "45px",
-          width: "45px",
+          height: window.innerWidth < 770 ? "35px" : "45px",
+          width: window.innerWidth < 770 ? "35px" : "45px",
           borderRadius: "50px",
         }}
         className="centerClass gold_color_light"
       >
         <Icon
           icon="material-symbols:shopping-cart"
-          fontSize="20px"
+          fontSize={window.innerWidth < 770 ? "15px" : "20px"}
           color="black"
         />
         <div

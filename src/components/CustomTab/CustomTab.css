@@ -1,0 +1,23 @@
+.custom_tab {
+  /* height: 40px; */
+  background: var(--orange-gradient);
+  min-width: 100px;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  transition: all 1.2s ease-in-out;
+}
+.custom_tab.custom_tab_active {
+  background: white;
+  transition: all 1.2s ease-in-out;
+  /* transform: translate3d(50%, 0, 0); */
+  border: 1px solid var(--light-orange);
+  color: var(--light-orange);
+}
+.custom_tab-contents {
+  width: 75%;
+  /* display: ; */
+  position: absolute;
+  margin-top: 2rem;
+  z-index: 0;
+}

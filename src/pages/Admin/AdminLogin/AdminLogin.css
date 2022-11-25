@@ -1,0 +1,21 @@
+.admin_login_main_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.561);
+  height: 100vh;
+  flex-direction: column;
+}
+.admin_login_container {
+  display: flex;
+  background: black;
+  color: var(--light-gold);
+  justify-content: center;
+  flex-direction: column;
+  border: 0.5px solid #e7e8f1;
+  width: 400px;
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+  border-radius: 36px;
+  box-shadow: 0 0 6px 0 rgb(78 42 222 / 2%), 0 6px 18px 0 rgb(78 42 222 / 2%);
+}

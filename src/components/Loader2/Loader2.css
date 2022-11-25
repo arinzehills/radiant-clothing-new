@@ -1,0 +1,41 @@
+.loader2Background {
+  background: white;
+  width: auto;
+  backdrop-filter: blur(3px);
+  height: 100vh;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+  z-index: 999;
+  /* top: 0; */
+  /* position: fixed; */
+  /* display: flex;
+  justify-content: center; */
+
+  /* align-items: center; */
+}
+.loader2_container {
+  width: 300px;
+  height: 40px;
+  color: white;
+  position: fixed;
+  top: 35%;
+  left: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+@media screen and (max-width: 960px) {
+  .loader2_container {
+    /* top: 45%; */
+    left: calc (100% - 150px / 2);
+  }
+}
+@media screen and (max-width: 760px) {
+  .loader2_container {
+    width: 200px;
+    left: 13%;
+  }
+}

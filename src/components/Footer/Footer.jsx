@@ -24,7 +24,7 @@ function Footer() {
             justifyContent: "center",
             alignItems: "center",
             marginBottom: "-40rem",
-            marginTop: "26rem",
+            marginTop: "36rem",
             flexDirection: "column",
             gap: "1rem",
             zIndex: "999999",
@@ -48,6 +48,20 @@ function Footer() {
               <p className={"italics"}>Explore!</p>
               <h3 style={{ color: "white", textTransform: "uppercase" }}>
                 Our services
+              </h3>
+              <div className="footer-link-items">
+                <Link to="/pricing">Home</Link>
+                <Link to="/pricing">About us</Link>
+                <Link to="/pricing">Contact Us</Link>
+                <Link to="/pricing">FAQ</Link>
+                <Link to="/pricing">Terms and Condition</Link>
+                {/* <a href="https://www.conterize.com/blog">Blog</a> */}
+              </div>
+            </div>
+            <div>
+              <p className={"italics"}>Explore!</p>
+              <h3 style={{ color: "white", textTransform: "uppercase" }}>
+                Featured Categories
               </h3>
               <div className="footer-link-items">
                 <Link to="/pricing">Home</Link>
