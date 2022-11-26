@@ -1,10 +1,8 @@
 .footer_wrapper {
-  background: #000000b7;
-  min-height: 105vh;
-  position: relative;
-  margin-top: 1em;
 }
-
+.footer-text-container {
+  flex-direction: row;
+}
 .footer-container {
   /* background: linear-gradient(var(--light-orange), var(--dark-orange)); */
   padding: 2rem 0 2rem 0;
@@ -147,7 +145,11 @@
 
 @media screen and (max-width: 820px) {
   .footer_wrapper {
-    margin-top: 1rem;
+    margin-bottom: -40rem;
+    /* margin-top: 0; */
+  }
+  .footer-text-container {
+    flex-direction: column;
   }
   .footer-container {
     padding: 2rem 0 2rem 0;

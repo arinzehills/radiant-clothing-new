@@ -7,6 +7,7 @@ import { Button } from "../Button/Button";
 // import {logo} from '../../../assets/logo_transparent.png
 import "./Navbar.css";
 import UpperNavbar from "./UpperNavbar";
+import PhoneUpper from "./PhoneUpper";
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const [currentTab, setCurrentTab] = useState(0);
@@ -37,7 +38,7 @@ const Navbar = () => {
 
   return (
     <>
-      <UpperNavbar />
+      {window.innerWidth < 769 ? <PhoneUpper /> : <UpperNavbar />}
       <div className="navbar">
         <div className="navbar-container container">
           <div className="menu-icon" onClick={handleClick}>

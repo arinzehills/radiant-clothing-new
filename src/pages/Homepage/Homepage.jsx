@@ -39,9 +39,9 @@ const Homepage = () => {
   return (
     <>
       {/* <HeroSlider /> */}
-      {/* <ImageSlider slides={slides} /> */}
+      <ImageSlider slides={slides} />
       <div style={{ marginTop: "12rem" }}></div>
-      {/* <Featured /> */}
+      <Featured />
     </>
   );
 };

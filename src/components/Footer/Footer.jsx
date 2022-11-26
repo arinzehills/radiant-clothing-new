@@ -23,19 +23,19 @@ function Footer() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            marginBottom: "-40rem",
-            marginTop: "36rem",
-            flexDirection: "column",
+            paddingTop: "8rem",
             gap: "1rem",
-            zIndex: "999999",
             color: "white",
+            background: "black",
           }}
         >
-          <div style={{ display: "flex", color: "white", gap: "3rem" }}>
+          <div
+            style={{ display: "flex", color: "white", gap: "3rem" }}
+            className={"footer-text-container"}
+          >
             <div
               style={{
                 width: "250px",
-                flexDirection: "column",
               }}
             >
               <p style={{}} className={"italics"}>
@@ -73,18 +73,25 @@ function Footer() {
               </div>
             </div>
           </div>
-
+        </div>
+        <div
+          style={{
+            marginTop: "0.3rem",
+            width: "100%",
+            textAlign: "center",
+            color: "white",
+          }}
+          className={"class_justify_contents_column"}
+        >
           <p
             className="avenir_class"
             style={{
-              marginTop: "0.3rem",
               width: "500px",
-              textAlign: "center",
             }}
           >
             follow us on
           </p>
-          <div className="centerClass" style={{ gap: "2rem" }}>
+          <div className="centerClass" style={{ gap: "1rem" }}>
             <FooterIcon iconName={"FaFacebook"} />
             <FooterIcon iconName={"FaInstagram"} />
             <FooterIcon iconName={"FaTwitter"} />
@@ -110,7 +117,7 @@ function Footer() {
             width: "50px",
             borderRadius: "50px",
           }}
-          className="centerClass gold_color_light"
+          className=" centerClass gold_color_light"
         >
           {iconName === "FaTwitter" ? (
             <FaTwitter fill="#000" fontSize={"20px"} />
@@ -129,52 +136,52 @@ function Footer() {
   };
   return (
     <>
-      <div style={{ marginTop: "-13rem" }}>
-        <FooterText />
+      <div
+        className="footer_wrapper class_justify_contents_row"
+        style={{
+          marginBottom: "-3rem",
+          zIndex: "99",
+          position: "relative",
+        }}
+      >
         <div
           style={{
+            width: window.innerWidth < 960 ? "70%" : "80%",
             display: "flex",
-            justifyContent: "center",
             alignItems: "center",
-            marginBottom: "-6rem",
-            zIndex: "99",
-            position: "relative",
+            justifyContent: "space-evenly",
+            gap: "2rem",
+            borderRadius: "13px",
+            height: window.innerWidth < 960 ? "20rem" : "8rem",
+            color: "black",
+            flexDirection: window.innerWidth < 960 && "column",
           }}
+          className="gold_color"
         >
-          <div
-            style={{
-              width: "80%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-evenly",
-              gap: "2rem",
-              borderRadius: "13px",
-              height: "8rem",
-              color: "black",
-            }}
-            className="gold_color"
-          >
-            <h2>Contact</h2>
-            <p style={{ fontWeight: "600" }}>
-              Have more questions? Or need more <br />
-              information contact me
-            </p>
-            <Link to={"/contact"}>
-              <Button
-                buttonColor={"black"}
-                children="Contact"
-                isCircular={"true"}
-              />
-            </Link>
-          </div>
+          <h2>Contact</h2>
+          <p style={{ fontWeight: "600" }}>
+            Have more questions? Or need more <br />
+            information contact me
+          </p>
+          <Link to={"/contact"}>
+            <Button
+              buttonColor={"black"}
+              children="Contact"
+              isCircular={"true"}
+            />
+          </Link>
         </div>
-        <img
+      </div>
+      <div style={{ background: "black", paddingTop: "0px" }}>
+        <FooterText />
+
+        {/* <img
           src="/svg/footer.svg"
           alt=""
           width={"100%"}
           height={"50%"}
           style={{ zIndex: "0" }}
-        />
+        /> */}
       </div>
     </>
   );

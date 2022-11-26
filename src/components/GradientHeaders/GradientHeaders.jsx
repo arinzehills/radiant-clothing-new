@@ -19,8 +19,9 @@ const GradientHeaders = ({ text, fontSize, showSubHeader, subHeader }) => {
             letterSpacing: "1rem",
             textAlign: "center",
             padding: "0.5rem",
-            lineHeight: 0,
+            lineHeight: window.innerWidth > 960 && 0,
             textTransform: "uppercase",
+            overflowWrap: "wrap",
           }}
         >
           {subHeader ?? " SOME OF MY WORK"}
