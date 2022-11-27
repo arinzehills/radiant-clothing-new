@@ -62,7 +62,7 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
-            <li
+            {/* <li
               className={
                 currentTab === 2 ? "underline_link nav-items" : "nav-items"
               }
@@ -74,14 +74,14 @@ const Navbar = () => {
               >
                 Categories
               </Link>
-            </li>
+            </li> */}
             <li
               className={
                 currentTab === 3 ? "underline_link nav-items" : "nav-items"
               }
             >
               <Link
-                to="/content-types"
+                to="/contact"
                 className="nav-links"
                 onClick={() => closeMobileMenu(3)}
               >
@@ -107,7 +107,7 @@ const Navbar = () => {
               }
             >
               <Link
-                to="/content-creators"
+                to="/faqs"
                 className="nav-links"
                 onClick={() => closeMobileMenu(4)}
               >
@@ -124,13 +124,13 @@ const Navbar = () => {
             }
             style={{ width: "200px" }}
           >
-            <Link
+            {/* <Link`
               to="/content-creators"
               className="nav-links"
               onClick={() => closeMobileMenu(4)}
             >
               Terms and condition
-            </Link>
+            </Link> */}
           </li>
           {/* <li
             className={

@@ -14,6 +14,10 @@ import Orders from "./pages/Admin/Orders/Orders";
 import SettingsComponent from "./components/SettingsComponent/SettingsComponent";
 import { ReactNotifications } from "react-notifications-component";
 import handleNot from "./components/HandleNotification/HandleNot";
+import FAQs from "./pages/FAQs/FAQs";
+import Register from "./pages/Register/Register";
+import Login from "./pages/Login/Login";
+import Contactus from "./pages/Contact/Contactus";
 
 function App() {
   const [handleNotData, setHandleNotData] = useState({
@@ -39,12 +43,25 @@ function App() {
         {/* <Route path='/' exact element={<Home/>}> */}
         <Route path="/" exact element={<HomepageWrapper />}>
           <Route index element={<Homepage />} />
-          {/* <Route path="/pricing" exact element={<Pricingpage />} />
-           */}
+          <Route path="/faqs" exact element={<FAQs />} />
+          <Route path="/contact" exact element={<Contactus />} />
+
           {/* <Route path="/portfolio" exact element={<Porfolio />} />
           <Route path="/skills" exact element={<Skills />} />
           <Route path="/contact" exact element={<Contact />} /> */}
         </Route>
+        <Route
+          path="/login"
+          exact
+          // element={<Navigate to={"/dashboard"} />}
+          element={<Login setHandleNotData={setHandleNotData} />}
+          // element={token === null ? <Login /> : <Navigate to={"/dashboard"} />}
+        />
+
+        <Route path="/register" element={<Register />} />
+        {/* <Route path="/forgotPassword" exact element={<ForgotPassword />} /> */}
+        {/* <Route path="/resetPassword" exact element={<ResetPassword />} /> */}
+
         <Route
           path="adminlogin"
           element={<AdminLogin setHandleNotData={setHandleNotData} />}

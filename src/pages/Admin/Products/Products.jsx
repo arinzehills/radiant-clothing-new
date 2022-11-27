@@ -61,8 +61,8 @@ const Products = ({ setHandleNotData }) => {
   let columnData = [
     { heading: "Image", value: "image" },
     { heading: "Product Name", value: "product_name" },
-    { heading: "Description", value: "description" },
     { heading: "Price", value: "price" },
+    { heading: "Description", value: "description" },
     { heading: "Actions", value: "action" },
   ];
   // useEffect(() => {
@@ -103,6 +103,7 @@ const Products = ({ setHandleNotData }) => {
       <div
         style={{
           display: "flex",
+          flexDirection: window.innerWidth < 600 && "column",
           justifyContent: "space-between",
           alignItems: "center",
         }}

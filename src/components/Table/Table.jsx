@@ -64,7 +64,7 @@ const Table = ({
             ))}
           </tr>
         </thead>
-        <tbody className="tabel_t_body">
+        <tbody>
           {loading ? (
             <Loader2 />
           ) : (
