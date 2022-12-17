@@ -20,14 +20,14 @@ const ImageSlider = ({ slides, isNotMap, style, imageStyle, iconSize }) => {
   }
 
   useEffect(() => {
-    setTimeout(
-      () =>
-        setCurrent((prevIndex) =>
-          prevIndex === length - 1 ? 0 : prevIndex + 1
-        ),
-      delay
-    );
-    return () => {};
+    // setTimeout(
+    //   () =>
+    //     setCurrent((prevIndex) =>
+    //       prevIndex === length - 1 ? 0 : prevIndex + 1
+    //     ),
+    //   delay
+    // );
+    // return () => {};
   }, [current]);
   return (
     <section className="slider" style={style}>

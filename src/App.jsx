@@ -18,6 +18,7 @@ import FAQs from "./pages/FAQs/FAQs";
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
 import Contactus from "./pages/Contact/Contactus";
+import About from "./pages/About/About";
 
 function App() {
   const [handleNotData, setHandleNotData] = useState({
@@ -45,6 +46,7 @@ function App() {
           <Route index element={<Homepage />} />
           <Route path="/faqs" exact element={<FAQs />} />
           <Route path="/contact" exact element={<Contactus />} />
+          <Route path="/about" exact element={<About />} />
 
           {/* <Route path="/portfolio" exact element={<Porfolio />} />
           <Route path="/skills" exact element={<Skills />} />
