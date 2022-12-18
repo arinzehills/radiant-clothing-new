@@ -40,12 +40,12 @@ const UpperNavbar = () => {
           />
         </div>
 
-        <div style={{ gap: "1rem" }} className="class_justify_contents_row">
+        <Link to={'/cart'} style={{ gap: "1rem" }} className="class_justify_contents_row">
           <CartIcon icon="material-symbols:shopping-cart" color="white" />
           <Link to={"/login"}>
             <Icon icon="mdi:user" color="white" fontSize={"33px"} />
           </Link>
-        </div>
+        </Link>
       </div>
     </>
   );
