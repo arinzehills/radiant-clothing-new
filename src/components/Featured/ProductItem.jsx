@@ -7,10 +7,12 @@ import { Icon } from "@iconify/react";
 import LazyLoader from "../LazyLoader/LazyLoader";
 
 const ProductItem = ({ item, productsSet, loading }) => {
+  const catLoadArr = ["", "", ""];
+
   return (
     <>
       {loading ? (
-        <LazyLoader />
+        catLoadArr.map((item) => <LazyLoader key={item} />)
       ) : (
         <div
           className="product-item class_justify_contents_column"

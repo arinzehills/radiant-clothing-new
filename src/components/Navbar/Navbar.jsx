@@ -10,7 +10,21 @@ import "./CategoriesList.css";
 import UpperNavbar from "./UpperNavbar";
 import PhoneUpper from "./PhoneUpper";
 import { Icon } from "@iconify/react";
+import useFetch from "../../useFetch";
 const Navbar = () => {
+  const {
+    data: categoriesData,
+    loadingCategory,
+    errorCategory,
+  } = useFetch({
+    url: window.baseUrl + "admin/getCategories",
+    // secondParam: activeRow,
+  });
+  !loadingCategory &&
+    categoriesData?.categories.forEach((cat, index) => {
+      // cat.image = cat.images[0];
+      console.log(cat.category);
+    });
   const [click, setClick] = useState(false);
   const [currentTab, setCurrentTab] = useState(0);
   const handleClick = () => setClick(!click);
@@ -80,9 +94,18 @@ const Navbar = () => {
                 Categories
               </Link>
               <div className="categories_dropdown-content">
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
+                {loadingCategory ? (
+                  <div
+                    className="class_justify_contents_column"
+                    style={{ height: "200px" }}
+                  >
+                    loading...
+                  </div>
+                ) : (
+                  categoriesData?.categories.map((item) => (
+                    <Link href="#">{item.category}</Link>
+                  ))
+                )}
               </div>
             </li>
 

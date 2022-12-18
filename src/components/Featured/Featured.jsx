@@ -18,6 +18,8 @@ const Featured = () => {
     url: window.baseUrl + "admin/getProducts",
     // secondParam: activeRow,
   });
+  const catLoadArr = ["", "", "", "", ""];
+
   const {
     data: categoriesData,
     loadingCategory,
@@ -73,7 +75,6 @@ const Featured = () => {
       </div>
     );
   };
-  const catLoadArr = ["", "", "", "", ""];
   return (
     <div>
       <Helmet>
