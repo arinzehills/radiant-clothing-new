@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const { default: helmet } = require("helmet");
 const app = express();
-const port = 3000 || process.env.PORT;
+const port = 3002 || process.env.PORT;
 const http = require("http");
 const server = http.createServer(app);
 const cors = require("cors");
