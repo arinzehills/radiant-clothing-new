@@ -6,9 +6,25 @@ import { TiTimesOutline } from "react-icons/ti";
 import { Button } from "../Button/Button";
 // import {logo} from '../../../assets/logo_transparent.png
 import "./Navbar.css";
+import "./CategoriesList.css";
 import UpperNavbar from "./UpperNavbar";
 import PhoneUpper from "./PhoneUpper";
+import { Icon } from "@iconify/react";
+import useFetch from "../../useFetch";
 const Navbar = () => {
+  const {
+    data: categoriesData,
+    loadingCategory,
+    errorCategory,
+  } = useFetch({
+    url: window.baseUrl + "admin/getCategories",
+    // secondParam: activeRow,
+  });
+  !loadingCategory &&
+    categoriesData?.categories.forEach((cat, index) => {
+      // cat.image = cat.images[0];
+      console.log(cat.category);
+    });
   const [click, setClick] = useState(false);
   const [currentTab, setCurrentTab] = useState(0);
   const handleClick = () => setClick(!click);
@@ -62,19 +78,37 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
-            {/* <li
+
+            <li
               className={
-                currentTab === 2 ? "underline_link nav-items" : "nav-items"
+                currentTab === 2
+                  ? "underline_link nav-items categories-dropdown"
+                  : "nav-items "
               }
             >
               <Link
-                to="/pricing"
-                className="nav-links"
+                to="/"
+                className="nav-links  dropdown-link"
                 onClick={() => closeMobileMenu(2)}
               >
                 Categories
               </Link>
-            </li> */}
+              <div className="categories_dropdown-content">
+                {loadingCategory ? (
+                  <div
+                    className="class_justify_contents_column"
+                    style={{ height: "200px" }}
+                  >
+                    loading...
+                  </div>
+                ) : (
+                  categoriesData?.categories.map((item) => (
+                    <Link href="#">{item.category}</Link>
+                  ))
+                )}
+              </div>
+            </li>
+
             <li
               className={
                 currentTab === 3 ? "underline_link nav-items" : "nav-items"
@@ -94,7 +128,7 @@ const Navbar = () => {
               }
             >
               <Link
-                to="/content-creators"
+                to="/about"
                 className="nav-links"
                 onClick={() => closeMobileMenu(4)}
               >

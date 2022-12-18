@@ -47,6 +47,7 @@ function App() {
           <Route index element={<Homepage />} />
           <Route path="/faqs" exact element={<FAQs />} />
           <Route path="/contact" exact element={<Contactus />} />
+          {/* <Route path="/about" exact element={<About />} /> */}
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart/checkout" element={<Checkout />} />
 
