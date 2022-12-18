@@ -6,8 +6,10 @@ import { TiTimesOutline } from "react-icons/ti";
 import { Button } from "../Button/Button";
 // import {logo} from '../../../assets/logo_transparent.png
 import "./Navbar.css";
+import "./CategoriesList.css";
 import UpperNavbar from "./UpperNavbar";
 import PhoneUpper from "./PhoneUpper";
+import { Icon } from "@iconify/react";
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const [currentTab, setCurrentTab] = useState(0);
@@ -62,19 +64,28 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
-            {/* <li
+
+            <li
               className={
-                currentTab === 2 ? "underline_link nav-items" : "nav-items"
+                currentTab === 2
+                  ? "underline_link nav-items categories-dropdown"
+                  : "nav-items "
               }
             >
               <Link
-                to="/pricing"
-                className="nav-links"
+                to="/"
+                className="nav-links  dropdown-link"
                 onClick={() => closeMobileMenu(2)}
               >
                 Categories
               </Link>
-            </li> */}
+              <div className="categories_dropdown-content">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+              </div>
+            </li>
+
             <li
               className={
                 currentTab === 3 ? "underline_link nav-items" : "nav-items"
@@ -94,7 +105,7 @@ const Navbar = () => {
               }
             >
               <Link
-                to="/content-creators"
+                to="/about"
                 className="nav-links"
                 onClick={() => closeMobileMenu(4)}
               >

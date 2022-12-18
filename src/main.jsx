@@ -11,6 +11,7 @@ window.baseUrl = import.meta.env.VITE_REACT_APP_API_URL;
 
 const history = createBrowserHistory();
 wrapHistory(history);
+
 ReactDOM.render(
   <React.StrictMode>
     {/* <BrowserRouter> */}
