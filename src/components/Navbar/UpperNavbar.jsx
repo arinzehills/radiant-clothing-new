@@ -1,12 +1,22 @@
 import { Icon } from "@iconify/react";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useToken from "../../useToken";
+import useUser from "../../useUser";
 import IconAndCircle from "../IconAndCircle/IconAndCircle";
 import InputField from "../Inputfield/InputField";
 import InputWithIcon from "../InputWithIcon/InputWithIcon";
+import ProfilePicsComponent from "../ProfilePicsComponent/ProfilePicsComponent";
 import "./UpperNav.css";
 
 const UpperNavbar = () => {
+  const { user, setUser } = useUser();
+  const { token, setToken } = useToken();
+  const [handleNotData, setHandleNotData] = useState({
+    message: "no",
+    color: "var(--success)",
+  });
+  console.log(token);
   return (
     <>
       <div
@@ -29,7 +39,7 @@ const UpperNavbar = () => {
           />
         </Link>
 
-        <div style={{ width: "700px", paddingLeft: "1rem" }}>
+        <div style={{ width: "500px", paddingLeft: "1rem" }}>
           <InputWithIcon
             // inputSize={"ipn--wide"}
             inputHeight={"45px"}
@@ -40,11 +50,27 @@ const UpperNavbar = () => {
           />
         </div>
 
-        <Link to={'/cart'} style={{ gap: "1rem" }} className="class_justify_contents_row">
+        <Link
+          to={"/cart"}
+          style={{ gap: "1rem" }}
+          className="class_justify_contents_row"
+        >
           <CartIcon icon="material-symbols:shopping-cart" color="white" />
-          <Link to={"/login"}>
-            <Icon icon="mdi:user" color="white" fontSize={"33px"} />
-          </Link>
+          {token === null ? (
+            <Link to={"/login"}>
+              <Icon icon="mdi:user" color="white" fontSize={"33px"} />
+            </Link>
+          ) : (
+            <Link to={"#"}>
+              <ProfilePicsComponent
+                name={user?.["firstname"]}
+                // isOnline={"Online" ?? user?.["online_status"]}
+                isCirclular={true}
+                size="120px"
+                // setHandleNotData={setHandleNotData}
+              />
+            </Link>
+          )}
         </Link>
       </div>
     </>
