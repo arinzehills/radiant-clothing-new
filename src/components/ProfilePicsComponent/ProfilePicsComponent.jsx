@@ -107,14 +107,14 @@ const ProfilePicsComponent = ({
                   className="profile_pics_dropDown_content"
                 >
                   <IconAndName
-                    title={"Teams"}
-                    routeLink={"team"}
-                    iconName={"gridicons:multiple-users"}
+                    title={"Orders"}
+                    routeLink={"orders"}
+                    iconName={"bx:cart"}
                   />
                   <IconAndName
-                    routeLink={"settings"}
-                    title={"Settings"}
-                    iconName={"clarity:settings-outline-badged"}
+                    routeLink={"wishlist"}
+                    title={"Wish List"}
+                    iconName={"mdi:love"}
                   />
                   <IconAndName
                     title={"Profile"}

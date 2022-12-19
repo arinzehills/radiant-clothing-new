@@ -20,6 +20,10 @@ import Login from "./pages/Login/Login";
 import Contactus from "./pages/Contact/Contactus";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Cart/Checkout";
+import { Dashboard } from "./pages/Dashboard/Dashboard";
+import UserOrders from "./pages/Dashboard/Orders/UserOrders";
+import WishList from "./pages/Dashboard/WishList/WishList";
+import SliderImages from "./pages/Admin/SliderImages/SliderImages";
 
 function App() {
   const [handleNotData, setHandleNotData] = useState({
@@ -50,7 +54,25 @@ function App() {
           {/* <Route path="/about" exact element={<About />} /> */}
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart/checkout" element={<Checkout />} />
-
+          <Route path="dashboard" element={<Dashboard />}>
+            <Route
+              path="orders"
+              element={<UserOrders setHandleNotData={setHandleNotData} />}
+            />
+            <Route
+              path="wishlist"
+              element={<WishList setHandleNotData={setHandleNotData} />}
+            />
+            <Route
+              path="settings"
+              element={
+                <SettingsComponent
+                  // handleNot={handleNot}
+                  setHandleNotData={setHandleNotData}
+                />
+              }
+            />
+          </Route>
           {/* <Route path="/portfolio" exact element={<Porfolio />} />
           <Route path="/skills" exact element={<Skills />} />
           <Route path="/contact" exact element={<Contact />} /> */}
@@ -84,6 +106,15 @@ function App() {
               path="products"
               element={
                 <Products
+                  handleNotData={handleNotData}
+                  setHandleNotData={setHandleNotData}
+                />
+              }
+            />
+            <Route
+              path="images"
+              element={
+                <SliderImages
                   handleNotData={handleNotData}
                   setHandleNotData={setHandleNotData}
                 />

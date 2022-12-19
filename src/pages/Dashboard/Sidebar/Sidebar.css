@@ -1,22 +1,6 @@
-.section {
-  margin-left: 21vw;
-  max-width: 75%;
-  padding: 2vw;
-  height: 130vh;
-  background: #eff3ff65;
-  /* padding-left: 1vw; */
-  padding-top: 0;
-  margin-top: 0;
-}
-.admin-active-nav {
-}
-.admin-nonactive-nav a {
-  color: var(--light-gold);
-}
 .left-section {
-  /* background: rgb(237, 225, 225); */
-  display: none;
-  position: fixed;
+  background-color: white;
+  position: absolute;
   max-width: 240px;
   display: flex;
   height: 100%;
@@ -72,11 +56,11 @@
   display: flex;
 }
 .nonactive-nav a {
-  color: rgb(155, 151, 151);
+  color: rgb(52, 49, 49);
 }
 .active-nav {
-  /* background: var(--light-purple); */
-  background: #35438c;
+  background: var(--gold-gradient);
+  /* background: #35438c; */
   width: 170px;
 }
 .active-nav a {
@@ -93,7 +77,7 @@
   text-decoration: none;
 }
 .newrequest-container {
-  background: var(--gold-gradient);
+  background: #ff724a;
   padding: 1rem;
   border-radius: 20px;
   display: flex;
@@ -106,12 +90,17 @@
   text-decoration: none;
 }
 .request-icon-container {
-  background: var(--black);
+  background: #f2623a;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
   padding: 1rem;
+}
+.dashboard-card-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 @media screen and (max-width: 1200px) {
   .left-section {
