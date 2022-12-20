@@ -19,7 +19,7 @@ const Products = ({ setHandleNotData }) => {
     error,
   } = useFetch({
     url: window.baseUrl + "admin/getProducts",
-    // secondParam: activeRow,
+    secondParam: openModal,
   });
   console.log(categoriesData);
   const tableData = [

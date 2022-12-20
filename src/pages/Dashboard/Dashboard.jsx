@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar/Sidebar";
+import "./Dashboard.css";
 
 export const Dashboard = () => {
   const [click, setClick] = useState(false);

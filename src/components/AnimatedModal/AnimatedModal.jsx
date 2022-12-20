@@ -15,7 +15,7 @@ const AnimatedModal = ({
   };
   return (
     <AnimatePresence>
-      {openModal && (
+      {openModal === true && (
         <>
           <motion.div
             initial={{

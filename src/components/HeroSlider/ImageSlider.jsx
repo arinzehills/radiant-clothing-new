@@ -48,7 +48,7 @@ const ImageSlider = ({ slides, isNotMap, style, imageStyle, iconSize }) => {
         >
           {index === current && (
             <img
-              src={isNotMap ? slide : slide.img}
+              src={isNotMap ? slide : slide.image}
               alt="slide image"
               style={imageStyle}
               className="slider-image"

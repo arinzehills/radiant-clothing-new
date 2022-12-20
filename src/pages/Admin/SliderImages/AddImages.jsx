@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "../../../components/Button/Button";
+import handleNot from "../../../components/HandleNotification/HandleNot";
+import useToken from "../../../useToken";
 import SupportUpload from "../Products/SupportUpload";
 
-const AddImages = () => {
+const AddImages = ({ setOpenModal }) => {
   const pickFileRef = React.useRef();
   const fileNamesRef = React.useRef();
-
+  const { token, setToken } = useToken();
   const [files, setFiles] = useState([]);
   const [error, setError] = useState("");
   const [filespathList, setFilespathList] = useState([]);
@@ -44,7 +46,7 @@ const AddImages = () => {
       data.append("image", files[i]);
     }
     console.log(Object.fromEntries(data));
-    const url = window.baseUrl + "admin/addHomeImages";
+    const url = window.baseUrl + "admin/addHomeImages?token=" + token;
     fetch(url, {
       method: "POST",
       body: data,
@@ -72,7 +74,7 @@ const AddImages = () => {
             backgroundColor: "var(--danger)",
           });
           // console.log(error);
-          // setResponseError(error);
+          setError(error);
           setLoading(false);
         }
         // console.log('Success:', data);
@@ -84,11 +86,14 @@ const AddImages = () => {
       });
   };
   console.log(filespathList);
-  console.log(error);
+
   return (
     <div>
       <h1 style={{ lineHeight: 2, textAlign: "center" }}>Add Image</h1>{" "}
-      <div style={{ width: "100%", gap: "5px", overflowX: "hidden" }}>
+      <div
+        style={{ width: "100%", gap: "5px", overflowX: "hidden" }}
+        className="class_justify_contents_row"
+      >
         {filespathList.map((image) => (
           <img src={image} height="50px" key={image} />
         ))}
@@ -117,9 +122,9 @@ const AddImages = () => {
             ? setError("Select at least one image")
             : addHomeImages()
         }
-        // loading={loading}
+        loading={loading}
       >
-        Add
+        {loading ? "Uploading..." : "Add"}
       </Button>
     </div>
   );
