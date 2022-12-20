@@ -62,9 +62,9 @@ const AdminSidebar = ({ click, handleClick, setClick }) => {
                   currentLink === 2 ? "active-nav" : "admin-nonactive-nav"
                 }
               >
-                <Link to="/admin/products">
-                  <Icon icon="fa:shopping-bag" />
-                  <span> Products</span>
+                <Link to="/admin/images">
+                  <Icon icon="fa6-regular:images" />
+                  <span> Images</span>
                 </Link>
               </li>
               <li
@@ -73,9 +73,9 @@ const AdminSidebar = ({ click, handleClick, setClick }) => {
                   currentLink === 3 ? "active-nav" : "admin-nonactive-nav"
                 }
               >
-                <Link to="/admin/customers">
-                  <Icon icon="bi:people" />
-                  <span> Customers</span>
+                <Link to="/admin/products">
+                  <Icon icon="fa:shopping-bag" />
+                  <span> Products</span>
                 </Link>
               </li>
               <li
@@ -84,15 +84,26 @@ const AdminSidebar = ({ click, handleClick, setClick }) => {
                   currentLink === 4 ? "active-nav" : "admin-nonactive-nav"
                 }
               >
-                <Link to="/admin/orders">
-                  <Icon icon="bx:cart" />
-                  <span> Orders</span>
+                <Link to="/admin/customers">
+                  <Icon icon="bi:people" />
+                  <span> Customers</span>
                 </Link>
               </li>
               <li
                 onClick={() => handleAllClick(5)}
                 className={
                   currentLink === 5 ? "active-nav" : "admin-nonactive-nav"
+                }
+              >
+                <Link to="/admin/orders">
+                  <Icon icon="bx:cart" />
+                  <span> Orders</span>
+                </Link>
+              </li>
+              <li
+                onClick={() => handleAllClick(6)}
+                className={
+                  currentLink === 6 ? "active-nav" : "admin-nonactive-nav"
                 }
               >
                 <Link to="/admin/settings">
