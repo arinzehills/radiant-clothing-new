@@ -19,22 +19,18 @@ const Categories = ({ setHandleNotData }) => {
   let columnData = [
     { heading: "Image", value: "image" },
     { heading: "Category", value: "category" },
-    { heading: "Edit", value: "action" },
-    { Delete: "Delete", value: "delete" },
+    { heading: "Delete", value: "delete" },
   ];
   let categoriesImage = [];
   !loading &&
     categoriesData?.categories.forEach((cat, index) => {
-      const image = cat.image;
-      // categoriesImage.push(image);
-      cat.action = (
-        <Button
-          buttonColor={"black"}
-          children={"Edit"}
-          style={{ background: "var(--success)", width: "100px" }}
+      cat.delete = (
+        <Icon
+          icon="ic:baseline-delete"
+          color="var(--danger)"
+          style={{ paddingLeft: "20px", fontSize: "1.5rem" }}
         />
       );
-      cat.delete = <Icon icon="ic:baseline-delete" color="var(--danger)" />;
     });
   console.log(categoriesImage);
 

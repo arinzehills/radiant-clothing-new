@@ -3,8 +3,17 @@ import Featured from "../../components/Featured/Featured";
 import Skills from "../../components/Featured/Featured";
 import HeroSlider from "../../components/HeroSlider/HeroSlider";
 import ImageSlider from "../../components/HeroSlider/ImageSlider";
+import GradientText from "../../components/utilitiescomponent/GradientText";
+import useFetch from "../../useFetch";
 
 const Homepage = () => {
+  const {
+    data: categoriesData,
+    loading,
+    error,
+  } = useFetch({
+    url: window.baseUrl + "admin/getHomeimages",
+  });
   const homeData = {
     headline: "Arinze Chris Hills",
     description:
@@ -23,26 +32,33 @@ const Homepage = () => {
     {
       title: "Radiant Clothin ",
       description: "the best e-shop,makes u glow",
-      images:
+      image:
         "https://res.cloudinary.com/difxlvoq8/image/upload/v1665786719/cld-sample-5.jpg",
-    },
-    {
-      title: "Shopping the best way you can",
-      description: "Radiant allows you to shop\nfrom the comforts of you home",
-      images:
-        "https://res.cloudinary.com/difxlvoq8/image/upload/v1665786717/cld-sample.jpg",
-    },
-    {
-      title: "Best way to Shop\n Jeweries",
-      description: "We sell all kinds of laptops, iphone and many IT equipment",
-      images:
-        "https://res.cloudinary.com/djsk1t9zp/image/upload/v1668862268/successful-young-businesswoman-shaking-hand-male-coworker_u2nbgp.jpg",
     },
   ];
   return (
     <>
       {/* <HeroSlider /> */}
-      <ImageSlider slides={slides} />
+      {loading ? (
+        <div
+          className="class_justify_contents_column"
+          style={{
+            maxHeight: "100px",
+            height: "1000px",
+            width: "100%",
+          }}
+        >
+          <GradientText
+            text={" RADIANT CLOTHING "}
+            style={{ lineHeight: 1, fontSize: "2vw", textAlign: "left" }}
+          />
+        </div>
+      ) : (
+        categoriesData?.images.length !== 0 && (
+          <ImageSlider slides={categoriesData?.images} />
+        )
+      )}
+      {/* <ImageSlider slides={slides} /> */}
       <div style={{ marginTop: "12rem" }}></div>
       <Featured />
     </>
