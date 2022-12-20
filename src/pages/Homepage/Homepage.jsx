@@ -43,14 +43,15 @@ const Homepage = () => {
         <div
           className="class_justify_contents_column"
           style={{
-            maxHeight: "100px",
+            maxHeight: "300px",
             height: "1000px",
             width: "100%",
+            background: "black",
           }}
         >
           <GradientText
             text={" RADIANT CLOTHING "}
-            style={{ lineHeight: 1, fontSize: "2vw", textAlign: "left" }}
+            style={{ lineHeight: 1, fontSize: "3vw", textAlign: "left" }}
           />
         </div>
       ) : (
