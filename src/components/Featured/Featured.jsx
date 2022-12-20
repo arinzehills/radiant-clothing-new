@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 import useFetch from "../../useFetch";
 import GradientHeaders from "../GradientHeaders/GradientHeaders";
 import LazyLoader from "../LazyLoader/LazyLoader";
@@ -8,6 +9,7 @@ import ProgressBar from "../ProgressBar/ProgressBar";
 import { DummyData } from "./DummyData";
 import "./Featured.css";
 import ProductItem from "./ProductItem";
+import ProductListItem from "./ProductListItem";
 
 const Featured = () => {
   const {
@@ -39,42 +41,6 @@ const Featured = () => {
     });
   const [productsSet, setProductsSet] = useState(productsData?.products);
 
-  const ProductListItem = ({ products, loading }) => {
-    return (
-      <div className="product-list-item">
-        {loading ? (
-          <div
-            style={{
-              display: "flex",
-
-              flexDirection: "row",
-              width: "100%",
-            }}
-          >
-            <ProductItem loading={loading} />
-          </div>
-        ) : (
-          products.map((item) => (
-            // <div classname="class_justify_contents_row">
-            <div
-              style={{
-                display: "flex",
-
-                flexDirection: "row",
-                width: "100%",
-              }}
-            >
-              <ProductItem
-                item={item}
-                productsSet={productsSet}
-                loading={loading}
-              />
-            </div>
-          ))
-        )}
-      </div>
-    );
-  };
   return (
     <div>
       <Helmet>
@@ -136,17 +102,29 @@ const Featured = () => {
                 />
               ))
             : categoriesData?.categories.map((item) => (
-                <div
-                  className="class_justify_contents_column "
-                  style={{ height: "150px", width: "150px" }}
+                <Link
+                  to={`/categories/${item.category}`}
+                  key={item.category}
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
                 >
-                  <img
-                    src={item.image}
-                    alt="cat-image"
-                    style={{ height: "90%", width: "90%" }}
-                  />
-                  {item.category}
-                </div>
+                  <div
+                    className="class_justify_contents_column "
+                    style={{
+                      height: "150px",
+                      width: "150px",
+                    }}
+                  >
+                    <img
+                      src={item.image}
+                      alt="cat-image"
+                      style={{ height: "90%", width: "90%" }}
+                    />
+                    {item.category}
+                  </div>
+                </Link>
               ))}
         </div>
       </div>

@@ -1,14 +1,18 @@
 import { Icon } from "@iconify/react";
-import React from "react";
+import React, { useState } from "react";
+import { ReactNotifications } from "react-notifications-component";
+import AnimatedModal from "../../../components/AnimatedModal/AnimatedModal";
 import { Button } from "../../../components/Button/Button";
 import ImageSlider from "../../../components/HeroSlider/ImageSlider";
 import Table from "../../../components/Table/Table";
 import useFetch from "../../../useFetch";
 import useUser from "../../../useUser";
 import NavComponent from "../../Dashboard/components/NavComponent/NavComponent";
+import AddImages from "./AddImages";
 
 const SliderImages = () => {
   const { user, setUser } = useUser();
+  const [openModal, setOpenModal] = useState(false);
   const {
     data: categoriesData,
     loading,
@@ -20,7 +24,7 @@ const SliderImages = () => {
   let columnData = [
     { heading: "S/N", value: "sn" },
     { heading: "Image", value: "image" },
-    { heading: "Actions", value: "action" },
+    { heading: "Delete", value: "delete" },
   ];
   const slides = [
     {
@@ -42,19 +46,29 @@ const SliderImages = () => {
       product.image = product.images[0];
       product.sn = index + 1;
 
-      product.action = (
-        <div className="class_justify_contents_row">
-          <Button
-            buttonColor={"black"}
-            children={"Edit"}
-            style={{ background: "var(--success)", width: "100px" }}
-          />
-          <Icon icon="ic:baseline-delete" color="var(--danger)" />
-        </div>
+      product.delete = (
+        // <div style={{ alignItems: "start",  }}>
+        // </div>
+        <Icon
+          icon="ic:baseline-delete"
+          color="var(--danger)"
+          style={{ paddingLeft: "20px", fontSize: "1.5rem" }}
+        />
       );
     });
   return (
     <div>
+      <ReactNotifications />
+      <AnimatedModal
+        modalHeight={"400px"}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      >
+        <AddImages
+        // setHandleNotData={setHandleNotData}
+        // setOpenModal={setOpenModal}
+        />
+      </AnimatedModal>
       <NavComponent
         personsName={user.email ?? "Admin"}
         showNotification={true}

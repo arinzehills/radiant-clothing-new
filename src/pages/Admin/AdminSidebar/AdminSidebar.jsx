@@ -16,7 +16,7 @@ const AdminSidebar = ({ click, handleClick, setClick }) => {
     <>
       <div
         className={click ? "left-section show" : "left-section"}
-        style={{ background: "var(--black)" }}
+        style={{ background: "var(--black)", position: "fixed" }}
       >
         <div className="top">
           <div

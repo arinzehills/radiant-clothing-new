@@ -63,6 +63,7 @@ const Products = ({ setHandleNotData }) => {
     { heading: "Product Name", value: "product_name" },
     { heading: "Price", value: "price" },
     { heading: "Description", value: "description" },
+    { heading: "Category", value: "category" },
     { heading: "Actions", value: "action" },
   ];
   // useEffect(() => {

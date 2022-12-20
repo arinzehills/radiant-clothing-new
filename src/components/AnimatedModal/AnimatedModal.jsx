@@ -1,6 +1,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./AnimatedModal.css";
+import { Icon } from "@iconify/react";
 
 const AnimatedModal = ({
   openModal,
@@ -65,6 +66,17 @@ const AnimatedModal = ({
                 exit={{ opacity: 0, x: 100 }}
                 className="addteam_content"
               >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "right",
+                    fontSize: "25px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => setOpenModal(false)}
+                >
+                  <Icon icon="material-symbols:cancel" />
+                </div>
                 {children}
               </motion.div>
             </motion.div>

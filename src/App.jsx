@@ -24,6 +24,7 @@ import { Dashboard } from "./pages/Dashboard/Dashboard";
 import UserOrders from "./pages/Dashboard/Orders/UserOrders";
 import WishList from "./pages/Dashboard/WishList/WishList";
 import SliderImages from "./pages/Admin/SliderImages/SliderImages";
+import Categorypage from "./pages/Category/Categorypage";
 
 function App() {
   const [handleNotData, setHandleNotData] = useState({
@@ -51,6 +52,9 @@ function App() {
           <Route index element={<Homepage />} />
           <Route path="/faqs" exact element={<FAQs />} />
           <Route path="/contact" exact element={<Contactus />} />
+          <Route path="/categories">
+            <Route path=":category" exact element={<Categorypage />} />
+          </Route>
           {/* <Route path="/about" exact element={<About />} /> */}
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart/checkout" element={<Checkout />} />

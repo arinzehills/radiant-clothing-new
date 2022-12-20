@@ -78,7 +78,6 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
-
             <li
               className={
                 currentTab === 2
@@ -103,7 +102,12 @@ const Navbar = () => {
                   </div>
                 ) : (
                   categoriesData?.categories.map((item) => (
-                    <Link href="#">{item.category}</Link>
+                    <Link
+                      to={`/categories/${item.category}`}
+                      key={item.category}
+                    >
+                      {item.category}
+                    </Link>
                   ))
                 )}
               </div>

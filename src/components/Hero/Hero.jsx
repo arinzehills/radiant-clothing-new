@@ -43,13 +43,13 @@ function Hero({
                 {/* <Link to='/sign-up'> */}
                 {showButton ? (
                   <Link to="/register">
-                    <Button buttonColor="orange">{buttonLabel[0]}</Button>{" "}
+                    <Button buttonColor="gold">{buttonLabel[0]}</Button>{" "}
                   </Link>
                 ) : null}
 
                 {showButton ? (
                   <Link to="/buyunits">
-                    <Button buttonColor="purple">{buttonLabel[1]}</Button>{" "}
+                    <Button buttonColor="black">{buttonLabel[1]}</Button>{" "}
                   </Link>
                 ) : null}
                 {/* </Link> */}
