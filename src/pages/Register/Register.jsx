@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Formhero from "../../components/Formhero/Formhero";
+import handleNot from "../../components/HandleNotification/HandleNot";
 import Loader from "../../components/Loader/Loader";
 
 const Register = ({ setSuccessMessage }) => {
@@ -82,12 +83,18 @@ const Register = ({ setSuccessMessage }) => {
         if (data["success"] === true) {
           const token = data["token"];
           console.log(token);
-          // history('/login')
+          history("/login");
           // setToken(token)
+          handleNot({
+            title: "Success",
+            message:
+              data["message"] + "You can now log in" ?? "re successfully",
+            backgroundColor: "var(--success)",
+          });
           setShowModal(true);
           setLoading(false);
         } else {
-          const error = data["email"][0];
+          const error = data["message"];
           console.log(error);
           setResponseError(error);
           setLoading(false);

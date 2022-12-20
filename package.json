@@ -11,6 +11,7 @@
   "dependencies": {
     "currency-symbol-map": "^5.1.0",
     "framer-motion": "^6.3.11",
+    "moment": "^2.29.4",
     "oaf-react-router": "^3.0.0",
     "react": "^17.0.2",
     "react-animated-slider": "^1.1.4",

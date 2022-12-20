@@ -13,7 +13,9 @@ const AddProducts = ({ setOpenModal }) => {
   const initialValues = {
     product_name: "",
     description: "",
+    quantity: "",
     price: "",
+    discount_price: "",
     images: [],
   };
   const [formValues, setFormValues] = useState(initialValues);
@@ -26,6 +28,7 @@ const AddProducts = ({ setOpenModal }) => {
   const fileNamesRef = React.useRef();
   const pickFileRef = React.useRef();
   const [category, setCategory] = useState("Select category");
+  const [percentageDiscount, setPercentageDiscount] = useState(0);
   // const [categories, setCategories] = useState(["loading"]);
   const categories = [];
   const {
@@ -89,6 +92,8 @@ const AddProducts = ({ setOpenModal }) => {
     data.append("product_name", formValues.product_name);
     data.append("category", category);
     data.append("price", formValues.price);
+    data.append("discount_price", formValues.discount_price);
+    data.append("quantity", formValues.quantity);
     data.append("description", formValues.description);
     // data.append("image", files);
     for (let i = 0; i < files.length; i++) {
@@ -153,6 +158,18 @@ const AddProducts = ({ setOpenModal }) => {
     }
     return errors;
   };
+  useEffect(() => {
+    console.log(formValues.discount_price);
+    if (formValues.discount_price === "") {
+      setPercentageDiscount(0);
+    } else if (formValues.price === "") {
+      setFormErrors({ ...formErrors, discount_price: "enter price first" });
+    } else {
+      const percetage =
+        (formValues.price - formValues.discount_price) / formValues.price;
+      setPercentageDiscount(percetage * 100);
+    }
+  }, [formValues.discount_price]);
   return (
     <>
       <div>
@@ -164,6 +181,7 @@ const AddProducts = ({ setOpenModal }) => {
           name={"product_name"}
           inputStyle="input--shadow-purple"
           inputColor="purple-input"
+          style={{ width: "100%" }}
           onHandleChange={(e) => handleChange(e, formValues, setFormValues)}
         />
 
@@ -173,11 +191,51 @@ const AddProducts = ({ setOpenModal }) => {
           label={"Enter price"}
           name={"price"}
           inputStyle="input--shadow-purple"
+          style={{ width: "100%" }}
           inputColor="purple-input"
           onHandleChange={(e) => handleChange(e, formValues, setFormValues)}
           value={formValues.price}
         />
         <p className="errors">{formErrors.price}</p>
+        <div
+          className="class_justify_contents_row"
+          style={{ justifyContent: "space-between" }}
+        >
+          <h5 style={{ lineHeight: 0 }}>Discount price</h5>
+          <div
+            className={
+              percentageDiscount.toString().includes("-")
+                ? "more_pop danger"
+                : "more_pop"
+            }
+            dangerouslySetInnerHTML={{
+              __html: `<span><h4> ${percentageDiscount.toFixed(
+                2
+              )}%  discount<h4></span>`,
+            }}
+          />
+        </div>
+        <InputField
+          label={"Enter price"}
+          name={"discount_price"}
+          inputStyle="input--shadow-purple"
+          style={{ width: "100%" }}
+          inputColor="purple-input"
+          onHandleChange={(e) => handleChange(e, formValues, setFormValues)}
+          value={formValues.discount_price}
+        />
+        <p className="errors">{formErrors.discount_price}</p>
+        <h5 style={{ lineHeight: 0 }}>Quantity in Stock </h5>
+        <InputField
+          label={"Enter quantity of products in stock"}
+          name={"quantity"}
+          inputStyle="input--shadow-purple"
+          style={{ width: "100%" }}
+          inputColor="purple-input"
+          onHandleChange={(e) => handleChange(e, formValues, setFormValues)}
+          value={formValues.quantity}
+        />
+        <p className="errors">{formErrors.quantity}</p>
         <div className={{}}>
           <h2>Categories</h2>
           <DropDownField
@@ -193,6 +251,7 @@ const AddProducts = ({ setOpenModal }) => {
         </h5>
         <TextArea
           label={"Enter product description"}
+          style={{ width: "100%" }}
           name={"description"}
           onHandleChange={(e) => handleChange(e, formValues, setFormValues)}
           value={formValues.description}
