@@ -23,7 +23,17 @@
   height: 180px;
   width: 99.3%;
 }
-
+.product-item-name {
+  width: auto;
+  line-height: 1em;
+  height: 1.8em;
+  display: flex;
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .product-item-icon {
 }
 .product-item-icon:hover + .showTip {
@@ -93,5 +103,9 @@
     min-width: 150px;
     height: 160px;
     width: 99.3%;
+  }
+  .product-item-name {
+    width: 100px;
+    height: 1em;
   }
 }

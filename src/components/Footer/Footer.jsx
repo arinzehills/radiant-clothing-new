@@ -26,6 +26,7 @@ function Footer() {
             paddingTop: "8rem",
             gap: "1rem",
             color: "white",
+
             background: "black",
           }}
         >
@@ -83,14 +84,7 @@ function Footer() {
           }}
           className={"class_justify_contents_column"}
         >
-          <p
-            className="avenir_class"
-            style={{
-              width: "500px",
-            }}
-          >
-            follow us on
-          </p>
+          <p className="avenir_class">follow us on</p>
           <div className="centerClass" style={{ gap: "1rem" }}>
             <FooterIcon iconName={"FaFacebook"} />
             <FooterIcon iconName={"FaInstagram"} />

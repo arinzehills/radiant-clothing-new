@@ -9,7 +9,7 @@ function HomepageWrapper() {
     <>
       <Navbar />
       <Outlet />
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }

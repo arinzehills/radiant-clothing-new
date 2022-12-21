@@ -41,7 +41,10 @@ const ProductItem = ({ item, productsSet, loading }) => {
               >
                 {item.category ?? "HTML/CSS"}
               </pre>
-              <h3 style={{ textAlign: "left" }}>
+              <h3
+                style={{ textAlign: "left", maxLines: 1 }}
+                className="product-item-name"
+              >
                 {item.product_name ?? "HTML/CSS"}
               </h3>
               <p className="italics" style={{ fontSize: "21px" }}>
