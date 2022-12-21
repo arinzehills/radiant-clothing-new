@@ -150,9 +150,9 @@ function Footer() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-evenly",
-            gap: "2rem",
             borderRadius: "13px",
-            height: window.innerWidth < 960 ? "20rem" : "8rem",
+            marginTop: window.innerWidth < 780 && "5rem",
+            height: window.innerWidth < 960 ? "12rem" : "8rem",
             color: "black",
             flexDirection: window.innerWidth < 960 && "column",
           }}
