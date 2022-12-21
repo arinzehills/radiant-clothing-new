@@ -7,9 +7,9 @@ import Navbar from "../../components/Navbar/Navbar";
 function HomepageWrapper() {
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar />
       <Outlet />
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
