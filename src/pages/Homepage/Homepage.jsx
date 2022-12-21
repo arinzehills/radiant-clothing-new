@@ -56,13 +56,13 @@ const Homepage = () => {
         </div>
       ) : (
         categoriesData?.images.length !== 0 && (
-          // <ImageSlider slides={categoriesData?.images} />
-          <div></div>
+          <ImageSlider slides={categoriesData?.images} />
+          // <div></div>
         )
       )}
       {/* <ImageSlider slides={slides} /> */}
       <div style={{ marginTop: "12rem" }}></div>
-      {/* <Featured /> */}
+      <Featured />
     </>
   );
 };

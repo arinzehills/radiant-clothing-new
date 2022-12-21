@@ -17,6 +17,12 @@
   /* justify-content: center; */
   row-gap: 4rem;
 }
+.product-item-image {
+  max-height: 180px;
+  min-width: 180px;
+  height: 180px;
+  width: 99.3%;
+}
 
 .product-item-icon {
 }
@@ -72,13 +78,19 @@
 /* for much smaller mobile screens */
 @media screen and (max-width: 480px) {
   .product-item {
-    height: 260px;
-    width: 180px;
+    height: 250px;
+    width: 160px;
   }
   .product-list-item {
     grid-template-columns: repeat(2, auto);
     gap: 3rem;
     column-gap: 1rem;
     justify-content: center;
+  }
+  .product-item-image {
+    max-height: 180px;
+    min-width: 150px;
+    height: 160px;
+    width: 99.3%;
   }
 }

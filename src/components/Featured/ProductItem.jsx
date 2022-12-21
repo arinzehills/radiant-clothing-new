@@ -21,10 +21,8 @@ const ProductItem = ({ item, productsSet, loading }) => {
           <img
             src={`${item.image}`}
             // src={`/svg/${productsSet.image}.svg`}
+            className="product-item-image"
             alt=""
-            height={"180px"}
-            style={{ maxHeight: "180px", minWidth: "180px" }}
-            width={"99%"}
           />
           {/* this is body contents */}
           <div

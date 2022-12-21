@@ -145,12 +145,12 @@ const Featured = () => {
           showSubHeader={true}
         />
       </div>
-      {/* <ProductListItem
+      <ProductListItem
         // colorClass={productsSet.colorClass}
         // imgSrc={productsSet.image}
         loading={loading}
         products={productsData?.products}
-      /> */}
+      />
     </div>
   );
 };
