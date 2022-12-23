@@ -106,9 +106,34 @@ function Formhero({
                         onHandleChange={handleChange}
                       />
                       <p className="errors">{formErrors[1]}</p>
-
+                      {formType == "register" && (
+                        <div>
+                          <div style={{ marginTop: "10px" }}>
+                            <InputField
+                              label={inputLabels[2]}
+                              inputStyle="input--shadow-purple"
+                              inputColor="purple-input"
+                              name={inputNames[2]}
+                              value={inputValues[2]}
+                              onHandleChange={handleChange}
+                            />
+                            <p className="errors">{formErrors[2]}</p>
+                          </div>
+                          <div style={{ marginTop: "10px" }}>
+                            <InputField
+                              label={inputLabels[3]}
+                              inputStyle="input--shadow-purple"
+                              inputColor="purple-input"
+                              name={inputNames[3]}
+                              value={inputValues[3]}
+                              onHandleChange={handleChange}
+                            />
+                            <p className="errors">{formErrors[3]}</p>
+                          </div>
+                        </div>
+                      )}
                       {/* )} */}
-                      {(formType == "contact" || formType == "register") && (
+                      {formType == "contact" && (
                         <div style={{ marginTop: "10px" }}>
                           <InputField
                             label={inputLabels[2]}

@@ -9,8 +9,11 @@ import AddProducts from "./AddProducts";
 import Categories from "./Categories";
 import { ReactNotifications } from "react-notifications-component";
 import useFetch from "../../../useFetch";
+import { useOutletContext } from "react-router-dom";
 
 const Products = ({ setHandleNotData }) => {
+  const [click, setClick] = useOutletContext();
+  const handleClick = () => setClick(!click);
   const [currentTab, setCurrentTab] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const {
@@ -97,7 +100,7 @@ const Products = ({ setHandleNotData }) => {
       <NavComponent
         personsName={"Admin"}
         showNotification={true}
-        //   handleClick={handleClick}
+        handleClick={handleClick}
         pageTitle="Products"
         setHandleNotData={setHandleNotData}
       />

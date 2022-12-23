@@ -58,14 +58,31 @@ const ProductItem = ({ item, productsSet, loading }) => {
             /> */}
             </div>
             {/* add cart icon */}
-            <div className="class_justify_contents_row">
-              <Icon
-                icon={"mdi:cart-arrow-down"}
-                color="black"
-                fontSize={"25px"}
-                className={"product-item-icon"}
-              />
-              <pre className="showTip">Add to Cart</pre>
+            <div
+              className="class_justify_contents_column"
+              style={{
+                justifyContent: "space-between",
+                height: "70%",
+              }}
+            >
+              <div className="class_justify_contents_row">
+                <Icon
+                  icon={"mdi:cart-arrow-down"}
+                  color="black"
+                  fontSize={"25px"}
+                  className={"product-item-icon"}
+                />
+                <pre className="showTip">Add to Cart</pre>
+              </div>
+              <div>
+                <Icon
+                  icon={"mdi:love"}
+                  color="rgb(85, 83, 83)"
+                  fontSize={"25px"}
+                  className={"product-item-icon"}
+                />
+                <pre className="showTip">Add to Wish List</pre>
+              </div>
             </div>
           </div>
         </div>

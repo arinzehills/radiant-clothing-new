@@ -1,12 +1,15 @@
 import { Icon } from "@iconify/react";
 import moment from "moment";
 import React from "react";
+import { useOutletContext } from "react-router-dom";
 import { Button } from "../../../components/Button/Button";
 import Table from "../../../components/Table/Table";
 import useFetch from "../../../useFetch";
 import NavComponent from "../../Dashboard/components/NavComponent/NavComponent";
 
 const Customers = () => {
+  const [click, setClick] = useOutletContext();
+  const handleClick = () => setClick(!click);
   const {
     data: categoriesData,
     loading,
@@ -21,7 +24,7 @@ const Customers = () => {
     { heading: "Email", value: "email" },
     { heading: "User Type", value: "user_type" },
     { heading: "Member Since", value: "member_since" },
-    // { heading: "Actions", value: "action" },
+    { heading: "Phone", value: "phone" },
   ];
   !loading &&
     categoriesData?.forEach((product, index) => {
@@ -36,7 +39,7 @@ const Customers = () => {
       <NavComponent
         personsName={"Admin"}
         showNotification={true}
-        //   handleClick={handleClick}
+        handleClick={handleClick}
         pageTitle="Customers"
         //   setHandleNotData={setHandleNotData}
       />

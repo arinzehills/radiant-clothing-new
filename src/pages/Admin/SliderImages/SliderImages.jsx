@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
 import { ReactNotifications } from "react-notifications-component";
+import { useOutletContext } from "react-router-dom";
 import AnimatedModal from "../../../components/AnimatedModal/AnimatedModal";
 import { Button } from "../../../components/Button/Button";
 import ImageSlider from "../../../components/HeroSlider/ImageSlider";
@@ -15,6 +16,8 @@ import NavComponent from "../../Dashboard/components/NavComponent/NavComponent";
 import AddImages from "./AddImages";
 
 const SliderImages = () => {
+  const [click, setClick] = useOutletContext();
+  const handleClick = () => setClick(!click);
   const { user, setUser } = useUser();
   const [openModal, setOpenModal] = useState(false);
   const {
@@ -74,7 +77,7 @@ const SliderImages = () => {
       <NavComponent
         personsName={user.email ?? "Admin"}
         showNotification={true}
-        //   handleClick={handleClick}
+        handleClick={handleClick}
         pageTitle="Home page images"
         // setHandleNotData={setHandleNotData}
       />
