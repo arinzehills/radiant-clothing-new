@@ -10,10 +10,12 @@ import Categories from "./Categories";
 import { ReactNotifications } from "react-notifications-component";
 import useFetch from "../../../useFetch";
 import { useOutletContext } from "react-router-dom";
+import handleDelete from "../../../utils/handleDelete";
 
 const Products = ({ setHandleNotData }) => {
   const [click, setClick] = useOutletContext();
   const handleClick = () => setClick(!click);
+  const [product, setProduct] = useState();
   const [currentTab, setCurrentTab] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const {
@@ -35,10 +37,14 @@ const Products = ({ setHandleNotData }) => {
         <div className="class_justify_contents_row">
           <Button
             buttonColor={"black"}
-            children={"Edit"}
+            children={"Editss"}
             style={{ background: "var(--success)", width: "100px" }}
           />
-          <Icon icon="ic:baseline-delete" color="var(--danger)" />
+          <Icon
+            icon="ic:baseline-delete"
+            // color="var(--danger)"
+            style={{ fontSize: "1.5rem" }}
+          />
         </div>
       ),
     },
@@ -83,7 +89,17 @@ const Products = ({ setHandleNotData }) => {
             children={"Edit"}
             style={{ background: "var(--success)", width: "100px" }}
           />
-          <Icon icon="ic:baseline-delete" color="var(--danger)" />
+          <Icon
+            icon="ic:baseline-delete"
+            color="var(--danger)"
+            style={{ fontSize: "1.2rem" }}
+            onClick={() =>
+              handleDelete(
+                window.baseUrl + "admin/deleteProduct?id=" + product._id,
+                setOpenModal
+              )
+            }
+          />
         </div>
       );
     });
@@ -95,6 +111,7 @@ const Products = ({ setHandleNotData }) => {
         <AddProducts
           setHandleNotData={setHandleNotData}
           setOpenModal={setOpenModal}
+          product={product}
         />
       </AnimatedModal>
       <NavComponent
@@ -105,11 +122,12 @@ const Products = ({ setHandleNotData }) => {
         setHandleNotData={setHandleNotData}
       />
       <div
+        className="admin_products-heading-section"
         style={{
           display: "flex",
           flexDirection: window.innerWidth < 600 && "column",
           justifyContent: "space-between",
-          alignItems: "center",
+          alignItems: window.innerWidth > 600 && "center",
         }}
       >
         <CustomTab
@@ -122,6 +140,9 @@ const Products = ({ setHandleNotData }) => {
               data={categoriesData?.products}
               // data={tableData}
               columnData={columnData}
+              onClickRow={(product) => {
+                setProduct(product), setOpenModal(true);
+              }}
             />,
             <Categories setHandleNotData={setHandleNotData} />,
           ]}
@@ -129,9 +150,17 @@ const Products = ({ setHandleNotData }) => {
         <Button
           buttonStyle={"btn--normal"}
           buttonColor="gold"
-          onClick={() => setOpenModal(true)}
+          onClick={() => {
+            setProduct(), setOpenModal(true);
+          }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+            }}
+          >
             <Icon
               icon="material-symbols:add-circle-outline"
               fontSize={"20px"}

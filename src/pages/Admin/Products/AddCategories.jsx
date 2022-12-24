@@ -43,6 +43,7 @@ const AddCategories = ({ setHandleNotData, setOpenModal }) => {
     setLoading(true);
     const data = new FormData();
     data.append("category", category);
+    console.log(files[0]);
     data.append("image", files[0]);
     console.log(Object.fromEntries(data));
 
@@ -99,7 +100,6 @@ const AddCategories = ({ setHandleNotData, setOpenModal }) => {
 
   return (
     <div>
-      {loading && <Loader />}
       <h1 style={{ lineHeight: 2 }}>Add Category</h1>
       <h5 style={{ lineHeight: 0 }}>Category Name</h5>
       <InputField
@@ -116,7 +116,7 @@ const AddCategories = ({ setHandleNotData, setOpenModal }) => {
       <SupportUpload
         onClickBtn={handleClickMaterials}
         fileNamesRef={fileNamesRef}
-        label="Upload category image"
+        label="  Upload an image for this category..."
       />
       <input
         type="file"
@@ -133,6 +133,7 @@ const AddCategories = ({ setHandleNotData, setOpenModal }) => {
         buttonColor={"orange"}
         style={{ color: "white" }}
         onClick={onSubmit}
+        loading={loading}
       >
         Add
       </Button>

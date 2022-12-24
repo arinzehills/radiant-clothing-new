@@ -128,7 +128,7 @@
     width: 150px;
   }
 }
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 860px) {
   .left-section {
     display: flex;
     flex-direction: column;

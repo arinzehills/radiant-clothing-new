@@ -9,21 +9,22 @@ import useFetch from "../../../useFetch";
 import handleChange from "../../../utils/handleChange";
 import SupportUpload from "./SupportUpload";
 
-const AddProducts = ({ setOpenModal }) => {
+const AddProducts = ({ setOpenModal, isEdit, product }) => {
   const initialValues = {
-    product_name: "",
-    description: "",
-    quantity: "",
-    price: "",
-    discount_price: "",
-    images: [],
+    product_id: product?._id ?? "",
+    product_name: product?.product_name ?? "",
+    description: product?.description ?? "",
+    quantity: product?.quantity ?? "",
+    price: product?.price ?? "",
+    discount_price: product?.discount_price ?? "",
+    images: product?.images ?? [],
   };
   const [formValues, setFormValues] = useState(initialValues);
   const [responseError, setResponseError] = useState("");
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [files, setFiles] = useState([]);
-  const [filespathList, setFilespathList] = useState([]);
+  const [filespathList, setFilespathList] = useState(product?.images ?? []);
   const [loading, setLoading] = useState(false);
   const fileNamesRef = React.useRef();
   const pickFileRef = React.useRef();
@@ -56,7 +57,7 @@ const AddProducts = ({ setOpenModal }) => {
   categoriesData?.categories.forEach((cat, index) => {
     categories.push(cat.category);
   });
-  console.log(categories);
+
   const handleAddFilePath = (files) => {
     const newArr = [];
     for (let i = 0; i < files.length; i++) {
@@ -64,8 +65,6 @@ const AddProducts = ({ setOpenModal }) => {
     }
     setFilespathList([...filespathList, ...newArr]);
   };
-  console.log(files);
-  console.log(filespathList);
   useEffect(() => {
     handleAddFilePath(files);
 
@@ -79,9 +78,7 @@ const AddProducts = ({ setOpenModal }) => {
     console.log(formValues);
   };
   useEffect(() => {
-    console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues + "This has validated");
       addProducts();
     }
   }, [formErrors]);
@@ -89,6 +86,7 @@ const AddProducts = ({ setOpenModal }) => {
   const addProducts = async () => {
     setLoading(true);
     const data = new FormData();
+    data.append("product_id", formValues.product_id);
     data.append("product_name", formValues.product_name);
     data.append("category", category);
     data.append("price", formValues.price);
@@ -102,7 +100,9 @@ const AddProducts = ({ setOpenModal }) => {
     }
     console.log(Object.fromEntries(data));
 
-    const url = window.baseUrl + "admin/addProduct";
+    const url = product
+      ? window.baseUrl + "admin/editProduct"
+      : window.baseUrl + "admin/addProduct";
     fetch(url, {
       method: "POST",
       body: data,
@@ -110,10 +110,7 @@ const AddProducts = ({ setOpenModal }) => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        // console.log( data['token']);
-
         if (data["success"] === true) {
-          console.log("success");
           handleNot({
             title: "Success",
             message: data["message"] ?? "Your request have been Placed!",
@@ -129,11 +126,8 @@ const AddProducts = ({ setOpenModal }) => {
               error ?? "Their is an error in your request data, try again!",
             backgroundColor: "var(--danger)",
           });
-          // console.log(error);
-          // setResponseError(error);
           setLoading(false);
         }
-        // console.log('Success:', data);
       })
       .catch((error) => {
         setLoading(false);
@@ -159,7 +153,6 @@ const AddProducts = ({ setOpenModal }) => {
     return errors;
   };
   useEffect(() => {
-    console.log(formValues.discount_price);
     if (formValues.discount_price === "") {
       setPercentageDiscount(0);
     } else if (formValues.price === "") {
@@ -287,7 +280,7 @@ const AddProducts = ({ setOpenModal }) => {
           onClick={onSubmit}
           loading={loading}
         >
-          Add
+          {product ? "Update" : "Add"}
         </Button>
       </div>
     </>
