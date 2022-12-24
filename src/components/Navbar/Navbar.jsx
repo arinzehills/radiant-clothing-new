@@ -90,7 +90,75 @@ const Navbar = () => {
                 className="nav-links  dropdown-link"
                 onClick={() => closeMobileMenu(2)}
               >
-                Categories
+                Shoes
+              </Link>
+              <div className="categories_dropdown-content">
+                {loadingCategory ? (
+                  <div
+                    className="class_justify_contents_column"
+                    style={{ height: "200px" }}
+                  >
+                    loading...
+                  </div>
+                ) : (
+                  categoriesData?.categories.map((item) => (
+                    <Link
+                      to={`/categories/${item.category}`}
+                      key={item.category}
+                    >
+                      {item.category}
+                    </Link>
+                  ))
+                )}
+              </div>
+            </li>
+            <li
+              className={
+                currentTab === 2
+                  ? "underline_link nav-items categories-dropdown"
+                  : "nav-items "
+              }
+            >
+              <Link
+                to="/"
+                className="nav-links  dropdown-link"
+                onClick={() => closeMobileMenu(2)}
+              >
+                Clothes
+              </Link>
+              <div className="categories_dropdown-content">
+                {loadingCategory ? (
+                  <div
+                    className="class_justify_contents_column"
+                    style={{ height: "200px" }}
+                  >
+                    loading...
+                  </div>
+                ) : (
+                  categoriesData?.categories.map((item) => (
+                    <Link
+                      to={`/categories/${item.category}`}
+                      key={item.category}
+                    >
+                      {item.category}
+                    </Link>
+                  ))
+                )}
+              </div>
+            </li>
+            <li
+              className={
+                currentTab === 2
+                  ? "underline_link nav-items categories-dropdown"
+                  : "nav-items "
+              }
+            >
+              <Link
+                to="/"
+                className="nav-links  dropdown-link"
+                onClick={() => closeMobileMenu(2)}
+              >
+                Footwears
               </Link>
               <div className="categories_dropdown-content">
                 {loadingCategory ? (
@@ -126,32 +194,6 @@ const Navbar = () => {
                 Contact Us
               </Link>
             </li>
-            <li
-              className={
-                currentTab === 4 ? "underline_link nav-items" : "nav-items"
-              }
-            >
-              <Link
-                to="/about"
-                className="nav-links"
-                onClick={() => closeMobileMenu(4)}
-              >
-                About Us
-              </Link>
-            </li>
-            <li
-              className={
-                currentTab === 4 ? "underline_link nav-items" : "nav-items"
-              }
-            >
-              <Link
-                to="/faqs"
-                className="nav-links"
-                onClick={() => closeMobileMenu(4)}
-              >
-                FAQ
-              </Link>
-            </li>
           </ul>
         </div>
 
@@ -162,27 +204,27 @@ const Navbar = () => {
             }
             style={{ width: "200px" }}
           >
-            {/* <Link`
-              to="/content-creators"
+            <Link
+              to="/about"
               className="nav-links"
               onClick={() => closeMobileMenu(4)}
             >
-              Terms and condition
-            </Link> */}
+              About Us
+            </Link>
           </li>
-          {/* <li
+          <li
             className={
-              currentTab === 4 ? "underline_link nav-items" : "nav-items"
+              currentTab === 7 ? "underline_link nav-items" : "nav-items"
             }
           >
             <Link
-              to="/content-creators"
+              to="/faqs"
               className="nav-links"
-              onClick={() => closeMobileMenu(4)}
+              onClick={() => closeMobileMenu(7)}
             >
-              Privacy
+              FAQ
             </Link>
-          </li> */}
+          </li>
         </ul>
       </div>
     </>
