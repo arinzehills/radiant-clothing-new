@@ -25,7 +25,7 @@ import UserOrders from "./pages/Dashboard/Orders/UserOrders";
 import WishList from "./pages/Dashboard/WishList/WishList";
 import SliderImages from "./pages/Admin/SliderImages/SliderImages";
 import Categorypage from "./pages/Category/Categorypage";
-
+import Success from "./pages/Success";
 function App() {
   const [handleNotData, setHandleNotData] = useState({
     message: "no",
@@ -40,6 +40,25 @@ function App() {
       });
     }
   }, [handleNotData.message]);
+
+  const loadScript = (src) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  };
+
+  useEffect(() => {
+    loadScript("https://checkout.razorpay.com/v1/checkout.js");
+  });
+
   const { token, setToken } = useToken();
 
   return (
@@ -81,6 +100,7 @@ function App() {
           <Route path="/skills" exact element={<Skills />} />
           <Route path="/contact" exact element={<Contact />} /> */}
         </Route>
+        <Route path="/payment-success" element={<Success />} />
         <Route
           path="/login"
           exact

@@ -231,8 +231,8 @@
 }
 .checkout > div:nth-child(2) {
   display: grid;
-  width: 1000px;
-  grid-template-columns: 1fr 1fr;
+  max-width: 500px;
+  place-content: center;
   gap: 20px;
 }
 .checkout .left {
@@ -294,11 +294,12 @@
   text-align: center;
   font-weight: 600;
 }
-.checkout .right > div:last-child button {
-  margin-top: 20px;
+.checkout .proceed-to-pay-btn {
+  cursor: pointer;
+  margin-top: 10px;
   padding: 8px 20px;
   font-size: 14px;
-  border-radius: 4px;
+  border-radius: 3px;
   background-color: #ce8448;
   color: white;
 }

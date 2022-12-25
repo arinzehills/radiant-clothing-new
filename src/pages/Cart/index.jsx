@@ -5,7 +5,6 @@ import { IoMdNotifications } from "react-icons/io";
 import imgUrl1 from "../../../public/images/contact.jpg";
 import search from "../../../public/images/no-record-found.png";
 import { Link } from "react-router-dom";
-import { CgCloseO } from "react-icons/cg";
 
 import "./cart.css";
 import Checkout from "./Checkout";
@@ -236,14 +235,14 @@ const Cart = () => {
             </>
           </div>
           <div className="cart-summary">
-            <p style={{fontWeight:600}}>Cart Summary</p>
+            <p style={{ fontWeight: 600 }}>Cart Summary</p>
             <div style={{ borderBottom: "1px solid gainsboro", padding: 20 }}>
               <div class="subtotal ">
-                <p style={{ fontWeight: 600, paddingBlock:5 }}>VAT</p>
+                <p style={{ fontWeight: 600, paddingBlock: 5 }}>VAT</p>
                 <p>{currencyFormater(0)}</p>
               </div>
               <div class="subtotal ">
-                <p style={{ fontWeight: 600, paddingBlock:5 }}>Subtotal</p>
+                <p style={{ fontWeight: 600, paddingBlock: 5 }}>Subtotal</p>
                 <p>{currencyFormater(getTotalPrice())}</p>
               </div>
             </div>
@@ -251,13 +250,10 @@ const Cart = () => {
               style={{
                 display: "flex",
                 justifyContent: "space-between",
-                width: "100%"
+                width: "100%",
               }}
             >
-              <button
-                onClick={toggleCheckout}
-              className="checkout-btn"
-              >
+              <button onClick={toggleCheckout} className="checkout-btn">
                 CHECKOUT {currencyFormater(getTotalPrice())}
               </button>
             </div>
@@ -289,7 +285,9 @@ const Cart = () => {
             {dummyProducts.map((product, idx) => (
               <div key={idx} class={`item`}>
                 <img src={product.imgUrl} />
-                <p style={{width:'80%', marginTop: 8, fontSize: 14 }}>{product.name}</p>
+                <p style={{ width: "80%", marginTop: 8, fontSize: 14 }}>
+                  {product.name}
+                </p>
                 <p style={{ marginTop: 4, color: "tomato" }}>
                   {product.category}
                 </p>
@@ -304,7 +302,12 @@ const Cart = () => {
           </div>
         </div>
       </div>
-      {checkout && <Checkout toggleCheckout={toggleCheckout} />}
+      {checkout && (
+        <Checkout
+          toggleCheckout={toggleCheckout}
+          getTotalPrice={getTotalPrice}
+        />
+      )}
     </>
   );
 };
