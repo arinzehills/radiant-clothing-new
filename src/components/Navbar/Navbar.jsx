@@ -14,7 +14,7 @@ import useFetch from "../../useFetch";
 const Navbar = () => {
   const {
     data: categoriesData,
-    loadingCategory,
+    loading: loadingCategory,
     errorCategory,
   } = useFetch({
     url: window.baseUrl + "admin/getCategories",
@@ -81,7 +81,7 @@ const Navbar = () => {
             <li
               className={
                 currentTab === 2
-                  ? "underline_link nav-items categories-dropdown"
+                  ? "underline_links nav-items categories-dropdown"
                   : "nav-items "
               }
             >
@@ -90,7 +90,7 @@ const Navbar = () => {
                 className="nav-links  dropdown-link"
                 onClick={() => closeMobileMenu(2)}
               >
-                Shoes
+                Clothes
               </Link>
               <div className="categories_dropdown-content">
                 {loadingCategory ? (
@@ -115,7 +115,7 @@ const Navbar = () => {
             <li
               className={
                 currentTab === 2
-                  ? "underline_link nav-items categories-dropdown"
+                  ? "underline_links nav-items categories-dropdown"
                   : "nav-items "
               }
             >
@@ -124,7 +124,7 @@ const Navbar = () => {
                 className="nav-links  dropdown-link"
                 onClick={() => closeMobileMenu(2)}
               >
-                Clothes
+                Shoes
               </Link>
               <div className="categories_dropdown-content">
                 {loadingCategory ? (
@@ -202,7 +202,21 @@ const Navbar = () => {
             className={
               currentTab === 4 ? "underline_link nav-items" : "nav-items"
             }
-            style={{ width: "200px" }}
+          >
+            <Link
+              to="/content-creators"
+              className="nav-links"
+              onClick={() => closeMobileMenu(4)}
+            >
+              FAQ
+            </Link>
+          </li>
+
+          <li
+            className={
+              currentTab === 4 ? "underline_link nav-items" : "nav-items"
+            }
+            style={{ width: "150px" }}
           >
             <Link
               to="/about"
@@ -210,19 +224,6 @@ const Navbar = () => {
               onClick={() => closeMobileMenu(4)}
             >
               About Us
-            </Link>
-          </li>
-          <li
-            className={
-              currentTab === 7 ? "underline_link nav-items" : "nav-items"
-            }
-          >
-            <Link
-              to="/faqs"
-              className="nav-links"
-              onClick={() => closeMobileMenu(7)}
-            >
-              FAQ
             </Link>
           </li>
         </ul>
