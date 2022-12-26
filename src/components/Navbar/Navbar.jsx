@@ -90,7 +90,7 @@ const Navbar = () => {
                 className="nav-links  dropdown-link"
                 onClick={() => closeMobileMenu(2)}
               >
-                Clothes
+                Clothing
               </Link>
               <div className="categories_dropdown-content">
                 {loadingCategory ? (
@@ -124,7 +124,7 @@ const Navbar = () => {
                 className="nav-links  dropdown-link"
                 onClick={() => closeMobileMenu(2)}
               >
-                Shoes
+                Accessories
               </Link>
               <div className="categories_dropdown-content">
                 {loadingCategory ? (

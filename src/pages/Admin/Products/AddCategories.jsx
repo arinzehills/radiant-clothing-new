@@ -10,7 +10,7 @@ const AddCategories = ({ setHandleNotData, setOpenModal }) => {
   const fileNamesRef = React.useRef();
   const pickFileRef = React.useRef();
   const [category, setCategory] = useState("");
-  const categories = ["Footwears", "Bags", "Clothing"];
+  const categories = ["Clothing", "Accessories", "Footwears"];
 
   const [superCategory, setSuperCategory] = useState("Select category");
   const [files, setFiles] = useState([]);
