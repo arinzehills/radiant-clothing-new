@@ -25,26 +25,50 @@ import UserOrders from "./pages/Dashboard/Orders/UserOrders";
 import WishList from "./pages/Dashboard/WishList/WishList";
 import SliderImages from "./pages/Admin/SliderImages/SliderImages";
 import Categorypage from "./pages/Category/Categorypage";
+import Success from "./pages/Success";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [handleNotData, setHandleNotData] = useState({
     message: "no",
-    color: "var(--success)",
+    color: "var(--success)"
   });
   useEffect(() => {
     if (handleNotData.message !== "no") {
       handleNot({
         title: "Success",
         message: handleNotData.message,
-        backgroundColor: handleNotData.color ?? "var(--success)",
+        backgroundColor: handleNotData.color ?? "var(--success)"
       });
     }
   }, [handleNotData.message]);
+
+  const loadScript = (src) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  };
+
+  useEffect(() => {
+    loadScript("https://checkout.razorpay.com/v1/checkout.js");
+  });
+
   const { token, setToken } = useToken();
 
   return (
     <div className="App">
       <ReactNotifications />
+      <ToastContainer />
 
       <Switch>
         {/* <Route path='/' exact element={<Home/>}> */}
@@ -81,6 +105,7 @@ function App() {
           <Route path="/skills" exact element={<Skills />} />
           <Route path="/contact" exact element={<Contact />} /> */}
         </Route>
+        <Route path="/payment-success" element={<Success />} />
         <Route
           path="/login"
           exact
@@ -88,7 +113,6 @@ function App() {
           element={<Login setHandleNotData={setHandleNotData} />}
           // element={token === null ? <Login /> : <Navigate to={"/dashboard"} />}
         />
-
         <Route path="/register" element={<Register />} />
         {/* <Route path="/forgotPassword" exact element={<ForgotPassword />} /> */}
         {/* <Route path="/resetPassword" exact element={<ResetPassword />} /> */}

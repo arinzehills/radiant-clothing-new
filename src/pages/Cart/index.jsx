@@ -1,24 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { BsCart4, BsPatchCheck } from "react-icons/bs";
-import { IoMdNotifications } from "react-icons/io";
-import imgUrl1 from "../../../public/images/contact.jpg";
+import { IoMdArrowBack, IoMdNotifications } from "react-icons/io";
 import search from "../../../public/images/no-record-found.png";
-import { Link } from "react-router-dom";
-import { CgCloseO } from "react-icons/cg";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./cart.css";
 import Checkout from "./Checkout";
+import CartContext from "../../context/CartContext";
+import { toast } from "react-toastify";
+import { toastOptions } from "../../components/Featured/ProductItem";
 
 export const CustomInput = (props) => {
   return <input type="text" {...props} />;
 };
 
 const Cart = () => {
+  const navigate = useNavigate();
   const currencyFormater = (number) => {
     return new Intl.NumberFormat("en-EN", {
       style: "currency",
-      currency: "NGN",
+      currency: "NGN"
     }).format(number);
   };
   const dummyProducts = [
@@ -27,71 +29,52 @@ const Cart = () => {
       name: "Lorem Ipsum dolor sit amet. consectutur",
       category: "Native",
       price: "$4,500",
-      quantity: 1,
+      quantity: 1
     },
     {
       imgUrl: "../../../public/images/white_shopping.jpg",
       name: "Lorem Ipsum dolor sit amet. consectutur",
       category: "English",
       price: "$7,000",
-      quantity: 1,
+      quantity: 1
     },
     {
       imgUrl: "../../../public/images/straight-suit.jpeg",
       name: "Lorem Ipsum dolor sit amet. consectutur",
       category: "Ankara",
       price: "$12,750",
-      quantity: 1,
+      quantity: 1
     },
     {
       imgUrl: "../../../public/images/white_shopping.jpg",
       name: "Lorem Ipsum dolor sit amet. consectutur",
       category: "Multipurpose",
       price: "$4,500",
-      quantity: 1,
-    },
+      quantity: 1
+    }
   ];
   const [checkout, setCheckout] = useState(false);
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "De Facto Man Regular Knitted Fit Polo . Tshirt . Black",
-      category: "Native",
-      size: "M",
-      price: 2800,
-      imgUrl: imgUrl1,
-      quantity: 1,
-    },
-    {
-      id: 2,
-      name: "De Facto Man Regular Knitted Fit Polo . Tshirt . Black",
-      category: "Native",
-      size: "M",
-      price: 1000,
-      imgUrl: imgUrl1,
-      quantity: 1,
-    },
-  ]);
+  const { cartItems, setCartItems } = useContext(CartContext);
 
-  const removeItem = (id) => {
-    const newCartItems = cartItems.filter((item) => item.id !== id);
+  const removeItem = (_id) => {
+    const newCartItems = cartItems.filter((item) => item._id !== _id);
     setCartItems(newCartItems);
+    toast.warn("One item removed from cart", toastOptions);
   };
-
-  const minusQuantity = (id) => {
-    const currentItem = cartItems.find((item) => item.id === id);
-    if (currentItem.quantity === 1) return;
+  const minusQuantity = (_id) => {
+    const currentItem = cartItems.find((item) => item._id === _id);
+    if (currentItem.quantityToBuy === 1) return;
     const newCartItems = cartItems.map((item) => {
-      if (item.id === id) {
-        return { ...item, quantity: item.quantity - 1 };
+      if (item._id === _id) {
+        return { ...item, quantityToBuy: item.quantityToBuy - 1 };
       } else return item;
     });
     setCartItems(newCartItems);
   };
-  const plusQuantity = (id) => {
+  const plusQuantity = (_id) => {
     const newCartItems = cartItems.map((item) => {
-      if (item.id === id) {
-        return { ...item, quantity: item.quantity + 1 };
+      if (item._id === _id) {
+        return { ...item, quantityToBuy: item.quantityToBuy + 1 };
       } else return item;
     });
     setCartItems(newCartItems);
@@ -100,7 +83,7 @@ const Cart = () => {
   const getTotalPrice = () => {
     let totalPrice = 0;
     cartItems.map((item) => {
-      totalPrice += item.price * item.quantity;
+      totalPrice += item.price * item.quantityToBuy;
     });
     console.log(totalPrice);
     return totalPrice;
@@ -118,8 +101,16 @@ const Cart = () => {
     <>
       <div class="cart-container">
         <div>
-          <div>
+          <div style={{ position: "relative" }}>
             <p>Cart ({cartItems.length})</p>
+            <span
+              role="button"
+              onClick={() => navigate("/")}
+              className="back-span"
+            >
+              {" "}
+              <IoMdArrowBack /> Go back to shopping
+            </span>
             <>
               {cartItems.length ? (
                 <div className="cart-with-items">
@@ -127,23 +118,30 @@ const Cart = () => {
                     <div
                       className="item"
                       style={{
-                        borderTop: idx !== 0 ? "1px solid gainsboro" : "none",
+                        borderTop: idx !== 0 ? "1px solid gainsboro" : "none"
                       }}
                     >
                       <div className="top">
                         <div key={idx}>
-                          <img src={item.imgUrl} />
+                          <img src={item.images[0]} />
                           <div>
                             <div
                               style={{
                                 display: "flex",
                                 flexDirection: "column",
-                                gap: 4,
+                                gap: 4
                               }}
                               class="flex flex-col gap-1"
                             >
-                              <p style={{ fontSize: 14 }}>{item.name}</p>
-                              <p>Category - {item.category}</p>
+                              <p style={{ fontSize: 14, fontWeight: 700 }}>
+                                {item.product_name} -{" "}
+                                <span style={{ fontWeight: 400 }}>
+                                  {item.description}
+                                </span>{" "}
+                              </p>
+                              <p style={{ textTransform: "capitalize" }}>
+                                Category - {item.category}
+                              </p>
                               <p>
                                 Size -{" "}
                                 <span style={{ color: "coral" }}>
@@ -154,11 +152,11 @@ const Cart = () => {
                                 style={{
                                   display: "flex",
                                   alignItems: "center",
-                                  gap: 4,
+                                  gap: 4
                                 }}
                               >
                                 <IoMdNotifications color="coral" size={20} />{" "}
-                                <span>7 units left</span>
+                                <span>{item.quantity || 0} units left</span>
                               </p>
                             </div>
                             <div>
@@ -170,13 +168,13 @@ const Cart = () => {
                                   display: "flex",
                                   alignItems: "center",
                                   gap: 8,
-                                  fontSize: 14,
+                                  fontSize: 14
                                 }}
                               >
                                 <p
                                   style={{
                                     textDecoration: "line-through",
-                                    color: "coral",
+                                    color: "coral"
                                   }}
                                 >
                                   N 8,000
@@ -188,35 +186,35 @@ const Cart = () => {
                         </div>
                       </div>
                       <div class="bottom">
-                        <button onClick={() => removeItem(item.id)}>
+                        <button onClick={() => removeItem(item._id)}>
                           <AiFillDelete color="coral" size={22} />
                           <span>DELETE</span>
                         </button>
                         <div>
                           <button
-                            onClick={() => minusQuantity(item.id)}
+                            onClick={() => minusQuantity(item._id)}
                             style={{
                               padding: "2px 12px ",
                               borderRadius: 4,
                               fontSize: 24,
                               background:
-                                item.quantity === 1
+                                item.quantityToBuy === 1
                                   ? "rgb(220 252 231)"
-                                  : "rgb(74 222 128)",
+                                  : "rgb(74 222 128)"
                             }}
                           >
                             -
                           </button>
                           <span style={{ fontWeight: 600 }}>
-                            {item.quantity}
+                            {item.quantityToBuy}
                           </span>
                           <button
-                            onClick={() => plusQuantity(item.id)}
+                            onClick={() => plusQuantity(item._id)}
                             style={{
                               padding: " 4px 10px",
                               borderRadius: 4,
                               fontSize: 20,
-                              background: "rgb(74 222 128)",
+                              background: "rgb(74 222 128)"
                             }}
                           >
                             +
@@ -236,14 +234,14 @@ const Cart = () => {
             </>
           </div>
           <div className="cart-summary">
-            <p style={{fontWeight:600}}>Cart Summary</p>
+            <p style={{ fontWeight: 600 }}>Cart Summary</p>
             <div style={{ borderBottom: "1px solid gainsboro", padding: 20 }}>
               <div class="subtotal ">
-                <p style={{ fontWeight: 600, paddingBlock:5 }}>VAT</p>
+                <p style={{ fontWeight: 600, paddingBlock: 5 }}>GST</p>
                 <p>{currencyFormater(0)}</p>
               </div>
               <div class="subtotal ">
-                <p style={{ fontWeight: 600, paddingBlock:5 }}>Subtotal</p>
+                <p style={{ fontWeight: 600, paddingBlock: 5 }}>Subtotal</p>
                 <p>{currencyFormater(getTotalPrice())}</p>
               </div>
             </div>
@@ -254,10 +252,7 @@ const Cart = () => {
                 width: "100%"
               }}
             >
-              <button
-                onClick={toggleCheckout}
-              className="checkout-btn"
-              >
+              <button onClick={toggleCheckout} className="checkout-btn">
                 CHECKOUT {currencyFormater(getTotalPrice())}
               </button>
             </div>
@@ -289,7 +284,9 @@ const Cart = () => {
             {dummyProducts.map((product, idx) => (
               <div key={idx} class={`item`}>
                 <img src={product.imgUrl} />
-                <p style={{width:'80%', marginTop: 8, fontSize: 14 }}>{product.name}</p>
+                <p style={{ width: "80%", marginTop: 8, fontSize: 14 }}>
+                  {product.name}
+                </p>
                 <p style={{ marginTop: 4, color: "tomato" }}>
                   {product.category}
                 </p>
@@ -304,7 +301,12 @@ const Cart = () => {
           </div>
         </div>
       </div>
-      {checkout && <Checkout toggleCheckout={toggleCheckout} />}
+      {checkout && (
+        <Checkout
+          toggleCheckout={toggleCheckout}
+          getTotalPrice={getTotalPrice}
+        />
+      )}
     </>
   );
 };
