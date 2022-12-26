@@ -26,17 +26,21 @@ import WishList from "./pages/Dashboard/WishList/WishList";
 import SliderImages from "./pages/Admin/SliderImages/SliderImages";
 import Categorypage from "./pages/Category/Categorypage";
 import Success from "./pages/Success";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   const [handleNotData, setHandleNotData] = useState({
     message: "no",
-    color: "var(--success)",
+    color: "var(--success)"
   });
   useEffect(() => {
     if (handleNotData.message !== "no") {
       handleNot({
         title: "Success",
         message: handleNotData.message,
-        backgroundColor: handleNotData.color ?? "var(--success)",
+        backgroundColor: handleNotData.color ?? "var(--success)"
       });
     }
   }, [handleNotData.message]);
@@ -64,6 +68,7 @@ function App() {
   return (
     <div className="App">
       <ReactNotifications />
+      <ToastContainer />
 
       <Switch>
         {/* <Route path='/' exact element={<Home/>}> */}
@@ -108,7 +113,6 @@ function App() {
           element={<Login setHandleNotData={setHandleNotData} />}
           // element={token === null ? <Login /> : <Navigate to={"/dashboard"} />}
         />
-
         <Route path="/register" element={<Register />} />
         {/* <Route path="/forgotPassword" exact element={<ForgotPassword />} /> */}
         {/* <Route path="/resetPassword" exact element={<ResetPassword />} /> */}

@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import CartContext from "../../context/CartContext";
 import useToken from "../../useToken";
 import useUser from "../../useUser";
 import IconAndCircle from "../IconAndCircle/IconAndCircle";
@@ -14,7 +15,7 @@ const UpperNavbar = () => {
   const { token, setToken } = useToken();
   const [handleNotData, setHandleNotData] = useState({
     message: "no",
-    color: "var(--success)",
+    color: "var(--success)"
   });
   console.log(token);
   return (
@@ -25,7 +26,7 @@ const UpperNavbar = () => {
           justifyContent: "space-around",
           alignItems: "center",
           padding: "0 25px",
-          height: window.innerWidth < 960 && "170px",
+          height: window.innerWidth < 960 && "170px"
         }}
         className="class_justify_contents_row"
       >
@@ -44,7 +45,7 @@ const UpperNavbar = () => {
             // inputSize={"ipn--wide"}
             inputHeight={"45px"}
             inputData={{
-              label: "Search for products, brands and categories...",
+              label: "Search for products, brands and categories..."
             }}
             iconName={"ic:outline-search"}
           />
@@ -77,6 +78,7 @@ const UpperNavbar = () => {
   );
 };
 const CartIcon = () => {
+  const { cartItems } = useContext(CartContext);
   return (
     <>
       <div
@@ -84,7 +86,7 @@ const CartIcon = () => {
           // background: "white",
           height: window.innerWidth < 770 ? "35px" : "45px",
           width: window.innerWidth < 770 ? "35px" : "45px",
-          borderRadius: "50px",
+          borderRadius: "50px"
         }}
         className="centerClass gold_color_light"
       >
@@ -93,22 +95,24 @@ const CartIcon = () => {
           fontSize={window.innerWidth < 770 ? "15px" : "20px"}
           color="black"
         />
-        <div
-          style={{
-            // height: "18px",
-            // width: "18px",
-            padding: "3px",
-            background: "var(--pink)",
-            borderRadius: "50px",
-            fontSize: "10px",
-            color: "white",
-            position: "absolute",
-            marginBottom: "20px",
-            marginLeft: "20px",
-          }}
-        >
-          10
-        </div>
+        {cartItems.length > 0 ? (
+          <div
+            style={{
+              // height: "18px",
+              // width: "18px",
+              padding: "3px",
+              background: "var(--pink)",
+              borderRadius: "50px",
+              fontSize: "10px",
+              color: "white",
+              position: "absolute",
+              marginBottom: "20px",
+              marginLeft: "20px"
+            }}
+          >
+            {cartItems.length}
+          </div>
+        ) : null}
       </div>
     </>
   );

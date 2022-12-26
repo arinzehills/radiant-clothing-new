@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { CgCloseO } from "react-icons/cg";
+import { ImSpinner2 } from "react-icons/im";
 import { CustomInput } from ".";
 import axios from "axios";
 
 import "./cart.css";
 
 const Checkout = ({ toggleCheckout, getTotalPrice }) => {
-  const [paymentGateway, setPaymentGateway] = useState("stripe");
-  const paymentGateways = ["stripe", "monnify"];
+  const [loading, setLoading] = useState(false);
   const API_URL = "http://localhost:3002/payment/";
   const navigate = useNavigate();
 
@@ -25,15 +25,15 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
       handler: async (response) => {
         try {
           const { data } = axios.post(`${API_URL}verify`, response);
-          console.log(data);
+          window.localStorage.removeItem("radiant_cart_item");
           navigate("/payment-success");
         } catch (err) {
           console.log(err);
         }
       },
       theme: {
-        color: "#686CFD",
-      },
+        color: "#686CFD"
+      }
     };
 
     const rzp1 = new window.Razorpay(options);
@@ -41,6 +41,7 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
   };
 
   const paymentHandler = async (e) => {
+    setLoading(true);
     try {
       e.preventDefault();
       const orderUrl = `${API_URL}order`;
@@ -49,6 +50,8 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
       initPayment(data.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -83,8 +86,16 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
                 <CustomInput placeholder="State" className="input-style" />
               </div>
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                <button className="proceed-to-pay-btn" onClick={paymentHandler}>
-                  Proceed to Pay
+                <button
+                  disabled={loading}
+                  className="proceed-to-pay-btn"
+                  onClick={paymentHandler}
+                >
+                  {loading ? (
+                    <ImSpinner2 size={20} style={{ marginInline: "auto" }} />
+                  ) : (
+                    `Proceed to Pay`
+                  )}
                 </button>
               </div>
             </div>
@@ -92,7 +103,7 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
               style={{
                 marginTop: 20,
                 borderTop: "1px solid gainsboro",
-                paddingTop: 5,
+                paddingTop: 5
               }}
             >
               <p style={{ fontSize: 12 }}>

@@ -1,13 +1,55 @@
-import React from "react";
+import { useContext } from "react";
 import IconAndCircle from "../IconAndCircle/IconAndCircle";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import "./Products.css";
 import getSymbolFromCurrency from "currency-symbol-map";
 import { Icon } from "@iconify/react";
 import LazyLoader from "../LazyLoader/LazyLoader";
+import { toast } from "react-toastify";
+import CartContext from "../../context/CartContext";
+import { useNavigate } from "react-router-dom";
+
+const ClickableToast = ({ text }) => {
+  const navigate = useNavigate();
+  return (
+    <p
+      onClick={() => navigate("/cart")}
+      style={{ fontSize: 14, margin: 0, gap: 3, display: "flex" }}
+    >
+      {text ? text : "Added to cart!"}
+      <span
+        style={{
+          textDecoration: "underline",
+          display: "block",
+          color: "white",
+          marginLeft: 2
+        }}
+      >
+        Click to view{" "}
+      </span>
+    </p>
+  );
+};
+
+export const toastOptions = {
+  theme: "colored",
+  hideProgressBar: true
+};
 
 const ProductItem = ({ item, productsSet, loading }) => {
   const catLoadArr = ["", "", ""];
+  const { cartItems, setCartItems } = useContext(CartContext);
+
+  const handleAddToCart = () => {
+    const index = cartItems.findIndex((cartItem) => cartItem._id === item._id);
+    if (index >= 0) {
+      toast.success(<ClickableToast text="Already in cart" />, toastOptions);
+      return;
+    }
+    item.quantityToBuy = 1;
+    setCartItems((prev) => [item, ...prev]);
+    toast.success(<ClickableToast />, toastOptions);
+  };
 
   return (
     <>
@@ -29,7 +71,7 @@ const ProductItem = ({ item, productsSet, loading }) => {
             style={{
               padding: "1rem",
               justifyContent: "space-between",
-              width: "87%",
+              width: "87%"
             }}
             className={"class_justify_contents_row"}
           >
@@ -62,10 +104,13 @@ const ProductItem = ({ item, productsSet, loading }) => {
               className="class_justify_contents_column"
               style={{
                 justifyContent: "space-between",
-                height: "70%",
+                height: "70%"
               }}
             >
-              <div className="class_justify_contents_row">
+              <div
+                onClick={() => handleAddToCart(item)}
+                className="class_justify_contents_row"
+              >
                 <Icon
                   icon={"mdi:cart-arrow-down"}
                   color="black"
