@@ -29,18 +29,20 @@ import Success from "./pages/Success";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import About from "./pages/About/About";
+import ProductDetail from "./components/Featured/ProductDetail";
 
 function App() {
   const [handleNotData, setHandleNotData] = useState({
     message: "no",
-    color: "var(--success)"
+    color: "var(--success)",
   });
   useEffect(() => {
     if (handleNotData.message !== "no") {
       handleNot({
         title: "Success",
         message: handleNotData.message,
-        backgroundColor: handleNotData.color ?? "var(--success)"
+        backgroundColor: handleNotData.color ?? "var(--success)",
       });
     }
   }, [handleNotData.message]);
@@ -79,7 +81,10 @@ function App() {
           <Route path="/categories">
             <Route path=":category" exact element={<Categorypage />} />
           </Route>
-          {/* <Route path="/about" exact element={<About />} /> */}
+          <Route path="/products">
+            <Route path=":product" exact element={<ProductDetail />} />
+          </Route>
+          <Route path="/about" exact element={<About />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart/checkout" element={<Checkout />} />
           <Route path="dashboard" element={<Dashboard />}>

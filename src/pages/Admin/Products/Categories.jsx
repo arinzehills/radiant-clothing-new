@@ -20,6 +20,7 @@ const Categories = ({ setHandleNotData }) => {
   let columnData = [
     { heading: "S/N", value: "sn" },
     { heading: "Image", value: "image" },
+    { heading: "Main Category", value: "super_category" },
     { heading: "Category", value: "category" },
     { heading: "Delete", value: "delete" },
   ];

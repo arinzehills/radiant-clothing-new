@@ -24,7 +24,7 @@ const Featured = () => {
 
   const {
     data: categoriesData,
-    loadingCategory,
+    loading: loadingCategory,
     errorCategory,
   } = useFetch({
     url: window.baseUrl + "admin/getCategories",

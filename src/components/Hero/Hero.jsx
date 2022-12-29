@@ -39,16 +39,19 @@ function Hero({
               <div className="home__hero-text-wrapper">
                 {/* <div className='top-line'>{topLine}</div> */}
                 <h1 className="heading">{headline}</h1>
-                <p className="home__hero-subtitle">{description}</p>
+                <p
+                  className="home__hero-subtitle"
+                  dangerouslySetInnerHTML={{ __html: description }}
+                />
                 {/* <Link to='/sign-up'> */}
                 {showButton ? (
-                  <Link to="/register">
+                  <Link to="/">
                     <Button buttonColor="gold">{buttonLabel[0]}</Button>{" "}
                   </Link>
                 ) : null}
 
                 {showButton ? (
-                  <Link to="/buyunits">
+                  <Link to="/contact">
                     <Button buttonColor="black">{buttonLabel[1]}</Button>{" "}
                   </Link>
                 ) : null}

@@ -51,7 +51,9 @@ const Navbar = () => {
     showButton();
   }, []);
   window.addEventListener("resize", showButton);
-
+  console.log(
+    categoriesData?.categories.filter((cat) => "clothing" == cat.super_category)
+  );
   return (
     <>
       {window.innerWidth < 769 ? <PhoneUpper /> : <UpperNavbar />}
@@ -87,7 +89,7 @@ const Navbar = () => {
             >
               <Link
                 to="/"
-                className="nav-links  dropdown-link"
+                className="nav-links underline_link dropdown-link"
                 onClick={() => closeMobileMenu(2)}
               >
                 Clothing
@@ -101,14 +103,17 @@ const Navbar = () => {
                     loading...
                   </div>
                 ) : (
-                  categoriesData?.categories.map((item) => (
-                    <Link
-                      to={`/categories/${item.category}`}
-                      key={item.category}
-                    >
-                      {item.category}
-                    </Link>
-                  ))
+                  categoriesData?.categories.map(
+                    (item) =>
+                      item.super_category === "clothing" && (
+                        <Link
+                          to={`/categories/${item.category}`}
+                          key={item.category}
+                        >
+                          {item.category}
+                        </Link>
+                      )
+                  )
                 )}
               </div>
             </li>
@@ -124,7 +129,7 @@ const Navbar = () => {
                 className="nav-links  dropdown-link"
                 onClick={() => closeMobileMenu(2)}
               >
-                Accessories
+                Indian Accessories
               </Link>
               <div className="categories_dropdown-content">
                 {loadingCategory ? (
@@ -135,52 +140,20 @@ const Navbar = () => {
                     loading...
                   </div>
                 ) : (
-                  categoriesData?.categories.map((item) => (
-                    <Link
-                      to={`/categories/${item.category}`}
-                      key={item.category}
-                    >
-                      {item.category}
-                    </Link>
-                  ))
+                  categoriesData?.categories.map(
+                    (item) =>
+                      item.super_category === "accessories" && (
+                        <Link
+                          to={`/categories/${item.category}`}
+                          key={item.category}
+                        >
+                          {item.category}
+                        </Link>
+                      )
+                  )
                 )}
               </div>
             </li>
-            <li
-              className={
-                currentTab === 2
-                  ? "underline_link nav-items categories-dropdown"
-                  : "nav-items "
-              }
-            >
-              <Link
-                to="/"
-                className="nav-links  dropdown-link"
-                onClick={() => closeMobileMenu(2)}
-              >
-                Footwears
-              </Link>
-              <div className="categories_dropdown-content">
-                {loadingCategory ? (
-                  <div
-                    className="class_justify_contents_column"
-                    style={{ height: "200px" }}
-                  >
-                    loading...
-                  </div>
-                ) : (
-                  categoriesData?.categories.map((item) => (
-                    <Link
-                      to={`/categories/${item.category}`}
-                      key={item.category}
-                    >
-                      {item.category}
-                    </Link>
-                  ))
-                )}
-              </div>
-            </li>
-
             <li
               className={
                 currentTab === 3 ? "underline_link nav-items" : "nav-items"
@@ -204,7 +177,7 @@ const Navbar = () => {
             }
           >
             <Link
-              to="/content-creators"
+              to="/faqs"
               className="nav-links"
               onClick={() => closeMobileMenu(4)}
             >
@@ -214,14 +187,14 @@ const Navbar = () => {
 
           <li
             className={
-              currentTab === 4 ? "underline_link nav-items" : "nav-items"
+              currentTab === 5 ? "underline_link nav-items" : "nav-items"
             }
             style={{ width: "150px" }}
           >
             <Link
               to="/about"
               className="nav-links"
-              onClick={() => closeMobileMenu(4)}
+              onClick={() => closeMobileMenu(5)}
             >
               About Us
             </Link>

@@ -20,7 +20,7 @@ const Cart = () => {
   const currencyFormater = (number) => {
     return new Intl.NumberFormat("en-EN", {
       style: "currency",
-      currency: "NGN"
+      currency: "INR",
     }).format(number);
   };
   const dummyProducts = [
@@ -29,29 +29,29 @@ const Cart = () => {
       name: "Lorem Ipsum dolor sit amet. consectutur",
       category: "Native",
       price: "$4,500",
-      quantity: 1
+      quantity: 1,
     },
     {
       imgUrl: "../../../public/images/white_shopping.jpg",
       name: "Lorem Ipsum dolor sit amet. consectutur",
       category: "English",
       price: "$7,000",
-      quantity: 1
+      quantity: 1,
     },
     {
       imgUrl: "../../../public/images/straight-suit.jpeg",
       name: "Lorem Ipsum dolor sit amet. consectutur",
       category: "Ankara",
       price: "$12,750",
-      quantity: 1
+      quantity: 1,
     },
     {
       imgUrl: "../../../public/images/white_shopping.jpg",
       name: "Lorem Ipsum dolor sit amet. consectutur",
       category: "Multipurpose",
       price: "$4,500",
-      quantity: 1
-    }
+      quantity: 1,
+    },
   ];
   const [checkout, setCheckout] = useState(false);
   const { cartItems, setCartItems } = useContext(CartContext);
@@ -118,7 +118,7 @@ const Cart = () => {
                     <div
                       className="item"
                       style={{
-                        borderTop: idx !== 0 ? "1px solid gainsboro" : "none"
+                        borderTop: idx !== 0 ? "1px solid gainsboro" : "none",
                       }}
                     >
                       <div className="top">
@@ -129,7 +129,7 @@ const Cart = () => {
                               style={{
                                 display: "flex",
                                 flexDirection: "column",
-                                gap: 4
+                                gap: 4,
                               }}
                               class="flex flex-col gap-1"
                             >
@@ -152,7 +152,7 @@ const Cart = () => {
                                 style={{
                                   display: "flex",
                                   alignItems: "center",
-                                  gap: 4
+                                  gap: 4,
                                 }}
                               >
                                 <IoMdNotifications color="coral" size={20} />{" "}
@@ -168,13 +168,13 @@ const Cart = () => {
                                   display: "flex",
                                   alignItems: "center",
                                   gap: 8,
-                                  fontSize: 14
+                                  fontSize: 14,
                                 }}
                               >
                                 <p
                                   style={{
                                     textDecoration: "line-through",
-                                    color: "coral"
+                                    color: "coral",
                                   }}
                                 >
                                   N 8,000
@@ -200,7 +200,7 @@ const Cart = () => {
                               background:
                                 item.quantityToBuy === 1
                                   ? "rgb(220 252 231)"
-                                  : "rgb(74 222 128)"
+                                  : "rgb(74 222 128)",
                             }}
                           >
                             -
@@ -214,7 +214,7 @@ const Cart = () => {
                               padding: " 4px 10px",
                               borderRadius: 4,
                               fontSize: 20,
-                              background: "rgb(74 222 128)"
+                              background: "rgb(74 222 128)",
                             }}
                           >
                             +
@@ -249,7 +249,7 @@ const Cart = () => {
               style={{
                 display: "flex",
                 justifyContent: "space-between",
-                width: "100%"
+                width: "100%",
               }}
             >
               <button onClick={toggleCheckout} className="checkout-btn">

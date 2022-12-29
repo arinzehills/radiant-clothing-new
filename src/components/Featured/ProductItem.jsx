@@ -7,7 +7,7 @@ import { Icon } from "@iconify/react";
 import LazyLoader from "../LazyLoader/LazyLoader";
 import { toast } from "react-toastify";
 import CartContext from "../../context/CartContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ClickableToast = ({ text }) => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const ClickableToast = ({ text }) => {
           textDecoration: "underline",
           display: "block",
           color: "white",
-          marginLeft: 2
+          marginLeft: 2,
         }}
       >
         Click to view{" "}
@@ -33,11 +33,11 @@ const ClickableToast = ({ text }) => {
 
 export const toastOptions = {
   theme: "colored",
-  hideProgressBar: true
+  hideProgressBar: true,
 };
 
 const ProductItem = ({ item, productsSet, loading }) => {
-  const catLoadArr = ["", "", ""];
+  const catLoadArr = ["", "", "", "", "", ""];
   const { cartItems, setCartItems } = useContext(CartContext);
 
   const handleAddToCart = () => {
@@ -53,9 +53,16 @@ const ProductItem = ({ item, productsSet, loading }) => {
 
   return (
     <>
-      {loading ? (
+      {/* {loading ? (
         catLoadArr.map((item) => <LazyLoader key={item} />)
-      ) : (
+      ) : ( */}
+      <Link
+        to={`/products/${item.product_name}`}
+        style={{ textDecoration: "none", color: "inherit" }}
+        state={{
+          item,
+        }}
+      >
         <div
           className="product-item class_justify_contents_column"
           style={{ alignItems: "flex-start" }}
@@ -71,7 +78,7 @@ const ProductItem = ({ item, productsSet, loading }) => {
             style={{
               padding: "1rem",
               justifyContent: "space-between",
-              width: "87%"
+              width: "87%",
             }}
             className={"class_justify_contents_row"}
           >
@@ -104,7 +111,7 @@ const ProductItem = ({ item, productsSet, loading }) => {
               className="class_justify_contents_column"
               style={{
                 justifyContent: "space-between",
-                height: "70%"
+                height: "70%",
               }}
             >
               <div
@@ -131,7 +138,9 @@ const ProductItem = ({ item, productsSet, loading }) => {
             </div>
           </div>
         </div>
-      )}{" "}
+      </Link>
+
+      {/* )} */}
     </>
   );
 };

@@ -43,7 +43,19 @@ function Footer() {
                 Talk to us now
               </p>
               <h3 style={{ textTransform: "uppercase" }}>Contact Us</h3>
-              <p>5701 Outlets at Tejon Pkwy, New Delhi ranch CA 93203 India.</p>
+              <p>
+                Email:{" "}
+                <a href="mailto:info@radiantclothings.com">
+                  info@radiantclothings.com
+                </a>
+              </p>
+              <p>
+                Mobile: <a href="tel:+91 9984924444">+91 9984924444</a>
+              </p>
+              <p>
+                3143/56-59, Ram Krishna Marg, Pratap Market, Aminabad, Lucknow,
+                Uttar Pradesh-226018.
+              </p>
             </div>
             <div>
               <p className={"italics"}>Explore!</p>
@@ -95,7 +107,7 @@ function Footer() {
           <p>&copy; 2022</p>
           <GradientText
             text={" RADIANT CLOTHING"}
-            style={{ lineHeight: 1, fontSize: "2vw", textAlign: "left" }}
+            style={{ lineHeight: 1, fontSize: "2.5vw", textAlign: "left" }}
           />
         </div>
       </>

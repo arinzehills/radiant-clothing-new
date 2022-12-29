@@ -3,6 +3,10 @@
 .footer-text-container {
   flex-direction: row;
 }
+.footer-text-container a {
+  text-decoration: none;
+  color: white;
+}
 .footer-container {
   /* background: linear-gradient(var(--light-orange), var(--dark-orange)); */
   padding: 2rem 0 2rem 0;
