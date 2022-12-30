@@ -11,6 +11,7 @@ const ProfilePicsComponent = ({
   isOnline,
   isCirclular,
   userType,
+  nameColor,
   isImage,
   setHandleNotData,
   showCaret,
@@ -164,43 +165,43 @@ const ProfilePicsComponent = ({
           )}
         </div>
 
-        {window.innerWidth > 660 && (
-          <div
-            className={isCirclular ? "pic-text iscircular" : "pic-text"}
+        {/* {window.innerWidth > 660 && ( */}
+        <div
+          className={isCirclular ? "pic-text iscircular" : "pic-text"}
+          style={{
+            justifyContent: isCirclular && "center",
+          }}
+        >
+          <p
             style={{
-              justifyContent: isCirclular && "center",
+              fontWeight: isCirclular ? "normal" : "bold",
+              textAlign: "left",
+              // gap: 0,
+              marginLeft: "-6px",
+              textTransform: "capitalize",
+              color: nameColor,
             }}
           >
-            <p
-              style={{
-                fontWeight: isCirclular ? "normal" : "bold",
-                textAlign: "left",
-                // gap: 0,
-                marginLeft: "-6px",
-                textTransform: "capitalize",
-              }}
-            >
-              {isOnline === "Online" && (
-                <Icon
-                  icon="ci:dot-03-m"
-                  color={"var(--success)"}
-                  // style={{ paddingTop: "6px" }}
-                />
-              )}
-              {name}
-            </p>
-
-            {!isCirclular && (
-              <span>
-                {
-                  userType ?? "User" //this shows the type of user/normal/admin etc
-                }
-              </span>
+            {isOnline === "Online" && (
+              <Icon
+                icon="ci:dot-03-m"
+                color={"var(--success)"}
+                // style={{ paddingTop: "6px" }}
+              />
             )}
-          </div>
-        )}
-        {window.innerWidth > 660 &&
-          isCirclular && //if this is a circlular profile pics component show this icon
+            {name}
+          </p>
+
+          {!isCirclular && (
+            <span>
+              {
+                userType ?? "User" //this shows the type of user/normal/admin etc
+              }
+            </span>
+          )}
+        </div>
+        {/* )} */}
+        {isCirclular && //if this is a circlular profile pics component show this icon
           (showCaret === false ? (
             ""
           ) : (

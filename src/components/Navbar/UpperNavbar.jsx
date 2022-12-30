@@ -58,15 +58,17 @@ const UpperNavbar = () => {
               <Icon icon="mdi:user" color="white" fontSize={"33px"} />
             </Link>
           ) : (
-            <Link to={"#"}>
-              <ProfilePicsComponent
-                name={user?.["firstname"]}
-                // isOnline={"Online" ?? user?.["online_status"]}
-                isCirclular={true}
-                size="120px"
-                // setHandleNotData={setHandleNotData}
-              />
-            </Link>
+            <ProfilePicsComponent
+              name={user?.["full_name"].substring(
+                0,
+                user?.["full_name"].indexOf(" ")
+              )}
+              // isOnline={"Online" ?? user?.["online_status"]}
+              isCirclular={true}
+              size="120px"
+              nameColor={"white"}
+              // setHandleNotData={setHandleNotData}
+            />
           )}
         </div>
       </div>

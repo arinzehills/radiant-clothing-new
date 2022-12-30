@@ -58,16 +58,14 @@ const PhoneUpper = ({ handleClick, click }) => {
               <Icon icon="mdi:user" color="white" fontSize={"33px"} />
             </Link>
           ) : (
-            <Link to={"#"}>
-              <ProfilePicsComponent
-                name={user?.["firstname"]}
-                // showCaret={false}
-                // isOnline={"Online" ?? user?.["online_status"]}
-                isCirclular={true}
-                size="120px"
-                // setHandleNotData={setHandleNotData}
-              />
-            </Link>
+            <ProfilePicsComponent
+              name={user?.["firstname"]}
+              showCaret={false}
+              // isOnline={"Online" ?? user?.["online_status"]}
+              isCirclular={true}
+              size="120px"
+              // setHandleNotData={setHandleNotData}
+            />
           )}
         </div>
       </div>
