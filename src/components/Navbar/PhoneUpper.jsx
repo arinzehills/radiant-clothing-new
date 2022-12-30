@@ -61,6 +61,7 @@ const PhoneUpper = ({ handleClick, click }) => {
             <Link to={"#"}>
               <ProfilePicsComponent
                 name={user?.["firstname"]}
+                // showCaret={false}
                 // isOnline={"Online" ?? user?.["online_status"]}
                 isCirclular={true}
                 size="120px"
