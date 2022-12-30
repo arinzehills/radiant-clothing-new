@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import CartContext from "../../context/CartContext";
 import { Link, useNavigate } from "react-router-dom";
 
-const ClickableToast = ({ text }) => {
+export const ClickableToast = ({ text }) => {
   const navigate = useNavigate();
   return (
     <p
@@ -38,8 +38,9 @@ export const toastOptions = {
 
 const ProductItem = ({ item, productsSet, loading }) => {
   const catLoadArr = ["", "", "", "", "", ""];
-  const { cartItems, setCartItems } = useContext(CartContext);
   const history = useNavigate();
+  const { cartItems, setCartItems, whishLists, setWhishLists } =
+    useContext(CartContext);
 
   const handleAddToCart = () => {
     const index = cartItems.findIndex((cartItem) => cartItem._id === item._id);
@@ -54,6 +55,24 @@ const ProductItem = ({ item, productsSet, loading }) => {
   const stopPropagation = (event) => {
     event.stopPropagation();
   };
+
+  const handleAddToWhishList = () => {
+    const index = whishLists.findIndex((wish) => wish._id === item._id);
+    if (index >= 0) {
+      toast.success(
+        <ClickableToast text="Already whishlisted" />,
+        toastOptions
+      );
+      return;
+    }
+    item.quantityToBuy = 1;
+    setWhishLists((prev) => [item, ...prev]);
+    toast.success(
+      <ClickableToast text={"Added to whish list"} />,
+      toastOptions
+    );
+  };
+
   return (
     <>
       {/* {loading ? (
@@ -119,11 +138,11 @@ const ProductItem = ({ item, productsSet, loading }) => {
             }}
           >
             <div
+              className="class_justify_contents_row"
               onClick={(e) => {
                 stopPropagation(e);
                 handleAddToCart(item);
               }}
-              className="class_justify_contents_row"
             >
               <Icon
                 icon={"mdi:cart-arrow-down"}
@@ -133,7 +152,12 @@ const ProductItem = ({ item, productsSet, loading }) => {
               />
               <pre className="showTip">Add to Cart</pre>
             </div>
-            <div>
+            <div
+              onClick={() => {
+                stopPropagation(e);
+                handleAddToWhishList(item);
+              }}
+            >
               <Icon
                 icon={"mdi:love"}
                 color="rgb(85, 83, 83)"
