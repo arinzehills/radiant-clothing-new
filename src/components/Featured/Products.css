@@ -6,6 +6,7 @@
 .product-item:hover {
   scale: 1.05;
   transition: all 0.2s ease;
+  cursor: pointer;
 }
 .product-list-item {
   padding: 4rem 3rem 4rem;

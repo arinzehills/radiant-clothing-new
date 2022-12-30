@@ -174,7 +174,8 @@
 .menu-icon {
   display: none;
 }
-
+@media screen and (max-width: 560px) {
+}
 /* smaller creens */
 @media screen and (max-width: 960px) {
   .container {
@@ -184,6 +185,7 @@
   }
   .navbar {
     height: 85px;
+    /* display: none; */
     position: relative;
   }
   .navbar-container {

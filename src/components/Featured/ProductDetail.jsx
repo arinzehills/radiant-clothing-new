@@ -55,6 +55,7 @@ const ProductDetail = ({}) => {
         justifyContent: "space-around",
         padding: "2rem",
         alignItems: "start",
+        flexDirection: window.innerWidth < 760 && "column",
         // width: "100%",
       }}
     >
@@ -62,7 +63,10 @@ const ProductDetail = ({}) => {
       <ImageSlider
         slides={product.images}
         isNotMap={true}
-        style={{ height: "300px", width: "400px" }}
+        style={{
+          height: window.innerWidth < 660 ? "" : "300px",
+          width: window.innerWidth < 660 ? "" : "400px",
+        }}
       />
       <div style={{ padding: "15px" }}>
         <h3

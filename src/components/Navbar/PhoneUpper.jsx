@@ -39,7 +39,7 @@ const PhoneUpper = ({ handleClick, click }) => {
           </div>
           <Link to="/" onClick={() => closeMobileMenu(1)}>
             <img
-              src="images/logo.png"
+              src="/images/logo.png"
               style={{
                 height: 90,
                 paddingLeft: window.innerWidth < 960 && "60px",
