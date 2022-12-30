@@ -153,7 +153,7 @@ const ProductItem = ({ item, productsSet, loading }) => {
               <pre className="showTip">Add to Cart</pre>
             </div>
             <div
-              onClick={() => {
+              onClick={(e) => {
                 stopPropagation(e);
                 handleAddToWhishList(item);
               }}
