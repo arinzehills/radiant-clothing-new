@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import CartContext from "../../context/CartContext";
 import { Link, useNavigate } from "react-router-dom";
 
-const ClickableToast = ({ text }) => {
+export const ClickableToast = ({ text }) => {
   const navigate = useNavigate();
   return (
     <p
@@ -22,7 +22,7 @@ const ClickableToast = ({ text }) => {
           textDecoration: "underline",
           display: "block",
           color: "white",
-          marginLeft: 2,
+          marginLeft: 2
         }}
       >
         Click to view{" "}
@@ -33,12 +33,12 @@ const ClickableToast = ({ text }) => {
 
 export const toastOptions = {
   theme: "colored",
-  hideProgressBar: true,
+  hideProgressBar: true
 };
 
 const ProductItem = ({ item, productsSet, loading }) => {
   const catLoadArr = ["", "", "", "", "", ""];
-  const { cartItems, setCartItems } = useContext(CartContext);
+  const { cartItems, setCartItems, whishLists, setWhishLists } = useContext(CartContext);
 
   const handleAddToCart = () => {
     const index = cartItems.findIndex((cartItem) => cartItem._id === item._id);
@@ -51,6 +51,17 @@ const ProductItem = ({ item, productsSet, loading }) => {
     toast.success(<ClickableToast />, toastOptions);
   };
 
+  const handleAddToWhishList = () => {
+    const index = whishLists.findIndex((wish) => wish._id === item._id);
+    if (index >= 0) {
+      toast.success(<ClickableToast text="Already whishlisted" />, toastOptions);
+      return;
+    }
+    item.quantityToBuy = 1;
+    setWhishLists((prev) => [item, ...prev]);
+    toast.success(<ClickableToast text={'Added to whish list'} />, toastOptions);
+  };
+
   return (
     <>
       {/* {loading ? (
@@ -60,7 +71,7 @@ const ProductItem = ({ item, productsSet, loading }) => {
         to={`/products/${item.product_name}`}
         style={{ textDecoration: "none", color: "inherit" }}
         state={{
-          item,
+          item
         }}
       >
         <div
@@ -78,7 +89,7 @@ const ProductItem = ({ item, productsSet, loading }) => {
             style={{
               padding: "1rem",
               justifyContent: "space-between",
-              width: "87%",
+              width: "87%"
             }}
             className={"class_justify_contents_row"}
           >
@@ -111,7 +122,7 @@ const ProductItem = ({ item, productsSet, loading }) => {
               className="class_justify_contents_column"
               style={{
                 justifyContent: "space-between",
-                height: "70%",
+                height: "70%"
               }}
             >
               <div
@@ -126,7 +137,7 @@ const ProductItem = ({ item, productsSet, loading }) => {
                 />
                 <pre className="showTip">Add to Cart</pre>
               </div>
-              <div>
+              <div onClick={() => handleAddToWhishList(item)}>
                 <Icon
                   icon={"mdi:love"}
                   color="rgb(85, 83, 83)"

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { CgCloseO } from "react-icons/cg";
+import { CgClose, CgCloseO } from "react-icons/cg";
 import { ImSpinner2 } from "react-icons/im";
 import { CustomInput } from ".";
 import axios from "axios";
@@ -23,6 +23,7 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
       name: "Radiant Clothing",
       description: "Super amamzing description...",
       handler: async (response) => {
+        response.amount = data.amount;
         try {
           const { data } = axios.post(`${API_URL}verify`, response);
           window.localStorage.removeItem("radiant_cart_item");
@@ -58,15 +59,23 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
   return (
     <div>
       <div className="checkout">
-        <div>
-          <p>CHECKOUT</p>
-          <button onClick={toggleCheckout}>
-            CLOSE
-            <CgCloseO size={24} color="coral" />
-          </button>
-        </div>
+        <div></div>
         <div>
           <div className="left ">
+            <CgClose
+              onClick={toggleCheckout}
+              style={{
+                cursor: "pointer",
+                position: "absolute",
+                right: 15,
+                top: 13
+              }}
+            />
+            <h2
+              style={{ textAlign: "center", marginBottom: 30, marginTop: 10 }}
+            >
+              Checkout
+            </h2>
             <p>Personal Information</p>
             <div>
               <div className="parent">
@@ -85,7 +94,26 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
                 <CustomInput placeholder="City" className="input-style" />
                 <CustomInput placeholder="State" className="input-style" />
               </div>
-              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  marginTop: 10
+                }}
+              >
+                <button
+                  onClick={toggleCheckout}
+                  style={{
+                    fontSize: 14,
+                    marginRight: 8,
+                    padding: "8px 20px",
+                    background: "gray",
+                    borderRadius: 6,
+                    color: "white"
+                  }}
+                >
+                  Back
+                </button>
                 <button
                   disabled={loading}
                   className="proceed-to-pay-btn"

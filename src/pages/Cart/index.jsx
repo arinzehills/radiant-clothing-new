@@ -4,12 +4,15 @@ import { BsCart4, BsPatchCheck } from "react-icons/bs";
 import { IoMdArrowBack, IoMdNotifications } from "react-icons/io";
 import search from "../../../public/images/no-record-found.png";
 import { Link, useNavigate } from "react-router-dom";
+import { ClickableToast } from "../../components/Featured/ProductItem";
 
 import "./cart.css";
 import Checkout from "./Checkout";
 import CartContext from "../../context/CartContext";
 import { toast } from "react-toastify";
 import { toastOptions } from "../../components/Featured/ProductItem";
+import empty from "../../../public/images/empty.png";
+import { RiDeleteBin2Fill } from "react-icons/ri";
 
 export const CustomInput = (props) => {
   return <input type="text" {...props} />;
@@ -20,7 +23,7 @@ const Cart = () => {
   const currencyFormater = (number) => {
     return new Intl.NumberFormat("en-EN", {
       style: "currency",
-      currency: "INR",
+      currency: "INR"
     }).format(number);
   };
   const dummyProducts = [
@@ -29,38 +32,57 @@ const Cart = () => {
       name: "Lorem Ipsum dolor sit amet. consectutur",
       category: "Native",
       price: "$4,500",
-      quantity: 1,
+      quantity: 1
     },
     {
       imgUrl: "../../../public/images/white_shopping.jpg",
       name: "Lorem Ipsum dolor sit amet. consectutur",
       category: "English",
       price: "$7,000",
-      quantity: 1,
+      quantity: 1
     },
     {
       imgUrl: "../../../public/images/straight-suit.jpeg",
       name: "Lorem Ipsum dolor sit amet. consectutur",
       category: "Ankara",
       price: "$12,750",
-      quantity: 1,
+      quantity: 1
     },
     {
       imgUrl: "../../../public/images/white_shopping.jpg",
       name: "Lorem Ipsum dolor sit amet. consectutur",
       category: "Multipurpose",
       price: "$4,500",
-      quantity: 1,
-    },
+      quantity: 1
+    }
   ];
   const [checkout, setCheckout] = useState(false);
-  const { cartItems, setCartItems } = useContext(CartContext);
+  const { cartItems, setCartItems, whishLists, setWhishLists } =
+    useContext(CartContext);
+
+  const handleAddToCart = (item) => {
+    const index = cartItems.findIndex((cartItem) => cartItem._id === item._id);
+    if (index >= 0) {
+      toast.success(<ClickableToast text="Already in cart" />, toastOptions);
+      return;
+    }
+    item.quantityToBuy = 1;
+    setCartItems((prev) => [item, ...prev]);
+    toast.success(<ClickableToast />, toastOptions);
+  };
 
   const removeItem = (_id) => {
     const newCartItems = cartItems.filter((item) => item._id !== _id);
     setCartItems(newCartItems);
     toast.warn("One item removed from cart", toastOptions);
   };
+
+  const removeWhishList = (_id) => {
+    const newWhishList = whishLists.filter((item) => item._id !== _id);
+    setWhishLists(newWhishList);
+    toast.warn("One item removed from whishlist", toastOptions);
+  };
+
   const minusQuantity = (_id) => {
     const currentItem = cartItems.find((item) => item._id === _id);
     if (currentItem.quantityToBuy === 1) return;
@@ -118,7 +140,7 @@ const Cart = () => {
                     <div
                       className="item"
                       style={{
-                        borderTop: idx !== 0 ? "1px solid gainsboro" : "none",
+                        borderTop: idx !== 0 ? "1px solid gainsboro" : "none"
                       }}
                     >
                       <div className="top">
@@ -130,8 +152,8 @@ const Cart = () => {
                                 display: "flex",
                                 flexDirection: "column",
                                 gap: 4,
+                                marginRight: 10
                               }}
-                              class="flex flex-col gap-1"
                             >
                               <p style={{ fontSize: 14, fontWeight: 700 }}>
                                 {item.product_name} -{" "}
@@ -140,19 +162,24 @@ const Cart = () => {
                                 </span>{" "}
                               </p>
                               <p style={{ textTransform: "capitalize" }}>
-                                Category - {item.category}
+                                <span
+                                  style={{ marginBlock: 5, fontWeight: 600 }}
+                                >
+                                  Category
+                                </span>{" "}
+                                - {item.category}
                               </p>
                               <p>
                                 Size -{" "}
                                 <span style={{ color: "coral" }}>
-                                  {item.size || "M"}
+                                  {item.size || "XXL"}
                                 </span>
                               </p>
                               <p
                                 style={{
                                   display: "flex",
                                   alignItems: "center",
-                                  gap: 4,
+                                  gap: 4
                                 }}
                               >
                                 <IoMdNotifications color="coral" size={20} />{" "}
@@ -168,13 +195,14 @@ const Cart = () => {
                                   display: "flex",
                                   alignItems: "center",
                                   gap: 8,
-                                  fontSize: 14,
+                                  fontSize: 14
                                 }}
                               >
                                 <p
                                   style={{
+                                    whiteSpace: "nowrap",
                                     textDecoration: "line-through",
-                                    color: "coral",
+                                    color: "coral"
                                   }}
                                 >
                                   N 8,000
@@ -200,7 +228,7 @@ const Cart = () => {
                               background:
                                 item.quantityToBuy === 1
                                   ? "rgb(220 252 231)"
-                                  : "rgb(74 222 128)",
+                                  : "rgb(74 222 128)"
                             }}
                           >
                             -
@@ -214,7 +242,7 @@ const Cart = () => {
                               padding: " 4px 10px",
                               borderRadius: 4,
                               fontSize: 20,
-                              background: "rgb(74 222 128)",
+                              background: "rgb(74 222 128)"
                             }}
                           >
                             +
@@ -249,34 +277,79 @@ const Cart = () => {
               style={{
                 display: "flex",
                 justifyContent: "space-between",
-                width: "100%",
+                width: "100%"
               }}
             >
-              <button onClick={toggleCheckout} className="checkout-btn">
+              <button
+                disabled={getTotalPrice() === 0}
+                onClick={toggleCheckout}
+                className="checkout-btn"
+              >
                 CHECKOUT {currencyFormater(getTotalPrice())}
               </button>
             </div>
           </div>
         </div>
         <div className="saved-for-later">
-          <p>Saved For Later</p>
-          <div>
-            {dummyProducts.map((product, idx) => (
-              <div key={idx} class="item">
-                <img src={product.imgUrl} />
-                <p style={{ marginTop: 8 }}>{product.name}</p>
-                <p style={{ marginTop: 4, color: "rgb(74 222 128)" }}>
-                  {product.category}
-                </p>
-                <div class="bottom">
-                  <p style={{ fontWeight: 600 }}>{product.price}</p>
-                  <button>
-                    <BsCart4 size={22} />
-                  </button>
+          <p>Your Wishlists</p>
+          {whishLists.length ? (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(4,1fr)",
+                gap: 10
+              }}
+            >
+              {whishLists.map((product, idx) => (
+                <div key={idx} class="item">
+                  <img style={{ marginBottom: 5 }} src={product.images[0]} />
+                  <div
+                    style={{
+                      marginRight: 28,
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center"
+                    }}
+                  >
+                    <div>
+                      <p style={{ marginTop: 8 }}>{product.product_name}</p>
+                      <p style={{ marginTop: 4, color: "rgb(74 222 128)" }}>
+                        {product.category}
+                      </p>
+                    </div>
+                    <span
+                      onClick={() => removeWhishList(product._id)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <RiDeleteBin2Fill color="red" size={21} />
+                    </span>
+                  </div>
+                  <div class="bottom">
+                    <p style={{ fontWeight: 600 }}>
+                      {currencyFormater(product.price)}
+                    </p>
+                    <button onClick={() => handleAddToCart(product)}>
+                      <BsCart4 size={22} />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div
+              style={{
+                display: "grid",
+                placeContent: "center",
+                paddingBottom: 20,
+                textAlign: "center"
+              }}
+            >
+              <img src={empty} style={{ width: 200 }} />
+              <p style={{ fontSize: 12, marginTop: -20, marginBottom: 15 }}>
+                Items added to wishlists are <br /> displayed here.
+              </p>
+            </div>
+          )}
         </div>
         <div className="also-like">
           <p>You May Also Like</p>
