@@ -56,16 +56,20 @@ const Navbar = () => {
   );
   return (
     <>
-      {window.innerWidth < 769 ? <PhoneUpper /> : <UpperNavbar />}
+      {window.innerWidth < 769 ? (
+        <PhoneUpper handleClick={handleClick} click={click} />
+      ) : (
+        <UpperNavbar />
+      )}
       <div className="navbar">
         <div className="navbar-container container">
-          <div className="menu-icon" onClick={handleClick}>
+          {/* <div className="menu-icon" onClick={handleClick}>
             {click ? (
               <TiTimesOutline fontSize={48} />
             ) : (
               <HiMenuAlt4 fontSize={48} />
             )}
-          </div>
+          </div> */}
           <ul className={click ? "nav-menu active" : "nav-menu"} style={{}}>
             <li
               className={

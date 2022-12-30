@@ -7,12 +7,13 @@ module.exports = USER_TYPES = {
 };
 const userSchema = new mongoose.Schema(
   {
-    full_name: { type: String, default: "" },
+    first_name: { type: String, default: "" },
+    last_name: { type: String, default: "" },
     email: { type: String, unique: true },
     password: { type: String },
     phone: { type: String },
     profilePicture: { type: String, default: "" },
-    user_type: { type: String, default: "business_user" }, //or admin
+    œ: { type: String, default: "business_user" }, //or admin
     token: { type: String },
   },
   {

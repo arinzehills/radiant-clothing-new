@@ -184,13 +184,15 @@
   }
   .navbar {
     height: 85px;
+    position: relative;
   }
   .navbar-container {
     padding: 0;
     background: var(--black);
     margin: 0;
-    height: 100px;
+    height: 10px;
     margin-top: -3px;
+    /* display: none; */
   }
   .nav-items {
     /* position: relative; */
@@ -265,7 +267,7 @@
     display: block;
     position: absolute;
     top: 20px;
-    right: 20px;
+    left: 20px;
     /* transform: translate(-100%, 60%); */
     /* font-size: 1.8rem; */
     cursor: pointer;
@@ -275,7 +277,7 @@
     align-items: center;
     justify-content: center;
     display: flex;
-    padding: 0.5rem;
+    padding: 0.3rem;
     z-index: 99;
   }
 

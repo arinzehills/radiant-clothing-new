@@ -15,7 +15,7 @@ const UpperNavbar = () => {
   const { token, setToken } = useToken();
   const [handleNotData, setHandleNotData] = useState({
     message: "no",
-    color: "var(--success)"
+    color: "var(--success)",
   });
   console.log(token);
   return (
@@ -26,7 +26,7 @@ const UpperNavbar = () => {
           justifyContent: "space-around",
           alignItems: "center",
           padding: "0 25px",
-          height: window.innerWidth < 960 && "170px"
+          height: window.innerWidth < 960 && "170px",
         }}
         className="class_justify_contents_row"
       >
@@ -45,17 +45,13 @@ const UpperNavbar = () => {
             // inputSize={"ipn--wide"}
             inputHeight={"45px"}
             inputData={{
-              label: "Search for products, brands and categories..."
+              label: "Search for products, brands and categories...",
             }}
             iconName={"ic:outline-search"}
           />
         </div>
 
-        <Link
-          to={"/cart"}
-          style={{ gap: "1rem" }}
-          className="class_justify_contents_row"
-        >
+        <div style={{ gap: "1rem" }} className="class_justify_contents_row">
           <CartIcon icon="material-symbols:shopping-cart" color="white" />
           {token === null ? (
             <Link to={"/login"}>
@@ -72,48 +68,50 @@ const UpperNavbar = () => {
               />
             </Link>
           )}
-        </Link>
+        </div>
       </div>
     </>
   );
 };
-const CartIcon = () => {
+export const CartIcon = () => {
   const { cartItems } = useContext(CartContext);
   return (
     <>
-      <div
-        style={{
-          // background: "white",
-          height: window.innerWidth < 770 ? "35px" : "45px",
-          width: window.innerWidth < 770 ? "35px" : "45px",
-          borderRadius: "50px"
-        }}
-        className="centerClass gold_color_light"
-      >
-        <Icon
-          icon="material-symbols:shopping-cart"
-          fontSize={window.innerWidth < 770 ? "15px" : "20px"}
-          color="black"
-        />
-        {cartItems.length > 0 ? (
-          <div
-            style={{
-              // height: "18px",
-              // width: "18px",
-              padding: "3px",
-              background: "var(--pink)",
-              borderRadius: "50px",
-              fontSize: "10px",
-              color: "white",
-              position: "absolute",
-              marginBottom: "20px",
-              marginLeft: "20px"
-            }}
-          >
-            {cartItems.length}
-          </div>
-        ) : null}
-      </div>
+      <Link to={"/cart"}>
+        <div
+          style={{
+            // background: "white",
+            height: window.innerWidth < 770 ? "35px" : "45px",
+            width: window.innerWidth < 770 ? "35px" : "45px",
+            borderRadius: "50px",
+          }}
+          className="centerClass gold_color_light"
+        >
+          <Icon
+            icon="material-symbols:shopping-cart"
+            fontSize={window.innerWidth < 770 ? "15px" : "20px"}
+            color="black"
+          />
+          {cartItems.length > 0 ? (
+            <div
+              style={{
+                // height: "18px",
+                // width: "18px",
+                padding: "3px",
+                background: "var(--pink)",
+                borderRadius: "50px",
+                fontSize: "10px",
+                color: "white",
+                position: "absolute",
+                marginBottom: "20px",
+                marginLeft: "20px",
+              }}
+            >
+              {cartItems.length}
+            </div>
+          ) : null}
+        </div>
+      </Link>
     </>
   );
 };

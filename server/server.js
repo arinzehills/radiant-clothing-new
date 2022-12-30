@@ -25,11 +25,11 @@ app.get("/", function (req, res) {
 
 // routes
 app.use("/", require("./routes/user.route"));
-app.use("/admin", require("./routes/adminroutes/category.route"));
+app.use("/admin", require("./routes/adminroutes/addcategory.route"));
 app.use("/admin", require("./routes/adminroutes/products.route"));
-app.use("/admin", require("./routes/adminroutes/addhomeimages.route"));
 app.use("/payment", paymentRouter);
 // app.use("/admin", require("./routes/adminroutes/addcategory.route"));
+
 
 server.listen(port, () => {
   console.log(`Listening on port:: http://localhost:${port}`);

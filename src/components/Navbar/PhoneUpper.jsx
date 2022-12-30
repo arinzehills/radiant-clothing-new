@@ -1,49 +1,15 @@
 import { Icon } from "@iconify/react";
 import React from "react";
+import { HiMenuAlt4 } from "react-icons/hi";
+import { TiTimesOutline } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import InputWithIcon from "../InputWithIcon/InputWithIcon";
+import { CartIcon } from "./UpperNavbar";
 
-const CartIcon = () => {
-  return (
-    <>
-      <div
-        style={{
-          // background: "white",
-          height: window.innerWidth < 770 ? "35px" : "45px",
-          width: window.innerWidth < 770 ? "35px" : "45px",
-          borderRadius: "50px",
-        }}
-        className="centerClass gold_color_light"
-      >
-        <Icon
-          icon="material-symbols:shopping-cart"
-          fontSize={window.innerWidth < 770 ? "15px" : "20px"}
-          color="black"
-        />
-        <div
-          style={{
-            // height: "18px",
-            // width: "18px",
-            padding: "3px",
-            background: "var(--pink)",
-            borderRadius: "50px",
-            fontSize: "10px",
-            color: "white",
-            position: "absolute",
-            marginBottom: "20px",
-            marginLeft: "20px",
-          }}
-        >
-          10
-        </div>
-      </div>
-    </>
-  );
-};
-const PhoneUpper = ({}) => {
+const PhoneUpper = ({ handleClick, click }) => {
   return (
     <div
-      style={{ background: "black", height: "170px" }}
+      style={{ background: "black", height: "170px", position: "sticky" }}
       className="class_justify_contents_column"
     >
       <div
@@ -54,11 +20,20 @@ const PhoneUpper = ({}) => {
           width: "90%",
         }}
       >
-        {" "}
+        <div className="menu-icon" onClick={handleClick}>
+          {click ? (
+            <TiTimesOutline fontSize={48} />
+          ) : (
+            <HiMenuAlt4 fontSize={48} />
+          )}
+        </div>
         <Link to="/" onClick={() => closeMobileMenu(1)}>
           <img
             src="images/logo.png"
-            style={{ height: 90 }}
+            style={{
+              height: 90,
+              paddingLeft: window.innerWidth < 960 && "60px",
+            }}
             alt="radiant-clothing-logo"
           />
         </Link>
@@ -68,7 +43,15 @@ const PhoneUpper = ({}) => {
           <Icon icon="mdi:user" color="white" fontSize={"33px"} />
         </div>
       </div>
-
+      {/* <div
+        style={
+          {
+            // display: "flex",
+            // justifyContent: "center",
+            // alignItems: "center",
+          }
+        }
+      > */}
       <InputWithIcon
         inputHeight={"45px"}
         inputData={{
@@ -76,6 +59,7 @@ const PhoneUpper = ({}) => {
         }}
         iconName={"ic:outline-search"}
       />
+      {/* </div> */}
     </div>
   );
 };
