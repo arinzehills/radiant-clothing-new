@@ -3,10 +3,15 @@ import React from "react";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { TiTimesOutline } from "react-icons/ti";
 import { Link } from "react-router-dom";
+import useToken from "../../useToken";
+import useUser from "../../useUser";
 import InputWithIcon from "../InputWithIcon/InputWithIcon";
+import ProfilePicsComponent from "../ProfilePicsComponent/ProfilePicsComponent";
 import { CartIcon } from "./UpperNavbar";
 
 const PhoneUpper = ({ handleClick, click }) => {
+  const { user, setUser } = useUser();
+  const { token, setToken } = useToken();
   return (
     <div
       style={{ background: "black", height: "170px", position: "sticky" }}
@@ -40,7 +45,22 @@ const PhoneUpper = ({ handleClick, click }) => {
         {/* <p style={{ color: "white" }}>Dsds</p> */}
         <div style={{ gap: "1rem" }} className="class_justify_contents_row">
           <CartIcon icon="material-symbols:shopping-cart" color="white" />
-          <Icon icon="mdi:user" color="white" fontSize={"33px"} />
+
+          {token === null ? (
+            <Link to={"/login"}>
+              <Icon icon="mdi:user" color="white" fontSize={"33px"} />
+            </Link>
+          ) : (
+            <Link to={"#"}>
+              <ProfilePicsComponent
+                name={user?.["firstname"]}
+                // isOnline={"Online" ?? user?.["online_status"]}
+                isCirclular={true}
+                size="120px"
+                // setHandleNotData={setHandleNotData}
+              />
+            </Link>
+          )}
         </div>
       </div>
       {/* <div
