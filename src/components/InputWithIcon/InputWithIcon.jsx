@@ -24,7 +24,7 @@ const InputWithIcon = ({
           display: "flex",
           width:
             window.innerWidth < 660
-              ? "89%"
+              ? "95%"
               : window.innerWidth < 960
               ? "85%"
               : "107%",
