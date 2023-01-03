@@ -12,8 +12,18 @@ import "./Footer.css";
 import ButtonWithIcon from "../ButtonWithIcon/ButtonWithIcon";
 import { Button } from "../Button/Button";
 import GradientText from "../utilitiescomponent/GradientText";
+import useFetch from "../../useFetch";
 
 function Footer() {
+  const {
+    data: categoriesData,
+    loading: loadingCategory,
+    errorCategory,
+  } = useFetch({
+    url: window.baseUrl + "admin/getCategories",
+    // secondParam: activeRow,
+  });
+
   const FooterText = () => {
     return (
       <>
@@ -60,14 +70,14 @@ function Footer() {
             <div>
               <p className={"italics"}>Explore!</p>
               <h3 style={{ color: "white", textTransform: "uppercase" }}>
-                Our services
+                Customer Service
               </h3>
               <div className="footer-link-items">
-                <Link to="/pricing">Home</Link>
-                <Link to="/pricing">About us</Link>
-                <Link to="/pricing">Contact Us</Link>
-                <Link to="/pricing">FAQ</Link>
-                <Link to="/pricing">Terms and Condition</Link>
+                <Link to="/">Home</Link>
+                <Link to="/about">About us</Link>
+                <Link to="/contact">Contact Us</Link>
+                <Link to="/faqs">FAQ</Link>
+                <Link to="/terms-and-condition">Terms and Condition</Link>
                 {/* <a href="https://www.conterize.com/blog">Blog</a> */}
               </div>
             </div>
@@ -77,12 +87,23 @@ function Footer() {
                 Featured Categories
               </h3>
               <div className="footer-link-items">
-                <Link to="/pricing">Home</Link>
-                <Link to="/pricing">About us</Link>
-                <Link to="/pricing">Contact Us</Link>
-                <Link to="/pricing">FAQ</Link>
-                <Link to="/pricing">Terms and Condition</Link>
-                {/* <a href="https://www.conterize.com/blog">Blog</a> */}
+                {loadingCategory ? (
+                  <div
+                    className="class_justify_contents_column"
+                    style={{ height: "200px" }}
+                  >
+                    loading...
+                  </div>
+                ) : (
+                  categoriesData?.categories?.map((item) => (
+                    <Link
+                      to={`/categories/${item.category}`}
+                      key={item.category}
+                    >
+                      {item.category}
+                    </Link>
+                  ))
+                )}
               </div>
             </div>
           </div>

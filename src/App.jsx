@@ -31,6 +31,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import About from "./pages/About/About";
 import ProductDetail from "./components/Featured/ProductDetail";
+import Terms from "./pages/Terms/Terms";
 
 function App() {
   const [handleNotData, setHandleNotData] = useState({
@@ -85,6 +86,7 @@ function App() {
             <Route path=":product" exact element={<ProductDetail />} />
           </Route>
           <Route path="/about" exact element={<About />} />
+          <Route path="/terms-and-condition" exact element={<Terms />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart/checkout" element={<Checkout />} />
           <Route path="dashboard" element={<Dashboard />}>

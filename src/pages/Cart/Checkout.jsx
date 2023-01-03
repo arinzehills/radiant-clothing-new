@@ -9,7 +9,7 @@ import "./cart.css";
 
 const Checkout = ({ toggleCheckout, getTotalPrice }) => {
   const [loading, setLoading] = useState(false);
-  const API_URL = "http://localhost:3002/payment/";
+  const API_URL = window.baseUrl + "payment/";
   const navigate = useNavigate();
 
   const [totalAmount, getTotalAmount] = useState(() => getTotalPrice());
@@ -33,8 +33,8 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
         }
       },
       theme: {
-        color: "#686CFD"
-      }
+        color: "#686CFD",
+      },
     };
 
     const rzp1 = new window.Razorpay(options);
@@ -68,7 +68,7 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
                 cursor: "pointer",
                 position: "absolute",
                 right: 15,
-                top: 13
+                top: 13,
               }}
             />
             <h2
@@ -98,7 +98,7 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
                 style={{
                   display: "flex",
                   justifyContent: "flex-end",
-                  marginTop: 10
+                  marginTop: 10,
                 }}
               >
                 <button
@@ -109,7 +109,7 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
                     padding: "8px 20px",
                     background: "gray",
                     borderRadius: 6,
-                    color: "white"
+                    color: "white",
                   }}
                 >
                   Back
@@ -131,7 +131,7 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
               style={{
                 marginTop: 20,
                 borderTop: "1px solid gainsboro",
-                paddingTop: 5
+                paddingTop: 5,
               }}
             >
               <p style={{ fontSize: 12 }}>

@@ -30,7 +30,7 @@ const Homepage = () => {
   };
   const slides = [
     {
-      title: "Radiant Clothin ",
+      title: "Radiant Clothing ",
       description: "the best e-shop,makes u glow",
       image:
         "https://res.cloudinary.com/difxlvoq8/image/upload/v1665786719/cld-sample-5.jpg",
@@ -50,7 +50,7 @@ const Homepage = () => {
           }}
         >
           <GradientText
-            text={" RADIANT CLOTHING "}
+            text={"RADIANT CLOTHING"}
             style={{ lineHeight: 1, fontSize: "3vw", textAlign: "left" }}
           />
         </div>
@@ -61,6 +61,9 @@ const Homepage = () => {
         )
       )}
       {/* <ImageSlider slides={slides} /> */}
+      <div style={{ marginTop: "6rem" }} className="class_justify_contents_row">
+        <img src="/images/freeshipping.jpeg" width={"95%"} height="200px" />
+      </div>
       <div style={{ marginTop: "12rem" }}></div>
       <Featured />
     </>

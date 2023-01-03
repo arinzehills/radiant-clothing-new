@@ -75,6 +75,7 @@
   text-align: left;
   width: 160px;
   box-sizing: border-box;
+  text-transform: capitalize;
 }
 
 .footer-link-items h2 {

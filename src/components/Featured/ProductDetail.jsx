@@ -1,14 +1,17 @@
 import getSymbolFromCurrency from "currency-symbol-map";
 import React, { useContext } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CartContext from "../../context/CartContext";
 import { Button } from "../Button/Button";
 import ImageSlider from "../HeroSlider/ImageSlider";
 import { toast } from "react-toastify";
 import { toastOptions } from "./ProductItem";
+import { Helmet } from "react-helmet";
 
 const ProductDetail = ({}) => {
   const location = useLocation();
+  // const { category } = useParams();
+
   console.log(location.state.item);
   const product = location.state.item;
   const { cartItems, setCartItems } = useContext(CartContext);
@@ -59,6 +62,13 @@ const ProductDetail = ({}) => {
         // width: "100%",
       }}
     >
+      <Helmet>
+        <title>Product - {`${product.product_name}`}</title>
+        <meta
+          name="description"
+          content={"Product description of " + `${product.product_name}`}
+        />
+      </Helmet>
       {/* <img src={product.image} alt="" height={"300px"} /> */}
       <ImageSlider
         slides={product.images}

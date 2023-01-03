@@ -34,7 +34,8 @@ const UpperNavbar = () => {
 
         <Link to="/" className="navbar-logo" onClick={() => closeMobileMenu(1)}>
           <img
-            src="/images/logo.png"
+            src="/images/radiant_logo.png"
+            // src="/images/logo.png"
             // style={{ height: 90 }}
             alt="radiant-clothing-logo"
           />
