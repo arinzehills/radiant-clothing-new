@@ -9,7 +9,10 @@ import "./cart.css";
 
 const Checkout = ({ toggleCheckout, getTotalPrice }) => {
   const [loading, setLoading] = useState(false);
+  // const API_URL = "http://localhost:3002/payment/";
+
   const API_URL = window.baseUrl + "payment/";
+  console.log(API_URL);
   const navigate = useNavigate();
 
   const [totalAmount, getTotalAmount] = useState(() => getTotalPrice());

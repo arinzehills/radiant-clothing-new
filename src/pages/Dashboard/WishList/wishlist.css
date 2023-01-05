@@ -1,0 +1,31 @@
+.wishlist p {
+  margin: 0px;
+  padding: 0px;
+  margin-bottom: 5px;
+}
+
+button {
+  cursor: pointer !important;
+}
+
+.whishlist-buy-btn {
+  padding: 10px 20px;
+  background-color: coral;
+  color: white;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+}
+
+.wishlist-remove-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: coral;
+  background-color: transparent !important;
+  margin-top: 25px;
+  translate: -10px 0;
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+}

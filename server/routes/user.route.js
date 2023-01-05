@@ -18,7 +18,7 @@ router.post("/register", async (req, res) => {
   // Our register logic starts here
   try {
     // Get user input
-    const { first_name, last_name, email, password } = req.body;
+    const { full_name, phone, email, password } = req.body;
 
     // Validate user input
     if (!(email && password)) {
@@ -42,9 +42,8 @@ router.post("/register", async (req, res) => {
 
     // Create user in our database
     const user = await User.create({
-      first_name,
-      last_name,
-      
+      full_name,
+      phone,
       email: email.toLowerCase(), // sanitize: convert email to lowercase
       password: encryptedPassword,
     });
@@ -115,6 +114,18 @@ router.post("/login", async (req, res) => {
   }
   // Our register logic ends here
 });
+router.post("/logout", auth, async (req, res) => {
+  try {
+    // res.cookie("jwt", "", { maxAge: "1" }); //set token to empty and also max expiring to 1 sec
+    res.clearCookie("jwt");
+    return res.status(200).json({
+      success: true,
+      message: "Logged out Successfully 🙌 ",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
 router.post("/updateUser", auth, async (req, res) => {
   await User.findByIdAndUpdate(req.user.user_id, req.body, {
     useFindAndModify: false,
@@ -158,6 +169,7 @@ router.post("/updateProfilePicture", auth, async (req, res) => {
     }
   });
 });
+
 router.post("/getUser", auth, async (req, res) => {
   // console.log(req.user)
 
@@ -183,6 +195,13 @@ router.get("/getAllUsers", async (req, res) => {
   User.find({}, function (err, users) {
     res.send(users);
   }).select("-password");
+});
+
+router.post("/getAllCustomers", async (req, res) => {
+  // console.log(req.user)
+  var users = await User.find({ user_type: "business_user" }).lean();
+
+  res.json(users);
 });
 
 module.exports = router;
