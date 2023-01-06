@@ -1,5 +1,5 @@
 import getSymbolFromCurrency from "currency-symbol-map";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CartContext from "../../context/CartContext";
 import { Button } from "../Button/Button";
@@ -7,11 +7,14 @@ import ImageSlider from "../HeroSlider/ImageSlider";
 import { toast } from "react-toastify";
 import { toastOptions } from "./ProductItem";
 import { Helmet } from "react-helmet";
+import AddToCartModal from "../../pages/Cart/AddToCartModal";
+import AnimatedModal from "../AnimatedModal/AnimatedModal";
 
 const ProductDetail = ({}) => {
   const location = useLocation();
   // const { category } = useParams();
-
+  const [openModal, setOpenModal] = useState(false);
+  const [itemSize, setItemSize] = useState("");
   console.log(location.state.item);
   const product = location.state.item;
   const { cartItems, setCartItems } = useContext(CartContext);
@@ -62,6 +65,19 @@ const ProductDetail = ({}) => {
         // width: "100%",
       }}
     >
+      <AnimatedModal
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        modalHeight="250px"
+        bkdropclassName={"full_backdrop"}
+      >
+        <AddToCartModal
+          item={product}
+          setItemSize={setItemSize}
+          itemSize={itemSize}
+          setOpenModal={setOpenModal}
+        />
+      </AnimatedModal>
       <Helmet>
         <title>Product - {`${product.product_name}`}</title>
         <meta
@@ -127,7 +143,7 @@ const ProductDetail = ({}) => {
           buttonColor={"gold"}
           buttonStyle={'btn--normal"'}
           children={"Add to Cart"}
-          onClick={() => handleAddToCart(product)}
+          onClick={() => setOpenModal(true)}
         />
       </div>
     </div>

@@ -10,6 +10,7 @@ import CartContext from "../../context/CartContext";
 import { Link, useNavigate } from "react-router-dom";
 import AnimatedModal from "../AnimatedModal/AnimatedModal";
 import { Button } from "../Button/Button";
+import AddToCartModal from "../../pages/Cart/AddToCartModal";
 
 export const ClickableToast = ({ text }) => {
   const navigate = useNavigate();
@@ -45,16 +46,7 @@ const ProductItem = ({ item, productsSet, loading }) => {
     useContext(CartContext);
   const [openModal, setOpenModal] = useState(false);
   const [itemSize, setItemSize] = useState("");
-  const handleAddToCart = () => {
-    const index = cartItems.findIndex((cartItem) => cartItem._id === item._id);
-    if (index >= 0) {
-      toast.success(<ClickableToast text="Already in cart" />, toastOptions);
-      return;
-    }
-    item.quantityToBuy = 1;
-    setCartItems((prev) => [item, ...prev]);
-    toast.success(<ClickableToast />, toastOptions);
-  };
+
   const stopPropagation = (event) => {
     event.stopPropagation();
   };
@@ -86,34 +78,12 @@ const ProductItem = ({ item, productsSet, loading }) => {
         modalHeight="250px"
         bkdropclassName={"full_backdrop"}
       >
-        <h4>Please Select Size</h4>
-        <div className="class_justify_contents_row" style={{ gap: "1rem" }}>
-          {item.sizes.map((size) => (
-            <div
-              style={{
-                border: "var(--border",
-                padding: "10px",
-                color: itemSize === size && "white",
-              }}
-              className={itemSize === size && "orange"}
-              onClick={() => setItemSize(size)}
-            >
-              {size}
-            </div>
-          ))}
-        </div>
-        <Button
-          buttonColor={"orange"}
-          style={{ color: "white" }}
-          loading={itemSize === "" ? true : false}
-          loadingText="Add to Cart"
-          onClick={() => {
-            handleAddToCart(item);
-            setOpenModal(false);
-          }}
-        >
-          {"Add to cart"}
-        </Button>
+        <AddToCartModal
+          item={item}
+          setItemSize={setItemSize}
+          itemSize={itemSize}
+          setOpenModal={setOpenModal}
+        />
       </AnimatedModal>
       <div
         className="product-item class_justify_contents_column"
