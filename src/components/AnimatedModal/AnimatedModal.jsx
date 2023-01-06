@@ -68,10 +68,11 @@ const AnimatedModal = ({
               >
                 <div
                   style={{
-                    display: "flex",
-                    justifyContent: "right",
                     fontSize: "25px",
+                    position: "absolute",
                     cursor: "pointer",
+                    right: 0,
+                    padding: "1rem 2rem",
                   }}
                   onClick={() => setOpenModal(false)}
                 >

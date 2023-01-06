@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Icon } from "@iconify/react";
 import { Button } from "../../../components/Button/Button";
 import handleNot from "../../../components/HandleNotification/HandleNot";
 import ImageSlider from "../../../components/HeroSlider/ImageSlider";
 import DropDownField from "../../../components/Inputfield/DropDownField";
 import InputField from "../../../components/Inputfield/InputField";
 import TextArea from "../../../components/Inputfield/TextArea";
+import InputWithIcon from "../../../components/InputWithIcon/InputWithIcon";
 import useFetch from "../../../useFetch";
 import handleChange from "../../../utils/handleChange";
 import SupportUpload from "./SupportUpload";
@@ -29,6 +31,13 @@ const AddProducts = ({ setOpenModal, isEdit, product }) => {
   const fileNamesRef = React.useRef();
   const pickFileRef = React.useRef();
   const [category, setCategory] = useState("Select category");
+  let [referenceLinks, setReferenceLinks] = useState([
+    // "",
+    // "",
+    { links: "" },
+    { links: "" },
+  ]);
+
   const [percentageDiscount, setPercentageDiscount] = useState(0);
   // const [categories, setCategories] = useState(["loading"]);
   const categories = [];
@@ -98,6 +107,12 @@ const AddProducts = ({ setOpenModal, isEdit, product }) => {
       // console.log(formValues.supporting_materials[i].name);
       data.append("image", files[i]);
     }
+    for (let i = 0; i < referenceLinks.length; i++) {
+      // console.log(formValues.supporting_materials[i].name);
+      console.log("referenceLinks[i]");
+      console.log(referenceLinks[i]["links"]);
+      data.append("sizes", referenceLinks[i]["links"]);
+    }
     console.log(Object.fromEntries(data));
 
     const url = product
@@ -163,6 +178,23 @@ const AddProducts = ({ setOpenModal, isEdit, product }) => {
       setPercentageDiscount(percetage * 100);
     }
   }, [formValues.discount_price]);
+
+  const handleAddLinks = () => {
+    setReferenceLinks([...referenceLinks, { links: "" }]);
+  };
+  const handleRemoveLinks = (index) => {
+    const list = [...referenceLinks];
+    list.splice(index, 1); //starting from index zero remove one service
+    setReferenceLinks(list); //set links to new list
+  };
+  const handleLinksChange = (e, index) => {
+    const { name, value } = e.target;
+    console.log(e.target.name);
+    const list = [...referenceLinks];
+    list[index][name] = value;
+    setReferenceLinks(list);
+  };
+
   return (
     <>
       <div>
@@ -229,8 +261,37 @@ const AddProducts = ({ setOpenModal, isEdit, product }) => {
           value={formValues.quantity}
         />
         <p className="errors">{formErrors.quantity}</p>
+        <h5>Add Sizes </h5>
+        {referenceLinks.map((links, index) => (
+          <div>
+            <InputWithIcon
+              // inputkey={index + 1}
+              name="links"
+              iconName={"bi:dash-square-fill"}
+              style={{ width: "100%" }}
+              inputHeight="37px"
+              placeholder="Type here or select"
+              onClickIcon={() => handleRemoveLinks(index)}
+              onHandleChange={(e) => handleLinksChange(e, index)}
+            />
+            {referenceLinks.length - 1 === index && (
+              <div
+                style={{
+                  color: "var(--light-purple)",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                }}
+                onClick={handleAddLinks}
+              >
+                <Icon icon="akar-icons:circle-plus-fill" fontSize={23} />
+                <p>Add Another</p>
+              </div>
+            )}{" "}
+          </div>
+        ))}
         <div className={{}}>
-          <h2>Categories</h2>
+          <h5>Categories</h5>
           <DropDownField
             options={categories}
             selected={category}

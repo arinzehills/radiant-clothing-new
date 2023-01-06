@@ -11,6 +11,7 @@ export const Button = ({
   style,
   isCircular,
   loading,
+  loadingText,
 }) => {
   const COLOR = ["gold", "black", "orange"];
   const STYLES = ["btn--normal", "btn--outline"]; //for button with border only or not
@@ -33,7 +34,7 @@ export const Button = ({
       onClick={loading ? null : onClick}
       type={type}
     >
-      {loading ? "Loading..." : children}
+      {loading ? `${loadingText ?? "Loading..."}` : children}
     </button>
   );
 };
