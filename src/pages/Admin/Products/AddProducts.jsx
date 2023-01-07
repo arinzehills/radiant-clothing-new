@@ -22,6 +22,10 @@ const AddProducts = ({ setOpenModal, isEdit, product }) => {
     images: product?.images ?? [],
   };
   const [formValues, setFormValues] = useState(initialValues);
+
+  const superCategories = ["Clothing", "Accessories", "Footwears"];
+
+  const [superCategory, setSuperCategory] = useState("Select category");
   const [responseError, setResponseError] = useState("");
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
@@ -97,6 +101,7 @@ const AddProducts = ({ setOpenModal, isEdit, product }) => {
     const data = new FormData();
     data.append("product_id", formValues.product_id);
     data.append("product_name", formValues.product_name);
+    data.append("super_category", superCategory);
     data.append("category", category);
     data.append("price", formValues.price);
     data.append("discount_price", formValues.discount_price);
@@ -290,6 +295,14 @@ const AddProducts = ({ setOpenModal, isEdit, product }) => {
             )}{" "}
           </div>
         ))}
+        {/* <div className={{}}>
+          <h5 style={{ lineHeight: 0 }}>Main category</h5>
+          <DropDownField
+            options={superCategories}
+            selected={superCategory}
+            setSelected={setSuperCategory}
+          />
+        </div> */}
         <div className={{}}>
           <h5>Categories</h5>
           <DropDownField
@@ -314,7 +327,10 @@ const AddProducts = ({ setOpenModal, isEdit, product }) => {
 
         <p className="errors">{responseError ?? ""}</p>
         {/* <p>{filespathList.join(",")}</p> */}
-        <div style={{ width: "100%", gap: "5px", overflowX: "hidden" }}>
+        <div
+          style={{ width: "100%", gap: "5px", overflowX: "hidden" }}
+          className="class_justify_contents_row"
+        >
           {filespathList.map((image) => (
             <img src={image} height="50px" />
           ))}

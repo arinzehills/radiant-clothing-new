@@ -32,33 +32,11 @@ const ProductDetail = ({}) => {
     toast.success(<ClickableToast />, toastOptions);
   };
 
-  const ClickableToast = ({ text }) => {
-    const navigate = useNavigate();
-    return (
-      <p
-        onClick={() => navigate("/cart")}
-        style={{ fontSize: 14, margin: 0, gap: 3, display: "flex" }}
-      >
-        {text ? text : "Added to cart!"}
-        <span
-          style={{
-            textDecoration: "underline",
-            display: "block",
-            color: "white",
-            marginLeft: 2,
-          }}
-        >
-          Click to view{" "}
-        </span>
-      </p>
-    );
-  };
-
   return (
     <div
       className="class_justify_contents_row"
       style={{
-        justifyContent: "space-around",
+        justifyContent: "left",
         padding: "2rem",
         alignItems: "start",
         flexDirection: window.innerWidth < 760 && "column",
@@ -89,6 +67,12 @@ const ProductDetail = ({}) => {
       <ImageSlider
         slides={product.images}
         isNotMap={true}
+        imageStyle={{
+          // maxHeight: "180px",
+          // maxWidth: "180px",
+          height: "180px",
+          width: "99.3%",
+        }}
         style={{
           height: window.innerWidth < 660 ? "" : "300px",
           width: window.innerWidth < 660 ? "" : "400px",

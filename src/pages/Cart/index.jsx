@@ -23,7 +23,7 @@ const Cart = () => {
   const currencyFormater = (number) => {
     return new Intl.NumberFormat("en-EN", {
       style: "currency",
-      currency: "INR"
+      currency: "INR",
     }).format(number);
   };
   const dummyProducts = [
@@ -32,29 +32,29 @@ const Cart = () => {
       name: "Lorem Ipsum dolor sit amet. consectutur",
       category: "Native",
       price: "$4,500",
-      quantity: 1
+      quantity: 1,
     },
     {
       imgUrl: "../../../public/images/white_shopping.jpg",
       name: "Lorem Ipsum dolor sit amet. consectutur",
       category: "English",
       price: "$7,000",
-      quantity: 1
+      quantity: 1,
     },
     {
       imgUrl: "../../../public/images/straight-suit.jpeg",
       name: "Lorem Ipsum dolor sit amet. consectutur",
       category: "Ankara",
       price: "$12,750",
-      quantity: 1
+      quantity: 1,
     },
     {
       imgUrl: "../../../public/images/white_shopping.jpg",
       name: "Lorem Ipsum dolor sit amet. consectutur",
       category: "Multipurpose",
       price: "$4,500",
-      quantity: 1
-    }
+      quantity: 1,
+    },
   ];
   const [checkout, setCheckout] = useState(false);
   const { cartItems, setCartItems, whishLists, setWhishLists } =
@@ -105,7 +105,7 @@ const Cart = () => {
   const getTotalPrice = () => {
     let totalPrice = 0;
     cartItems.map((item) => {
-      totalPrice += item.price * item.quantityToBuy;
+      totalPrice += item.discount_price * item.quantityToBuy;
     });
     console.log(totalPrice);
     return totalPrice;
@@ -118,7 +118,10 @@ const Cart = () => {
   useEffect(() => {
     getTotalPrice();
   }, [cartItems]);
-
+  const percetage = (product) => {
+    var discount = (product.price - product.discount_price) / product.price;
+    return (discount * 100).toFixed(0) + "%";
+  };
   return (
     <>
       <div class="cart-container">
@@ -140,7 +143,7 @@ const Cart = () => {
                     <div
                       className="item"
                       style={{
-                        borderTop: idx !== 0 ? "1px solid gainsboro" : "none"
+                        borderTop: idx !== 0 ? "1px solid gainsboro" : "none",
                       }}
                     >
                       <div className="top">
@@ -152,7 +155,7 @@ const Cart = () => {
                                 display: "flex",
                                 flexDirection: "column",
                                 gap: 4,
-                                marginRight: 10
+                                marginRight: 10,
                               }}
                             >
                               <p style={{ fontSize: 14, fontWeight: 700 }}>
@@ -179,7 +182,7 @@ const Cart = () => {
                                 style={{
                                   display: "flex",
                                   alignItems: "center",
-                                  gap: 4
+                                  gap: 4,
                                 }}
                               >
                                 <IoMdNotifications color="coral" size={20} />{" "}
@@ -188,26 +191,28 @@ const Cart = () => {
                             </div>
                             <div>
                               <p style={{ fontSize: 14, fontWeight: 600 }}>
-                                {currencyFormater(item.price)}
+                                {currencyFormater(item.discount_price)}
                               </p>
                               <div
                                 style={{
                                   display: "flex",
                                   alignItems: "center",
                                   gap: 8,
-                                  fontSize: 14
+                                  fontSize: 14,
                                 }}
                               >
                                 <p
                                   style={{
                                     whiteSpace: "nowrap",
                                     textDecoration: "line-through",
-                                    color: "coral"
+                                    color: "coral",
                                   }}
                                 >
-                                  N 8,000
+                                  {/* N 8,000 */}
+                                  {item.price}
                                 </p>
-                                <p>50%</p>
+                                {/* <p>50%</p> */}
+                                <p>{percetage(item)}</p>
                               </div>
                             </div>
                           </div>
@@ -228,7 +233,7 @@ const Cart = () => {
                               background:
                                 item.quantityToBuy === 1
                                   ? "rgb(220 252 231)"
-                                  : "rgb(74 222 128)"
+                                  : "rgb(74 222 128)",
                             }}
                           >
                             -
@@ -242,7 +247,7 @@ const Cart = () => {
                               padding: " 4px 10px",
                               borderRadius: 4,
                               fontSize: 20,
-                              background: "rgb(74 222 128)"
+                              background: "rgb(74 222 128)",
                             }}
                           >
                             +
@@ -277,7 +282,7 @@ const Cart = () => {
               style={{
                 display: "flex",
                 justifyContent: "space-between",
-                width: "100%"
+                width: "100%",
               }}
             >
               <button
@@ -297,7 +302,7 @@ const Cart = () => {
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(4,1fr)",
-                gap: 10
+                gap: 10,
               }}
             >
               {whishLists.map((product, idx) => (
@@ -308,7 +313,7 @@ const Cart = () => {
                       marginRight: 28,
                       display: "flex",
                       justifyContent: "space-between",
-                      alignItems: "center"
+                      alignItems: "center",
                     }}
                   >
                     <div>
@@ -341,7 +346,7 @@ const Cart = () => {
                 display: "grid",
                 placeContent: "center",
                 paddingBottom: 20,
-                textAlign: "center"
+                textAlign: "center",
               }}
             >
               <img src={empty} style={{ width: 200 }} />
