@@ -350,7 +350,7 @@ const Cart = () => {
                 textAlign: "center",
               }}
             >
-              <img src={empty} style={{ width: 200 }} />
+              <img src={empty} style={{ width: 200, margin: "auto" }} />
               <p style={{ fontSize: 12, marginTop: -20, marginBottom: 15 }}>
                 Items added to wishlists are <br /> displayed here.
               </p>
