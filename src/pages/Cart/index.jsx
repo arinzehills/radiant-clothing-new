@@ -294,6 +294,7 @@ const Cart = () => {
           <p>Your Wishlists</p>
           {whishLists.length ? (
             <div
+              className="four-grid"
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(4,1fr)",
