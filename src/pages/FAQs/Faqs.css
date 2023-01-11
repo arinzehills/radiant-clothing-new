@@ -42,12 +42,14 @@
 
 .faq_icon_wrapper {
   background: var(--black);
+  border-radius: 10px;
   height: 50px;
   width: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  max-width: 50px;
+  max-height: 50px;
   color: #ffffff;
 }
 .faq_row {
@@ -91,18 +93,19 @@
 }
 .faq_icon {
   transition: all 0.9s ease-out;
-  opacity: 0;
+  position: absolute;
+  /* display: none; */
 }
 .faq_icon.faq_icon-active {
   /* -webkit-animation: spin 1s linear;
   -moz-animation: spin 1s linear;
   animation: spin 1s linear; */
   transform: rotate(90deg);
-  opacity: 1;
+  /* display: block; */
 }
 .faq_icon.faq_icon-active2 {
   transform: rotate(-90deg);
-  opacity: 1;
+  /* display: block; */
 }
 @keyframes spin {
   100% {
@@ -114,6 +117,10 @@
 @media screen and (max-width: 768px) {
   .faq_wrapper h2 {
     font-size: 32px;
+  }
+  .faq_row h3 {
+    font-size: 15px;
+    width: 80%;
   }
   .faq_section {
     /* margin: 0 28rem 0; */

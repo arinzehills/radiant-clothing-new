@@ -2,7 +2,10 @@ import React from "react";
 import "./Faqs.css";
 import { MdArrowForwardIos } from "react-icons/md";
 import { BsRecordCircle } from "react-icons/bs";
-import { IoIosArrowDropdownCircle } from "react-icons/io";
+import {
+  IoIosArrowDropdownCircle,
+  IoIosArrowDroprightCircle,
+} from "react-icons/io";
 import { useState, useRef } from "react";
 import { homeData } from "./data";
 
@@ -59,7 +62,7 @@ function FAQs() {
                   <IoIosArrowDropdownCircle
                     style={{
                       fontSize: "2em",
-                      // opacity: click[index] ? "1" : "0",
+                      opacity: click[index] ? "0" : "1",
                     }}
                     className={
                       click[index] ? "faq_icon " : "faq_icon faq_icon-active2"
@@ -67,11 +70,15 @@ function FAQs() {
                     // key={item.heading}
                   />
                   {/* ) : ( */}
-                  <MdArrowForwardIos
+                  <IoIosArrowDroprightCircle
                     className={
                       click[index] ? "faq_icon faq_icon-active" : "faq_icon"
                     }
                     // key={item.heading}
+                    style={{
+                      fontSize: "2em",
+                      opacity: click[index] ? "1" : "0",
+                    }}
                   />
                   {/* )} */}
                 </div>
