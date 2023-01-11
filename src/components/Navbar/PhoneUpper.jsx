@@ -32,9 +32,9 @@ const PhoneUpper = ({ handleClick, click }) => {
             style={{ marginTop: "1rem" }}
           >
             {click ? (
-              <TiTimesOutline fontSize={33} />
+              <TiTimesOutline fontSize={35} />
             ) : (
-              <HiMenuAlt4 fontSize={33} />
+              <HiMenuAlt4 fontSize={35} />
             )}
           </div>
         </div>
