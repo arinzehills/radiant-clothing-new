@@ -171,22 +171,9 @@ function Footer() {
           position: "relative",
         }}
       >
-        <div
-          style={{
-            width: window.innerWidth < 960 ? "70%" : "80%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-evenly",
-            borderRadius: "13px",
-            marginTop: window.innerWidth < 780 && "5rem",
-            height: window.innerWidth < 960 ? "12rem" : "8rem",
-            color: "black",
-            flexDirection: window.innerWidth < 960 && "column",
-          }}
-          className="gold_color"
-        >
+        <div style={{}} className="gold_color footer-contact">
           <h2>Contact</h2>
-          <p style={{ fontWeight: "600" }}>
+          <p style={{ fontWeight: "500" }}>
             Have more questions? Or need more <br />
             information contact me
           </p>
