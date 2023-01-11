@@ -30,8 +30,10 @@ const Featured = () => {
     url: window.baseUrl + "admin/getCategories",
     // secondParam: activeRow,
   });
+  console.log("productsData?.products");
+  console.log(productsData?.products);
   !loading &&
-    productsData?.products.forEach((product, index) => {
+    productsData?.products?.forEach((product, index) => {
       product.image = product.images[0];
     });
   !loadingCategory &&

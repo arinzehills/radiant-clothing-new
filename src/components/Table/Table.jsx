@@ -83,7 +83,13 @@ const Table = ({
         </tbody>
       </table>
       {data?.length === 0 && (
-        <div>NO data</div>
+        // <div>NO data</div>
+        <div className="class_justify_contents_column ">
+          <img src="/svg/notfound.svg" alt="" height={"300px"} />
+          <span className="italics" style={{ fontSize: "20px" }}>
+            No Data Found
+          </span>
+        </div>
         // <NoDataFound
         //   message={messageNotFound}
         //   showpositionClass={showNotFoundPosition}

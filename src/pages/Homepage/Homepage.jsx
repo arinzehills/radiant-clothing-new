@@ -62,7 +62,7 @@ const Homepage = () => {
       )}
       {/* <ImageSlider slides={slides} /> */}
       <div style={{ marginTop: "6rem" }} className="class_justify_contents_row">
-        <img src="/images/freeshipping.jpeg" width={"95%"} height="200px" />
+        <img src="/images/freeshipping.png" width={"95%"} height="200px" />
       </div>
       <div style={{ marginTop: "12rem" }}></div>
       <Featured />

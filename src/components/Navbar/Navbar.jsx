@@ -71,11 +71,7 @@ const Navbar = () => {
             )}
           </div> */}
           <ul className={click ? "nav-menu active" : "nav-menu"} style={{}}>
-            <li
-              className={
-                currentTab === 1 ? "underline_link nav-items" : "nav-items"
-              }
-            >
+            <li className={currentTab === 1 ? " nav-items" : "nav-items"}>
               <Link
                 to="/"
                 className="nav-links"
@@ -87,13 +83,13 @@ const Navbar = () => {
             <li
               className={
                 currentTab === 2
-                  ? "underline_links nav-items categories-dropdown"
+                  ? "s nav-items categories-dropdown"
                   : "nav-items "
               }
             >
               <Link
                 to="/"
-                className="nav-links underline_link dropdown-link"
+                className="nav-links  dropdown-link"
                 onClick={() => closeMobileMenu(2)}
               >
                 Clothing
@@ -124,7 +120,7 @@ const Navbar = () => {
             <li
               className={
                 currentTab === 2
-                  ? "underline_links nav-items categories-dropdown"
+                  ? "s nav-items categories-dropdown"
                   : "nav-items "
               }
             >
@@ -158,11 +154,7 @@ const Navbar = () => {
                 )}
               </div>
             </li>
-            <li
-              className={
-                currentTab === 3 ? "underline_link nav-items" : "nav-items"
-              }
-            >
+            <li className={currentTab === 3 ? " nav-items" : "nav-items"}>
               <Link
                 to="/contact"
                 className="nav-links"
@@ -175,11 +167,7 @@ const Navbar = () => {
         </div>
 
         <ul className={click ? "nav-menu active" : "nav-menu"}>
-          <li
-            className={
-              currentTab === 4 ? "underline_link nav-items" : "nav-items"
-            }
-          >
+          <li className={currentTab === 4 ? " nav-items" : "nav-items"}>
             <Link
               to="/faqs"
               className="nav-links"
@@ -190,9 +178,7 @@ const Navbar = () => {
           </li>
 
           <li
-            className={
-              currentTab === 5 ? "underline_link nav-items" : "nav-items"
-            }
+            className={currentTab === 5 ? " nav-items" : "nav-items"}
             style={{ width: "150px" }}
           >
             <Link

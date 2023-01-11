@@ -30,6 +30,7 @@ const ProfilePicsComponent = ({
         <Link
           to={`/dashboard/${routeLink}`}
           style={{ textDecoration: "none", color: "black", cursor: "pointer" }}
+          onClick={() => setOpenDropDown(false)}
         >
           {/* <Link to="/dashboard/team"> */}
           <div className="dashboard-card-row prfrow">
