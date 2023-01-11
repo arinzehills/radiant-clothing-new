@@ -77,7 +77,7 @@ function Login({ message }) {
 
           setToken(token);
           setUser(user);
-          history("/dashboard");
+          history("/");
           setLoading(false);
         } else {
           const error = data["message"];

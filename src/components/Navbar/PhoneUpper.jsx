@@ -32,22 +32,22 @@ const PhoneUpper = ({ handleClick, click }) => {
             style={{ marginTop: "1rem" }}
           >
             {click ? (
-              <TiTimesOutline fontSize={38} />
+              <TiTimesOutline fontSize={33} />
             ) : (
-              <HiMenuAlt4 fontSize={38} />
+              <HiMenuAlt4 fontSize={33} />
             )}
           </div>
-          <Link to="/" onClick={() => closeMobileMenu(1)}>
-            <img
-              src="/images/logo.png"
-              style={{
-                height: 90,
-                paddingLeft: window.innerWidth < 960 && "60px",
-              }}
-              alt="radiant-clothing-logo"
-            />
-          </Link>
         </div>
+        <Link to="/" onClick={() => closeMobileMenu(1)}>
+          <img
+            src="/images/logo.png"
+            style={{
+              height: 90,
+              paddingLeft: window.innerWidth < 960 && "60px",
+            }}
+            alt="radiant-clothing-logo"
+          />
+        </Link>
 
         {/* <p style={{ color: "white" }}>Dsds</p> */}
         <div style={{ gap: "1rem" }} className="class_justify_contents_row">
