@@ -21,6 +21,7 @@ import {
 import Overall from "./Overall";
 import useUser from "../../../useUser";
 import NavComponent from "../../Dashboard/components/NavComponent/NavComponent";
+import getSymbolFromCurrency from "currency-symbol-map";
 
 ChartJS.register(
   CategoryScale,
@@ -134,7 +135,7 @@ const AdminDashboard = ({ setHandleNotData }) => {
     const percentage = 66;
     return (
       <div
-        className={`dashboard-card grid-card ${className}`}
+        className={`grid-card ${className}`}
         style={{
           display: "flex",
           flexDirection: "row",
@@ -157,8 +158,8 @@ const AdminDashboard = ({ setHandleNotData }) => {
                   : type === "order"
                   ? "#00C32B"
                   : type === "revenue"
-                  ? "var(--light-purple)"
-                  : "var(--dashboard-dark-blue)",
+                  ? "var(--light-gold)"
+                  : "var(--dashboard-dark-gold)",
               fontWeight: "500",
             }}
           >
@@ -214,7 +215,7 @@ const AdminDashboard = ({ setHandleNotData }) => {
         </div>
         <div className="admin_revenue">
           <h2>REVENUE</h2>
-          <h1>$3293</h1>
+          <h1>{getSymbolFromCurrency("INR")} 3293</h1>
           <Line options={chartOptions} data={chartData} />
         </div>
         <div className="admin_overall">
