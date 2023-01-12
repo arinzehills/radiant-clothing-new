@@ -1,7 +1,7 @@
 .input {
   height: 45px;
   width: 300px;
-  border: 1px solid #ececec;
+  border: 1px solid #dcdbdb;
   border-radius: 10px;
   padding-left: 30px;
   margin-top: 0.3rem;
@@ -39,7 +39,7 @@
 .purple-input {
   /* background: #f4263e48; */
   color: grey;
-  border: 0.5px solid var(--mypurple);
+  /* border: 0.5px solid var(--mypurple); */
   box-shadow: 0 0 6px 0 rgb(78 42 222 / 2%), 0 6px 18px 0 rgb(78 42 222 / 2%);
   transition: border-width 350ms, border-color 350ms, color 350ms;
   outline-color: var(--light-purple);

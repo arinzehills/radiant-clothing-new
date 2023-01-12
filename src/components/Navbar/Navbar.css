@@ -104,7 +104,7 @@
 } */
 
 .nav-links {
-  color: var(--dark-blue);
+  color: var(--dark-gold);
   display: flex;
   font-weight: 400;
   text-decoration: none;
@@ -240,12 +240,6 @@
     padding: 0.5rem;
     padding-right: 0;
     color: black;
-  }
-
-  .nav-links:hover {
-    color: #ffffff;
-    transform: scale(1.2);
-    /* transition: all 0.3s ease; */
   }
 
   .nav-item:hover {

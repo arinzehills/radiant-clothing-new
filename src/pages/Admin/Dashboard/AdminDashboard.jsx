@@ -19,7 +19,6 @@ import {
   Legend,
 } from "chart.js";
 import Overall from "./Overall";
-import RevenueChart from "./RevenueChart";
 import useUser from "../../../useUser";
 import NavComponent from "../../Dashboard/components/NavComponent/NavComponent";
 
@@ -222,7 +221,6 @@ const AdminDashboard = ({ setHandleNotData }) => {
           <Overall />
         </div>
       </div>
-      <RevenueChart />
     </>
   );
 };

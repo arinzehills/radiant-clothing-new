@@ -90,7 +90,7 @@ const Navbar = () => {
               <Link
                 to="/"
                 className="nav-links  dropdown-link"
-                onClick={() => closeMobileMenu(2)}
+                onClick={() => setCurrentTab(2)}
               >
                 Clothing
               </Link>
@@ -109,6 +109,7 @@ const Navbar = () => {
                         <Link
                           to={`/categories/${item.category}`}
                           key={item.category}
+                          onClick={() => closeMobileMenu(3)}
                         >
                           {item.category}
                         </Link>
@@ -118,16 +119,15 @@ const Navbar = () => {
               </div>
             </li>
             <li
-              className={
-                currentTab === 2
-                  ? "s nav-items categories-dropdown"
-                  : "nav-items "
-              }
+              className={`
+                ${currentTab === 4 ? "nav-items " : "nav-items "}
+                  categories-dropdown
+                  `}
             >
               <Link
                 to="/"
                 className="nav-links  dropdown-link"
-                onClick={() => closeMobileMenu(2)}
+                onClick={() => setCurrentTab(4)}
               >
                 Indian Accessories
               </Link>
@@ -146,6 +146,7 @@ const Navbar = () => {
                         <Link
                           to={`/categories/${item.category}`}
                           key={item.category}
+                          onClick={() => closeMobileMenu(4)}
                         >
                           {item.category}
                         </Link>
@@ -154,11 +155,11 @@ const Navbar = () => {
                 )}
               </div>
             </li>
-            <li className={currentTab === 3 ? " nav-items" : "nav-items"}>
+            <li className={currentTab === 5 ? " nav-items" : "nav-items"}>
               <Link
                 to="/contact"
                 className="nav-links"
-                onClick={() => closeMobileMenu(3)}
+                onClick={() => closeMobileMenu(5)}
               >
                 Contact Us
               </Link>
@@ -167,24 +168,24 @@ const Navbar = () => {
         </div>
 
         <ul className={click ? "nav-menu active" : "nav-menu"}>
-          <li className={currentTab === 4 ? " nav-items" : "nav-items"}>
+          <li className={currentTab === 6 ? " nav-items" : "nav-items"}>
             <Link
               to="/faqs"
               className="nav-links"
-              onClick={() => closeMobileMenu(4)}
+              onClick={() => closeMobileMenu(6)}
             >
               FAQ
             </Link>
           </li>
 
           <li
-            className={currentTab === 5 ? " nav-items" : "nav-items"}
+            className={currentTab === 7 ? " nav-items" : "nav-items"}
             style={{ width: "150px" }}
           >
             <Link
               to="/about"
               className="nav-links"
-              onClick={() => closeMobileMenu(5)}
+              onClick={() => closeMobileMenu(7)}
             >
               About Us
             </Link>

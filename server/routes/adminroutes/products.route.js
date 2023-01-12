@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Product = require("../../models/product.model");
+const Gst = require("../../models/gst.model");
 const upload = require("../../middleware/multer");
 const cloudinary = require("../../config/cloudinary.js");
 const fs = require("fs");
@@ -8,6 +9,12 @@ const cloudinaryv2 = require("cloudinary");
 
 uploadProductImage = upload.array("image");
 
+router.post("/editGst", async (req, res) => {
+  const newGst = new Gst({
+    ...req.body,
+  });
+  Gst.updateOne(req.body.old);
+});
 router.post("/addProduct", async (req, res) => {
   uploadProductImage(req, res, async function (err) {
     if (err) {

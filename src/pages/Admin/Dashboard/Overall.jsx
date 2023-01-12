@@ -93,7 +93,7 @@ function Overall() {
         className="request-progress-container"
       >
         <div className="rqs-header-wrapper"></div>
-        <h4>Overall</h4>
+        <h4>Recent Orders</h4>
         <IconAndName type={"content"} title="Write articles..." />
         <IconAndName type={"graphics"} title="Design social ..." />
         <IconAndName type={"video"} title="Create explainer..." />
