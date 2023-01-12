@@ -1,10 +1,13 @@
 import ProductItem from "./ProductItem";
-import React from "react";
+import React, { useContext } from "react";
 import LazyLoader from "../LazyLoader/LazyLoader";
 import { Link } from "react-router-dom";
+import SearchContext from "../../context/SearchContext";
 
 const ProductListItem = ({ products, loading }) => {
   const catLoadArr = ["", "", "", "", "", "", "", ""];
+  const { searchTerm, setSearchTerm } = useContext(SearchContext);
+  console.log(searchTerm);
   console.log(loading);
   return (
     <div className="product-list-item">
@@ -15,24 +18,37 @@ const ProductListItem = ({ products, loading }) => {
           ))}
         </div>
       ) : (
-        products?.map((item) => (
-          // <div classname="class_justify_contents_row">
-          <div
-            style={{
-              display: "flex",
+        products
+          ?.filter((val) => {
+            if (searchTerm == "") {
+              return val;
+            } else if (
+              val.product_name
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase()) ||
+              val.category.toLowerCase().includes(searchTerm.toLowerCase())
+            ) {
+              return val;
+            }
+          })
+          .map((item) => (
+            // <div classname="class_justify_contents_row">
+            <div
+              style={{
+                display: "flex",
 
-              flexDirection: "row",
-              width: "100%",
-            }}
-            key={item.id}
-          >
-            <ProductItem
-              item={item}
-              //   productsSet={productsSet}
-              loading={loading}
-            />
-          </div>
-        ))
+                flexDirection: "row",
+                width: "100%",
+              }}
+              key={item.id}
+            >
+              <ProductItem
+                item={item}
+                //   productsSet={productsSet}
+                loading={loading}
+              />
+            </div>
+          ))
       )}
     </div>
   );

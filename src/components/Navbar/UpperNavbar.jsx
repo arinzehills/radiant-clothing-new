@@ -2,6 +2,7 @@ import { Icon } from "@iconify/react";
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import CartContext from "../../context/CartContext";
+import SearchContext from "../../context/SearchContext";
 import useToken from "../../useToken";
 import useUser from "../../useUser";
 import IconAndCircle from "../IconAndCircle/IconAndCircle";
@@ -13,13 +14,14 @@ import "./UpperNav.css";
 const UpperNavbar = () => {
   const { user, setUser } = useUser();
   const { token, setToken } = useToken();
+  const { searchTerm, setSearchTerm } = useContext(SearchContext);
   const [handleNotData, setHandleNotData] = useState({
     message: "no",
     color: "var(--success)",
   });
   console.log(token);
   return (
-    <>
+    <div className="upper_nav_container">
       <div
         style={{
           background: "black",
@@ -44,6 +46,7 @@ const UpperNavbar = () => {
         <div style={{ width: "500px", paddingLeft: "1rem" }}>
           <InputWithIcon
             // inputSize={"ipn--wide"}
+            onHandleChange={(e) => setSearchTerm(e.target.value)}
             inputHeight={"45px"}
             inputData={{
               label: "Search for products, brands and categories...",
@@ -73,7 +76,7 @@ const UpperNavbar = () => {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 export const CartIcon = () => {
