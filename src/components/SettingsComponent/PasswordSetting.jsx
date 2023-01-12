@@ -4,10 +4,16 @@ import InputField from "../Inputfield/InputField";
 import "./Settings.css";
 const PasswordSetting = () => {
   return (
-    <div>
+    <div
+      style={{
+        width: window.innerWidth < 660 ? "115%" : "100%",
+      }}
+    >
       <div
         className="settings-container"
-        style={{ width: window.innerWidth > 960 && "110%" }}
+        style={{
+          width: window.innerWidth > 960 ? "110%" : "210%",
+        }}
       >
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <h3
@@ -35,6 +41,7 @@ const PasswordSetting = () => {
             <h3>Old Password</h3>
             <InputField
               name={"oldpassword"}
+              style={{ width: "250px" }}
               // value={formValues.oldpassword}
               // onHandleChange={handleChange}
             />
@@ -44,6 +51,7 @@ const PasswordSetting = () => {
 
             <InputField
               name={"password"}
+              style={{ width: "250px" }}
               // value={formValues.password}
               // onHandleChange={handleChange}
             />
@@ -53,6 +61,7 @@ const PasswordSetting = () => {
 
             <InputField
               name={"password_confirmation"}
+              style={{ width: "250px" }}
               // value={formValues.password_confirmation}
               // onHandleChange={handleChange}
             />

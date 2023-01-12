@@ -223,7 +223,11 @@ const AddProducts = ({ setOpenModal, isEdit, product }) => {
           inputStyle="input--shadow-purple"
           style={{ width: "100%" }}
           inputColor="purple-input"
-          onHandleChange={(e) => handleChange(e, formValues, setFormValues)}
+          type={"number"}
+          onHandleChange={(e) =>
+            !isNaN(e.nativeEvent?.data) &&
+            handleChange(e, formValues, setFormValues)
+          }
           value={formValues.price}
         />
         <p className="errors">{formErrors.price}</p>
@@ -251,7 +255,11 @@ const AddProducts = ({ setOpenModal, isEdit, product }) => {
           inputStyle="input--shadow-purple"
           style={{ width: "100%" }}
           inputColor="purple-input"
-          onHandleChange={(e) => handleChange(e, formValues, setFormValues)}
+          type={"number"}
+          onHandleChange={(e) =>
+            !isNaN(e.nativeEvent?.data) &&
+            handleChange(e, formValues, setFormValues)
+          }
           value={formValues.discount_price}
         />
         <p className="errors">{formErrors.discount_price}</p>
@@ -262,7 +270,10 @@ const AddProducts = ({ setOpenModal, isEdit, product }) => {
           inputStyle="input--shadow-purple"
           style={{ width: "100%" }}
           inputColor="purple-input"
-          onHandleChange={(e) => handleChange(e, formValues, setFormValues)}
+          onHandleChange={(e) =>
+            !isNaN(e.nativeEvent?.data) &&
+            handleChange(e, formValues, setFormValues)
+          }
           value={formValues.quantity}
         />
         <p className="errors">{formErrors.quantity}</p>

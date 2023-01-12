@@ -104,7 +104,8 @@
 } */
 
 .nav-links {
-  color: var(--dark-gold);
+  /* color: var(--dark-gold); */
+  color: #000;
   display: flex;
   font-weight: 400;
   text-decoration: none;

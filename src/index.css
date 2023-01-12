@@ -97,6 +97,9 @@ code {
   justify-content: center;
   align-items: center;
 }
+.withGap {
+  gap: 1rem;
+}
 /* For visibility */
 .showTip {
   display: none;

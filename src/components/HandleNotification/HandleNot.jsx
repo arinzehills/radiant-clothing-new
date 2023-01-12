@@ -9,6 +9,7 @@ const handleNot = ({ title, message, backgroundColor }) => {
     content: MyNotify({
       title: title,
       message: message,
+
       backgroundColor: backgroundColor,
     }),
     type: "success",
@@ -33,10 +34,11 @@ function MyNotify({ title, backgroundColor, message }) {
         borderRadius: 20,
         // right: 1000,
         width: "100%",
+        color: "white",
       }}
     >
       <h2>{title ?? "Title"}</h2>
-      <h4>{message ?? "Updated"}</h4>
+      <h4 style={{}}>{message ?? "Updated"}</h4>
     </div>
   );
 }

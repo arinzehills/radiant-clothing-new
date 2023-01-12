@@ -31,7 +31,12 @@ const Products = ({ setHandleNotData }) => {
     url: window.baseUrl + "admin/getProducts",
     secondParam: openModal,
   });
-  console.log(categoriesData);
+  const { data: gstData, loading: loadingGst } = useFetch({
+    url: window.baseUrl + "admin/getGst",
+    secondParam: openGstModal,
+  });
+
+  console.log(gstData);
   const tableData = [
     {
       product_name: "Content Marketing",
@@ -84,8 +89,6 @@ const Products = ({ setHandleNotData }) => {
   !loading &&
     categoriesData?.products.forEach((product, index) => {
       // productegoriesImage.push(image);
-      console.log(product.images[0]);
-      console.log(product.images[0]);
       product.image = product.images[0];
       product.action = (
         <div className="class_justify_contents_row">
@@ -124,7 +127,7 @@ const Products = ({ setHandleNotData }) => {
         openModal={openGstModal}
         setOpenModal={setOpenGstModal}
       >
-        <EditGst />
+        <EditGst setOpenModal={setOpenGstModal} gstValue={gstData?.gst} />
       </AnimatedModal>
       <NavComponent
         personsName={"Admin"}
@@ -164,7 +167,7 @@ const Products = ({ setHandleNotData }) => {
           <div style={{ gap: "3rem", cursor: "pointer" }}>
             <span>GST: </span>
             {getSymbolFromCurrency("INR")}
-            <span>322: </span>
+            <span>{gstData?.gst} </span>
             <FiEdit
               icon="material-symbols:edit"
               color="var(--success)"
