@@ -1,5 +1,6 @@
 import React from "react";
 import NavComponent from "../../pages/Dashboard/components/NavComponent/NavComponent";
+import useUser from "../../useUser";
 import CustomTab from "../CustomTab/CustomTab";
 import PasswordSetting from "./PasswordSetting";
 import Profile from "./Profile";

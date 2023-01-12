@@ -130,6 +130,7 @@ function Footer() {
             text={" RADIANT CLOTHING"}
             style={{ lineHeight: 1, fontSize: "2.5vw", textAlign: "left" }}
           />
+          <p className="avenir_class">Designed by- Ascend Digital</p>
         </div>
       </>
     );

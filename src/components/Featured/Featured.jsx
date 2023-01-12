@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
+import SearchContext from "../../context/SearchContext";
 import useFetch from "../../useFetch";
 import GradientHeaders from "../GradientHeaders/GradientHeaders";
 import LazyLoader from "../LazyLoader/LazyLoader";
