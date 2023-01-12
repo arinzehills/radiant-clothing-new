@@ -190,7 +190,7 @@ const ProfilePicsComponent = ({
                 // style={{ paddingTop: "6px" }}
               />
             )}
-            {name}
+            {!name ? "User" : name}
           </p>
 
           {!isCirclular && (
