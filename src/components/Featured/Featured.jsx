@@ -144,7 +144,7 @@ const Featured = () => {
           text={"Products"}
           subHeader={"."}
           uppercase={true}
-          showSubHeader={true}
+          showSubHeader={false}
         />
       </div>
       <ProductListItem

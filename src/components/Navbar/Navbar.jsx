@@ -81,11 +81,9 @@ const Navbar = () => {
               </Link>
             </li>
             <li
-              className={
-                currentTab === 2
-                  ? "s nav-items categories-dropdown"
-                  : "nav-items "
-              }
+              className={`${currentTab === 4 ? "nav-items " : "nav-items "}
+                  categories-dropdown
+                  `}
             >
               <Link
                 to="/"
