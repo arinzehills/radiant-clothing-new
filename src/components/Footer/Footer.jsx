@@ -125,7 +125,7 @@ function Footer() {
             <FooterIcon iconName={"FaWhatsapp"} />
             <FooterIcon iconName={"FaLinkedin"} />
           </div>
-          <p>&copy; 2022</p>
+          <p>&copy; 2023</p>
           <GradientText
             text={" RADIANT CLOTHING"}
             style={{ lineHeight: 1, fontSize: "2.5vw", textAlign: "left" }}

@@ -158,8 +158,8 @@ const AdminDashboard = ({ setHandleNotData }) => {
                   : type === "order"
                   ? "#00C32B"
                   : type === "revenue"
-                  ? "var(--light-gold)"
-                  : "var(--dashboard-dark-gold)",
+                  ? "var(--light-purple)"
+                  : "var(--dashboard-dark-blue)",
               fontWeight: "500",
             }}
           >
@@ -208,9 +208,13 @@ const AdminDashboard = ({ setHandleNotData }) => {
       />
       <div className="admin_section">
         <div className="admin_grid">
-          <GridCard title={"Sales"} value="32" type="sales" />
+          <GridCard
+            title={"Sales"}
+            value={getSymbolFromCurrency("INR") + "32"}
+            type="sales"
+          />
           <GridCard title={"Orders"} value="329" type="order" />
-          <GridCard title={"Revenue"} value="21" type="revenue" />
+          <GridCard title={"Users"} value="21" type="revenue" />
           <GridCard title={"Visits"} value="32" type="visits" />
         </div>
         <div className="admin_revenue">

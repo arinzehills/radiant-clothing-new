@@ -77,7 +77,7 @@
   text-decoration: none;
 }
 .newrequest-container {
-  background: #ff724a;
+  background: var(--orange-gradient);
   padding: 1rem;
   border-radius: 20px;
   display: flex;
