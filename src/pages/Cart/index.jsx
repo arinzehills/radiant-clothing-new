@@ -357,7 +357,7 @@ const Cart = () => {
             </div>
           )}
         </div>
-        <div className="also-like">
+        <div className="also-like" style={{ display: "none" }}>
           <p>You May Also Like</p>
           <div>
             {dummyProducts.map((product, idx) => (
