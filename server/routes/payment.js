@@ -2,6 +2,15 @@ const router = require("express").Router();
 const crypto = require("crypto");
 const Razorpay = require("razorpay");
 const Order = require("../models/Order.model");
+const User = require("../models/user.model");
+
+function isToday(date) {
+  const today = new Date();
+  if (today.toDateString() === date.toDateString()) {
+    return true;
+  }
+  return false;
+}
 
 // order api
 router.post("/order", (req, res) => {
@@ -31,11 +40,37 @@ router.post("/order", (req, res) => {
 });
 
 // get orders
-router.get("/orders", async (req, res) => {
+router.post("/orders", async (req, res) => {
+  const analytics = {};
+  let totalRevenue = 0;
+  let recentOrders = [];
+  let totalSalesToday = 0;
+
   try {
     const orders = await Order.find();
-    res.status(200).json({ data: orders });
+    var users = await User.find({ user_type: "business_user" }).lean();
+
+    // get the total sales
+    orders.forEach((order) => (totalRevenue += order.amount));
+
+    // get 5 recent orders
+    recentOrders = orders.filter((_, idx) => idx < 5);
+
+    // get total orders today.
+    let todayTransactions = orders.filter((order) => isToday(order.createdAt));
+    todayTransactions.forEach((item) => {
+      totalSalesToday += item.amount;
+    });
+    // append the populated variable to analytics object
+    analytics.totalRevenue = totalRevenue;
+    analytics.recentOrders = recentOrders;
+    analytics.totalOrdersToday = todayTransactions.length;
+    analytics.totalSalesToday = totalSalesToday;
+    console.log(totalSalesToday);
+
+    res.status(200).json({ users: users.length, orders, analytics });
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error });
   }
 });
