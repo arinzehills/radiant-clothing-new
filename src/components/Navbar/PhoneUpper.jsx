@@ -1,8 +1,9 @@
 import { Icon } from "@iconify/react";
-import React from "react";
+import React, { useContext } from "react";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { TiTimesOutline } from "react-icons/ti";
 import { Link } from "react-router-dom";
+import SearchContext from "../../context/SearchContext";
 import useToken from "../../useToken";
 import useUser from "../../useUser";
 import InputWithIcon from "../InputWithIcon/InputWithIcon";
@@ -12,6 +13,8 @@ import { CartIcon } from "./UpperNavbar";
 const PhoneUpper = ({ handleClick, click }) => {
   const { user, setUser } = useUser();
   const { token, setToken } = useToken();
+  const { searchTerm, setSearchTerm } = useContext(SearchContext);
+
   return (
     <div
       style={{ background: "black", height: "170px", position: "sticky" }}
@@ -80,6 +83,7 @@ const PhoneUpper = ({ handleClick, click }) => {
       > */}
       <InputWithIcon
         inputHeight={"45px"}
+        onHandleChange={(e) => setSearchTerm(e.target.value)}
         inputData={{
           label: "Search products..",
         }}
