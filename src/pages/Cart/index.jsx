@@ -71,8 +71,10 @@ const Cart = () => {
     toast.success(<ClickableToast />, toastOptions);
   };
 
-  const removeItem = (_id) => {
-    const newCartItems = cartItems.filter((item) => item._id !== _id);
+  const removeItem = (_id, size) => {
+    const newCartItems = cartItems.filter(
+      (item) => item._id !== _id && item.size !== size
+    );
     setCartItems(newCartItems);
     toast.warn("One item removed from cart", toastOptions);
   };
@@ -83,8 +85,10 @@ const Cart = () => {
     toast.warn("One item removed from whishlist", toastOptions);
   };
 
-  const minusQuantity = (_id) => {
-    const currentItem = cartItems.find((item) => item._id === _id);
+  const minusQuantity = (_id, size) => {
+    const currentItem = cartItems.find(
+      (item) => item._id === _id && item.size === size
+    );
     if (currentItem.quantityToBuy === 1) return;
     const newCartItems = cartItems.map((item) => {
       if (item._id === _id) {
@@ -93,9 +97,12 @@ const Cart = () => {
     });
     setCartItems(newCartItems);
   };
-  const plusQuantity = (_id) => {
+
+  const plusQuantity = (_id, size) => {
     const newCartItems = cartItems.map((item) => {
-      if (item._id === _id) {
+      console.log(_id === item._id);
+      console.log(size,item.size);
+      if (item._id === _id && item.size === size) {
         return { ...item, quantityToBuy: item.quantityToBuy + 1 };
       } else return item;
     });
@@ -214,13 +221,13 @@ const Cart = () => {
                         </div>
                       </div>
                       <div class="bottom">
-                        <button onClick={() => removeItem(item._id)}>
+                        <button onClick={() => removeItem(item._id, item.size)}>
                           <AiFillDelete color="coral" size={22} />
                           <span>DELETE</span>
                         </button>
                         <div>
                           <button
-                            onClick={() => minusQuantity(item._id)}
+                            onClick={() => minusQuantity(item._id, item.size)}
                             style={{
                               padding: "2px 12px ",
                               borderRadius: 4,
@@ -237,7 +244,7 @@ const Cart = () => {
                             {item.quantityToBuy}
                           </span>
                           <button
-                            onClick={() => plusQuantity(item._id)}
+                            onClick={() => plusQuantity(item._id,item.size)}
                             style={{
                               padding: " 4px 10px",
                               borderRadius: 4,

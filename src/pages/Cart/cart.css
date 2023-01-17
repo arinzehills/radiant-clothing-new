@@ -176,8 +176,9 @@ button:disabled {
 .cart-container .saved-for-later .item > img {
   width: 90%;
   border-radius: 4px;
-  height: 128px;
+  height: 168px;
   object-fit: cover;
+  object-position: top;
 }
 .cart-container .saved-for-later .item .bottom,
 .cart-container .also-like .item .bottom {

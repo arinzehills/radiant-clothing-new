@@ -23,7 +23,7 @@ export const CartContextProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    console.log("cartItems", cartItems);
+    console.log("cart items", cartItems);
     window.localStorage.setItem("radiant_cart_item", JSON.stringify(cartItems));
   }, [cartItems]);
 
