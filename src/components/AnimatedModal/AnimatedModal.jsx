@@ -9,6 +9,7 @@ const AnimatedModal = ({
   children,
   bkdropclassName,
   modalHeight,
+  style,
 }) => {
   const stopPropagation = (event) => {
     event.stopPropagation();
@@ -48,7 +49,7 @@ const AnimatedModal = ({
 
             `}
               onClick={stopPropagation}
-              style={{ height: modalHeight }}
+              style={{ ...style, height: modalHeight }}
             >
               <motion.div
                 initial={{

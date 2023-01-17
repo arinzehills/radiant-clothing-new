@@ -4,20 +4,24 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CartContext from "../../context/CartContext";
 import { Button } from "../Button/Button";
 import ImageSlider from "../HeroSlider/ImageSlider";
-import { toast } from "react-toastify";
-import { toastOptions } from "./ProductItem";
 import { Helmet } from "react-helmet";
 import AddToCartModal from "../../pages/Cart/AddToCartModal";
 import AnimatedModal from "../AnimatedModal/AnimatedModal";
+import {
+  ClickableToast,
+  toastOptions,
+} from "../../components/Featured/ProductItem";
+import { toast } from "react-toastify";
 
 const ProductDetail = ({}) => {
   const location = useLocation();
   // const { category } = useParams();
   const [openModal, setOpenModal] = useState(false);
+  const [showFullImage, setShowFullImage] = useState(false);
   const [itemSize, setItemSize] = useState("");
-  console.log(location.state.item);
   const product = location.state.item;
-  const { cartItems, setCartItems } = useContext(CartContext);
+  const { cartItems, setCartItems, whishLists, setWhishLists } =
+    useContext(CartContext);
 
   const percetage = (product.price - product.discount_price) / product.price;
   // setPercentageDiscount(percetage * 100);
@@ -31,7 +35,22 @@ const ProductDetail = ({}) => {
     setCartItems((prev) => [item, ...prev]);
     toast.success(<ClickableToast />, toastOptions);
   };
-
+  const handleAddToWhishList = (item) => {
+    const index = whishLists.findIndex((wish) => wish._id === item._id);
+    if (index >= 0) {
+      toast.success(
+        <ClickableToast text="Already whishlisted" />,
+        toastOptions
+      );
+      return;
+    }
+    item.quantityToBuy = 1;
+    setWhishLists((prev) => [item, ...prev]);
+    toast.success(
+      <ClickableToast text={"Added to whish list"} />,
+      toastOptions
+    );
+  };
   return (
     <div
       className="class_justify_contents_row"
@@ -56,6 +75,31 @@ const ProductDetail = ({}) => {
           setOpenModal={setOpenModal}
         />
       </AnimatedModal>
+      <AnimatedModal
+        openModal={showFullImage}
+        setOpenModal={setShowFullImage}
+        style={{ width: "90%" }}
+        modalHeight="90vh"
+        bkdropclassName={"full_backdrop"}
+      >
+        <div>
+          <ImageSlider
+            slides={product?.images}
+            isNotMap={true}
+            imageStyle={{
+              // maxHeight: "180px",
+              // maxWidth: "180px",
+              height: "500px",
+              width: "109.3%",
+            }}
+            style={{
+              padding:
+                window.innerWidth > 760 ? "5rem 10rem" : "11rem 1rem 1rem 0rem",
+            }}
+          />
+        </div>
+      </AnimatedModal>
+
       <Helmet>
         <title>Product - {`${product.product_name}`}</title>
         <meta
@@ -64,20 +108,23 @@ const ProductDetail = ({}) => {
         />
       </Helmet>
       {/* <img src={product.image} alt="" height={"300px"} /> */}
-      <ImageSlider
-        slides={product.images}
-        isNotMap={true}
-        imageStyle={{
-          // maxHeight: "180px",
-          // maxWidth: "180px",
-          height: "180px",
-          width: "99.3%",
-        }}
-        style={{
-          height: window.innerWidth < 660 ? "" : "300px",
-          width: window.innerWidth < 660 ? "" : "400px",
-        }}
-      />
+
+      <div onClick={() => setShowFullImage(true)} style={{ cursor: "pointer" }}>
+        <ImageSlider
+          slides={product?.images}
+          isNotMap={true}
+          imageStyle={{
+            // maxHeight: "180px",
+            // maxWidth: "180px",
+            height: "180px",
+            width: "99.3%",
+          }}
+          style={{
+            height: window.innerWidth < 660 ? "" : "300px",
+            width: window.innerWidth < 660 ? "" : "400px",
+          }}
+        />
+      </div>
       <div style={{ padding: "15px" }}>
         <h3
           style={{ textAlign: "left", margin: 0 }}
@@ -128,6 +175,12 @@ const ProductDetail = ({}) => {
           buttonStyle={'btn--normal"'}
           children={"Add to Cart"}
           onClick={() => setOpenModal(true)}
+        />
+        <Button
+          buttonColor={"black"}
+          buttonStyle={'btn--normal"'}
+          children={"Add to Wishlist"}
+          onClick={() => handleAddToWhishList(product)}
         />
       </div>
     </div>
