@@ -64,7 +64,12 @@ const ProductImages = ({ images }) => {
             key={i}
             onMouseOver={() => hoverHandler(image, i)}
           >
-            <img src={image} alt="" height={"80px"} width="80px" />
+            <img
+              src={image}
+              alt=""
+              height={window.innerWidth < 700 ? "60px" : "80px"}
+              width={window.innerWidth < 700 ? "60px" : "80px"}
+            />
           </div>
         ))}
       </div>
