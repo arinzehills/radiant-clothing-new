@@ -127,21 +127,21 @@ function Footer() {
               children={<FaFacebook fill="#000" fontSize={"20px"} />}
               link="https://www.facebook.com/radiantclothinglko"
             />
-            <FooterIcon
+            {/* <FooterIcon
               children={<MdEmail fill="#000" fontSize={"20px"} />}
               link="mailto:info@radiantclothings.com"
-            />
+            /> */}
             <FooterIcon
               children={<FaInstagram fill="#000" fontSize={"20px"} />}
               link="https://www.instagram.com/p/CkSKu1YJR99/?igshid=YmMyMTA2M2Y="
             />
             <FooterIcon
               children={<FaLinkedin fill="#000" fontSize={"20px"} />}
-              link="https://www.instagram.com/p/CkSKu1YJR99/?igshid=YmMyMTA2M2Y="
+              link="www.linkedin.com/company/radiant-clothing-lucknow"
             />
             <FooterIcon
               children={<FaTwitter fill="#000" fontSize={"20px"} />}
-              link="https://www.instagram.com/p/CkSKu1YJR99/?igshid=YmMyMTA2M2Y="
+              link="https://twitter.com/RadiantCloth"
             />
           </div>
           <p>&copy; 2023</p>
