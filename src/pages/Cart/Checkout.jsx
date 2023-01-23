@@ -58,7 +58,40 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
       setLoading(false);
     }
   };
+  // "options": {
+  //   "checkout": {
+  //     "prefill": {
+  //       "method": "card",
+  //       "card[name]": "Gaurav Kumar",
+  //       "card[number]": "4111111111111111",
+  //       "card[expiry]": "12/21",
+  //       "card[cvv]": "123"
+  //     }
+  //   }
+  // }
+  // "customer": {
+  //   "name": "Gaurav Kumar",
+  //   "contact": "+919000090000",
+  //   "email": "gaurav.kumar@example.com"
+  // },
+  // https://apidocs.shiprocket.in/
+  // https://www.shiprocket.in/developers/
+  // https://www.youtube.com/watch?v=rXsSZ9utKZo
+  //   import axios from 'axios';
 
+  // const apiKey = 'YOUR_API_KEY';
+
+  // axios.get('https://api.shiprocket.in/v1/external/courier/list', {
+  //     headers: {
+  //         'Authorization': 'Bearer ' + apiKey
+  //     }
+  // })
+  // .then(response => {
+  //     console.log(response.data);
+  // })
+  // .catch(error => {
+  //     console.log(error);
+  // });
   return (
     <div>
       <div className="checkout">

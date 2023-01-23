@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CartContext from "../../context/CartContext";
 import SearchContext from "../../context/SearchContext";
 import useToken from "../../useToken";
@@ -14,6 +14,7 @@ import "./UpperNav.css";
 const UpperNavbar = () => {
   const { user, setUser } = useUser();
   const { token, setToken } = useToken();
+  const navigate = useNavigate();
   const { searchTerm, setSearchTerm } = useContext(SearchContext);
   const [handleNotData, setHandleNotData] = useState({
     message: "no",
@@ -52,6 +53,7 @@ const UpperNavbar = () => {
               label: "Search for products, brands and categories...",
             }}
             iconName={"ic:outline-search"}
+            onClickIcon={() => navigate("/products")}
           />
         </div>
 

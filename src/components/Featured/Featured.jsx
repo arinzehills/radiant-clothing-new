@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SearchContext from "../../context/SearchContext";
 import useFetch from "../../useFetch";
+import { Button } from "../Button/Button";
 import GradientHeaders from "../GradientHeaders/GradientHeaders";
 import LazyLoader from "../LazyLoader/LazyLoader";
 
@@ -13,6 +14,7 @@ import ProductItem from "./ProductItem";
 import ProductListItem from "./ProductListItem";
 
 const Featured = () => {
+  const navigate = useNavigate();
   const {
     data: productsData,
     loading,
@@ -143,17 +145,33 @@ const Featured = () => {
         <GradientHeaders
           fontSize={"4.5vw"}
           text={"Products"}
-          subHeader={"."}
+          subHeader={"Featured products"}
           uppercase={true}
-          showSubHeader={false}
+          showSubHeader={true}
         />
       </div>
       <ProductListItem
         // colorClass={productsSet.colorClass}
         // imgSrc={productsSet.image}
         loading={loading}
-        products={productsData?.products}
+        products={productsData?.products.slice(0, 12)}
       />
+      <div
+        className="class_justify_contents_row"
+        style={{
+          justifyContent: "end",
+          marginTop: window.innerWidth < 700 ? "1rem" : "-3rem",
+          marginBottom: "2rem",
+        }}
+      >
+        <Button
+          children={"More Products"}
+          onClick={() => navigate("/products")}
+          buttonColor="orange"
+          isCircular={true}
+          style={{ color: "white" }}
+        />
+      </div>
     </div>
   );
 };

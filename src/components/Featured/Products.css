@@ -9,7 +9,7 @@
   cursor: pointer;
 }
 .product-list-item {
-  padding: 4rem 3rem 4rem;
+  padding: 3rem 3rem 4rem;
   width: 92vw;
   display: grid;
   grid-template-columns: 300px repeat(3, auto);

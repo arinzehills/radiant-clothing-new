@@ -32,6 +32,7 @@ import "react-toastify/dist/ReactToastify.css";
 import About from "./pages/About/About";
 import ProductDetail from "./components/Featured/ProductDetail";
 import Terms from "./pages/Terms/Terms";
+import MoreProducts from "./components/Featured/MoreProducts";
 
 function App() {
   const [handleNotData, setHandleNotData] = useState({
@@ -83,6 +84,7 @@ function App() {
             <Route path=":category" exact element={<Categorypage />} />
           </Route>
           <Route path="/products">
+            <Route index element={<MoreProducts />} />
             <Route path=":product" exact element={<ProductDetail />} />
           </Route>
           <Route path="/about" exact element={<About />} />

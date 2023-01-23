@@ -1,13 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  FaFacebook,
-  FaInstagram,
-  FaYoutube,
-  FaWhatsapp,
-  FaTwitter,
-  FaLinkedin,
-} from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 import "./Footer.css";
 import ButtonWithIcon from "../ButtonWithIcon/ButtonWithIcon";
 import { Button } from "../Button/Button";
@@ -119,47 +113,49 @@ function Footer() {
         >
           <p className="avenir_class">follow us on</p>
           <div className="centerClass" style={{ gap: "1rem" }}>
-            <FooterIcon iconName={"FaFacebook"} />
-            <FooterIcon iconName={"FaInstagram"} />
-            <FooterIcon iconName={"FaTwitter"} />
-            <FooterIcon iconName={"FaWhatsapp"} />
-            <FooterIcon iconName={"FaLinkedin"} />
+            <FooterIcon
+              children={<FaWhatsapp fill="#000" fontSize={"20px"} />}
+              link="https://wa.me/message/DTUDWWSTGG5UP1?src=qr"
+            />
+            <FooterIcon
+              children={<FaFacebook fill="#000" fontSize={"20px"} />}
+              link="https://www.facebook.com/radiantclothinglko"
+            />
+            <FooterIcon
+              children={<MdEmail fill="#000" fontSize={"20px"} />}
+              link="mailto:info@radiantclothings.com"
+            />
+            <FooterIcon
+              children={<FaInstagram fill="#000" fontSize={"20px"} />}
+              link="https://www.instagram.com/p/CkSKu1YJR99/?igshid=YmMyMTA2M2Y="
+            />
           </div>
           <p>&copy; 2023</p>
           <GradientText
             text={" RADIANT CLOTHING"}
-            style={{ lineHeight: 1, fontSize: "2.5vw", textAlign: "left" }}
+            style={{ lineHeight: 1, fontSize: "1.5vw", textAlign: "left" }}
           />
           <p className="avenir_class">Designed by- Ascend Digital</p>
         </div>
       </>
     );
   };
-  const FooterIcon = ({ iconName }) => {
+  const FooterIcon = ({ children, link }) => {
     return (
-      <>
+      <a href={link} target="_blank">
         <div
           style={{
             // background: "white",
             height: "50px",
             width: "50px",
             borderRadius: "50px",
+            cursor: "pointer",
           }}
           className=" centerClass gold_color_light"
         >
-          {iconName === "FaTwitter" ? (
-            <FaTwitter fill="#000" fontSize={"20px"} />
-          ) : iconName === "FaLinkedin" ? (
-            <FaLinkedin fill="#000" fontSize={"20px"} />
-          ) : iconName === "FaWhatsapp" ? (
-            <FaWhatsapp fill="#000" fontSize={"20px"} />
-          ) : iconName === "FaInstagram" ? (
-            <FaInstagram fill="#000" fontSize={"20px"} />
-          ) : (
-            <FaFacebook fill="#000" fontSize={"20px"} />
-          )}
+          {children}
         </div>
-      </>
+      </a>
     );
   };
   return (

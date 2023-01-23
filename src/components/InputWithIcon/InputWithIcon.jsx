@@ -57,7 +57,7 @@ const InputWithIcon = ({
           {showbtn ? (
             <Button>Upload File</Button>
           ) : (
-            <div style={{ background: "" }}>
+            <div style={{ background: "", cursor: "pointer" }}>
               <Icon
                 icon={iconName ?? "fa-solid:file-upload"}
                 fontSize={"38px"}

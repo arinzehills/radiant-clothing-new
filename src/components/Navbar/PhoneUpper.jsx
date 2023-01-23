@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react";
 import React, { useContext } from "react";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { TiTimesOutline } from "react-icons/ti";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SearchContext from "../../context/SearchContext";
 import useToken from "../../useToken";
 import useUser from "../../useUser";
@@ -14,6 +14,7 @@ const PhoneUpper = ({ handleClick, click }) => {
   const { user, setUser } = useUser();
   const { token, setToken } = useToken();
   const { searchTerm, setSearchTerm } = useContext(SearchContext);
+  const navigate = useNavigate();
 
   return (
     <div
@@ -88,6 +89,7 @@ const PhoneUpper = ({ handleClick, click }) => {
           label: "Search products..",
         }}
         iconName={"ic:outline-search"}
+        onClickIcon={() => navigate("/products")}
       />
       {/* </div> */}
     </div>
