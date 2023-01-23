@@ -97,7 +97,7 @@ const ProductItem = ({ item, productsSet, loading }) => {
         }
       >
         <img
-          src={`${item.image}`}
+          src={`${item.images[0]}`}
           // src={`/svg/${productsSet.image}.svg`}
           className="product-item-image"
           alt=""

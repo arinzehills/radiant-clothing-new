@@ -5,17 +5,10 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import SearchContext from "../../context/SearchContext";
 import { Button } from "../Button/Button";
 
-const ProductListItem = ({}) => {
+const ProductListItem = ({ products, loading }) => {
   const catLoadArr = ["", "", "", "", "", "", "", ""];
   const { searchTerm, setSearchTerm } = useContext(SearchContext);
-  const {
-    data: productsData,
-    loading,
-    error,
-  } = useFetch({
-    url: window.baseUrl + "admin/getProducts",
-    // secondParam: activeRow,
-  });
+  console.log(products);
   return (
     <>
       <div className="product-list-item">
@@ -26,7 +19,7 @@ const ProductListItem = ({}) => {
             ))}
           </div>
         ) : (
-          productsData?.products
+          products
             ?.filter((val) => {
               if (searchTerm == "") {
                 return val;

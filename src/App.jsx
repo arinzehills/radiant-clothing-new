@@ -83,6 +83,7 @@ function App() {
           <Route path="/categories">
             <Route path=":category" exact element={<Categorypage />} />
           </Route>
+          <Route path="/more-products" exact element={<MoreProducts />} />
           <Route path="/products">
             <Route index element={<MoreProducts />} />
             <Route path=":product" exact element={<ProductDetail />} />
