@@ -12,6 +12,7 @@ import {
   toastOptions,
 } from "../../components/Featured/ProductItem";
 import { toast } from "react-toastify";
+import ProductImages from "../ProductImages/ProductImages";
 
 const ProductDetail = ({}) => {
   const location = useLocation();
@@ -58,6 +59,7 @@ const ProductDetail = ({}) => {
         justifyContent: "left",
         padding: "2rem",
         alignItems: "start",
+        marginTop: "-5rem",
         flexDirection: window.innerWidth < 760 && "column",
         // width: "100%",
       }}
@@ -75,31 +77,6 @@ const ProductDetail = ({}) => {
           setOpenModal={setOpenModal}
         />
       </AnimatedModal>
-      <AnimatedModal
-        openModal={showFullImage}
-        setOpenModal={setShowFullImage}
-        style={{ width: "90%" }}
-        modalHeight="90vh"
-        bkdropclassName={"full_backdrop"}
-      >
-        <div>
-          <ImageSlider
-            slides={product?.images}
-            isNotMap={true}
-            imageStyle={{
-              // maxHeight: "180px",
-              // maxWidth: "180px",
-              height: "500px",
-              width: "109.3%",
-            }}
-            style={{
-              padding:
-                window.innerWidth > 760 ? "5rem 10rem" : "11rem 1rem 1rem 0rem",
-            }}
-          />
-        </div>
-      </AnimatedModal>
-
       <Helmet>
         <title>Product - {`${product.product_name}`}</title>
         <meta
@@ -108,23 +85,7 @@ const ProductDetail = ({}) => {
         />
       </Helmet>
       {/* <img src={product.image} alt="" height={"300px"} /> */}
-
-      <div onClick={() => setShowFullImage(true)} style={{ cursor: "pointer" }}>
-        <ImageSlider
-          slides={product?.images}
-          isNotMap={true}
-          imageStyle={{
-            // maxHeight: "180px",
-            // maxWidth: "180px",
-            height: "180px",
-            width: "99.3%",
-          }}
-          style={{
-            height: window.innerWidth < 660 ? "" : "300px",
-            width: window.innerWidth < 660 ? "" : "400px",
-          }}
-        />
-      </div>
+      <ProductImages images={product?.images} />
       <div style={{ padding: "15px" }}>
         <h3
           style={{ textAlign: "left", margin: 0 }}
@@ -144,12 +105,7 @@ const ProductDetail = ({}) => {
           {product.quantity} items
         </div>
         {/* <div style={{ w }}></div> */}
-        <p
-          className="avenir_class"
-          style={{ lineHeight: "inherit", width: "80%" }}
-        >
-          {product.description}
-        </p>
+
         <pre
           style={{ textAlign: "left" }}
           className={"avenir_class gold_color_text"}
@@ -170,6 +126,25 @@ const ProductDetail = ({}) => {
           </p>
           <p className="more_pop">{(percetage * 100).toFixed(0) + "%"}</p>
         </div>
+        <div>
+          <h2>Sizes</h2>
+          <div
+            className="class_justify_contents_row"
+            style={{ gap: "1rem", justifyContent: "start" }}
+          >
+            {product.sizes.map((size) => (
+              <div
+                style={{
+                  border: "1px solid var(--light-gold",
+                  padding: "10px",
+                }}
+                onClick={() => setItemSize(size)}
+              >
+                {size}
+              </div>
+            ))}
+          </div>
+        </div>
         <Button
           buttonColor={"gold"}
           buttonStyle={'btn--normal"'}
@@ -182,6 +157,15 @@ const ProductDetail = ({}) => {
           children={"Add to Wishlist"}
           onClick={() => handleAddToWhishList(product)}
         />
+        <div>
+          <h3>Product Details</h3>
+          <p
+            className="avenir_class"
+            style={{ lineHeight: "inherit", width: "80%" }}
+          >
+            {product.description}
+          </p>
+        </div>
       </div>
     </div>
   );

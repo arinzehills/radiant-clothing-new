@@ -1,0 +1,100 @@
+import { Icon } from "@iconify/react";
+import React from "react";
+import { useState } from "react";
+import ReactImageMagnify from "react-image-magnify";
+import AnimatedModal from "../AnimatedModal/AnimatedModal";
+
+export const ProductImageSlider = ({ images, currentImage, hoverHandler }) => {
+  return (
+    <div>
+      <div
+        style={{ position: "absolute" }}
+        className="class_justify_contents_column"
+      >
+        {images.map((image, i) => (
+          <div
+            style={{
+              border: currentImage === image && "1px solid var(--light-orange)",
+            }}
+            key={i}
+            onMouseOver={() => hoverHandler(image, i)}
+          >
+            <img src={image} alt="" height={"60px"} width="60px" />
+          </div>
+        ))}
+      </div>
+      <img
+        src={currentImage}
+        alt=""
+        height={"100%"}
+        style={{ minHeight: "900px" }}
+        width="100%"
+      />
+    </div>
+  );
+};
+const ProductImages = ({ images }) => {
+  const [currentImage, setCurrentImage] = useState(images[0]);
+  const [showFullImage, setShowFullImage] = useState(false);
+  const hoverHandler = (image, i) => {
+    setCurrentImage(image);
+  };
+  return (
+    <div id="product-images" style={{ display: "flex", gap: "1rem" }}>
+      <AnimatedModal
+        openModal={showFullImage}
+        setOpenModal={setShowFullImage}
+        style={{ width: "100vh" }}
+        modalHeight="100vh"
+        bkdropclassName={"full_backdrop"}
+      >
+        <ProductImageSlider
+          images={images}
+          currentImage={currentImage}
+          hoverHandler={hoverHandler}
+        />
+      </AnimatedModal>
+
+      <div id="vertical-images" className="class_justify_contents_column">
+        {images.map((image, i) => (
+          <div
+            style={{
+              border: currentImage === image && "1px solid var(--light-orange)",
+            }}
+            key={i}
+            onMouseOver={() => hoverHandler(image, i)}
+          >
+            <img src={image} alt="" height={"80px"} width="80px" />
+          </div>
+        ))}
+      </div>
+      <div
+        id="product-image"
+        onClick={() => setShowFullImage(true)}
+        style={{ cursor: "zoom-in" }}
+      >
+        {/* <img src={currentImage} alt="" height={"500px"} width="500px" /> */}
+        <ReactImageMagnify
+          enlargedImagePosition="over"
+          style={{}}
+          {...{
+            smallImage: {
+              alt: "Wristwatch by Ted Baker London",
+              //   isFluidWidth: true,
+              src: currentImage,
+              width: window.innerWidth < 700 ? 200 : 500,
+              height: window.innerWidth < 700 ? 200 : 500,
+            },
+            largeImage: {
+              src: currentImage,
+              width: 900,
+              height: 700,
+            },
+          }}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default ProductImages;

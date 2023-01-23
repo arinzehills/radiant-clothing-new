@@ -25,7 +25,7 @@ const AnimatedModal = ({
             animate={{
               opacity: 1,
               transition: {
-                duration: 0.3,
+                duration: 0.2,
               },
             }}
             exit={{
@@ -41,7 +41,7 @@ const AnimatedModal = ({
               animate={{
                 scale: 1,
                 transition: {
-                  duration: 0.3,
+                  duration: 0.2,
                 },
               }}
               exit={{ scale: 0 }}
@@ -60,7 +60,7 @@ const AnimatedModal = ({
                   x: 0,
                   opacity: 1,
                   transition: {
-                    delay: 0.3,
+                    delay: 0.2,
                     duration: 0.7,
                   },
                 }}
