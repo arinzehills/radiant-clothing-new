@@ -27,7 +27,7 @@ export const ProductImageSlider = ({ images, currentImage, hoverHandler }) => {
         src={currentImage}
         alt=""
         height={"100%"}
-        style={{ minHeight: "900px" }}
+        style={{ minHeight: window.innerWidth < 700 ? "600px" : "900px" }}
         width="100%"
       />
     </div>
@@ -44,8 +44,8 @@ const ProductImages = ({ images }) => {
       <AnimatedModal
         openModal={showFullImage}
         setOpenModal={setShowFullImage}
-        style={{ width: "100vh" }}
-        modalHeight="100vh"
+        style={{ width: window.innerWidth < 700 ? "70vh" : "100vh" }}
+        modalHeight={window.innerWidth < 700 ? "70vh" : "100vh"}
         bkdropclassName={"full_backdrop"}
       >
         <ProductImageSlider
