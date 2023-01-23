@@ -19,6 +19,7 @@ const AddProducts = ({ setOpenModal, isEdit, product }) => {
     quantity: product?.quantity ?? "",
     price: product?.price ?? "",
     discount_price: product?.discount_price ?? "",
+    gst: product?.gst ?? "",
     images: product?.images ?? [],
   };
   const [formValues, setFormValues] = useState(initialValues);
@@ -97,6 +98,7 @@ const AddProducts = ({ setOpenModal, isEdit, product }) => {
   }, [formErrors]);
 
   const addProducts = async () => {
+    console.log(formValues.gst);
     setLoading(true);
     const data = new FormData();
     data.append("product_id", formValues.product_id);
@@ -105,17 +107,14 @@ const AddProducts = ({ setOpenModal, isEdit, product }) => {
     data.append("category", category);
     data.append("price", formValues.price);
     data.append("discount_price", formValues.discount_price);
+    data.append("gst", formValues.gst);
     data.append("quantity", formValues.quantity);
     data.append("description", formValues.description);
     // data.append("image", files);
     for (let i = 0; i < files.length; i++) {
-      // console.log(formValues.supporting_materials[i].name);
       data.append("image", files[i]);
     }
     for (let i = 0; i < referenceLinks.length; i++) {
-      // console.log(formValues.supporting_materials[i].name);
-      console.log("referenceLinks[i]");
-      console.log(referenceLinks[i]["links"]);
       data.append("sizes", referenceLinks[i]["links"]);
     }
     console.log(Object.fromEntries(data));
@@ -263,6 +262,20 @@ const AddProducts = ({ setOpenModal, isEdit, product }) => {
           value={formValues.discount_price}
         />
         <p className="errors">{formErrors.discount_price}</p>
+        <h5 style={{ lineHeight: 0 }}>Gst price</h5>
+        <InputField
+          label={"Enter product gst"}
+          name={"gst"}
+          inputStyle="input--shadow-purple"
+          style={{ width: "100%" }}
+          inputColor="purple-input"
+          type={"number"}
+          onHandleChange={(e) =>
+            !isNaN(e.nativeEvent?.data) &&
+            handleChange(e, formValues, setFormValues)
+          }
+          value={formValues.gst}
+        />
         <h5 style={{ lineHeight: 0 }}>Quantity in Stock </h5>
         <InputField
           label={"Enter quantity of products in stock"}

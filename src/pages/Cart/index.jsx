@@ -101,7 +101,7 @@ const Cart = () => {
   const plusQuantity = (_id, size) => {
     const newCartItems = cartItems.map((item) => {
       console.log(_id === item._id);
-      console.log(size,item.size);
+      console.log(size, item.size);
       if (item._id === _id && item.size === size) {
         return { ...item, quantityToBuy: item.quantityToBuy + 1 };
       } else return item;
@@ -115,6 +115,13 @@ const Cart = () => {
       totalPrice += item.discount_price * item.quantityToBuy;
     });
     console.log(totalPrice);
+    return totalPrice;
+  };
+  const getTotalGst = () => {
+    let totalPrice = 0;
+    cartItems.map((item) => {
+      totalPrice += item.gst * item.quantityToBuy;
+    });
     return totalPrice;
   };
 
@@ -249,7 +256,7 @@ const Cart = () => {
                             {item.quantityToBuy}
                           </span>
                           <button
-                            onClick={() => plusQuantity(item._id,item.size)}
+                            onClick={() => plusQuantity(item._id, item.size)}
                             style={{
                               padding: " 4px 10px",
                               borderRadius: 4,
@@ -278,7 +285,7 @@ const Cart = () => {
             <div style={{ borderBottom: "1px solid gainsboro", padding: 20 }}>
               <div class="subtotal ">
                 <p style={{ fontWeight: 600, paddingBlock: 5 }}>GST</p>
-                <p>{currencyFormater(0)}</p>
+                <p>{currencyFormater(getTotalGst())}</p>
               </div>
               <div class="subtotal ">
                 <p style={{ fontWeight: 600, paddingBlock: 5 }}>Subtotal</p>
@@ -297,7 +304,7 @@ const Cart = () => {
                 onClick={toggleCheckout}
                 className="checkout-btn"
               >
-                CHECKOUT {currencyFormater(getTotalPrice())}
+                CHECKOUT {currencyFormater(getTotalPrice() + getTotalGst())}
               </button>
             </div>
           </div>
