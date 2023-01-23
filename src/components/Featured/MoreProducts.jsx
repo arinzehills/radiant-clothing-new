@@ -14,6 +14,8 @@ const MoreProducts = () => {
     url: window.baseUrl + "admin/getProducts",
     // secondParam: activeRow,
   });
+  console.log("productsData");
+  console.log(productsData);
   return (
     <div>
       <div
