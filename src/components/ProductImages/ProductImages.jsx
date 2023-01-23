@@ -1,7 +1,6 @@
 import { Icon } from "@iconify/react";
 import React from "react";
 import { useState } from "react";
-import ReactImageMagnify from "react-image-magnify";
 import AnimatedModal from "../AnimatedModal/AnimatedModal";
 
 export const ProductImageSlider = ({ images, currentImage, hoverHandler }) => {
@@ -78,23 +77,12 @@ const ProductImages = ({ images }) => {
         onClick={() => setShowFullImage(true)}
         style={{ cursor: "zoom-in" }}
       >
-        {/* <img src={currentImage} alt="" height={"500px"} width="500px" /> */}
-        <ReactImageMagnify
-          enlargedImagePosition="over"
-          style={{}}
-          {...{
-            smallImage: {
-              alt: "Wristwatch by Ted Baker London",
-              //   isFluidWidth: true,
-              src: currentImage,
-              width: window.innerWidth < 700 ? 200 : 500,
-              height: window.innerWidth < 700 ? 200 : 500,
-            },
-            largeImage: {
-              src: currentImage,
-              width: 900,
-              height: 700,
-            },
+        <img
+          src={currentImage}
+          alt=""
+          style={{
+            width: window.innerWidth < 700 ? 200 : 500,
+            height: window.innerWidth < 700 ? 200 : 500,
           }}
         />
       </div>
