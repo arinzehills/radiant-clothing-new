@@ -82,7 +82,7 @@ const ProductImages = ({ images }) => {
           alt=""
           style={{
             width: window.innerWidth < 700 ? 200 : 500,
-            height: window.innerWidth < 700 ? 200 : 500,
+            height: window.innerWidth < 700 ? 200 : 450,
           }}
         />
       </div>
