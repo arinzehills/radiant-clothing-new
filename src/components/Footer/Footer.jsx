@@ -1,6 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaWhatsapp,
+  FaTwitter,
+  FaLinkedin,
+} from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import "./Footer.css";
 import ButtonWithIcon from "../ButtonWithIcon/ButtonWithIcon";
@@ -127,6 +133,14 @@ function Footer() {
             />
             <FooterIcon
               children={<FaInstagram fill="#000" fontSize={"20px"} />}
+              link="https://www.instagram.com/p/CkSKu1YJR99/?igshid=YmMyMTA2M2Y="
+            />
+            <FooterIcon
+              children={<FaLinkedin fill="#000" fontSize={"20px"} />}
+              link="https://www.instagram.com/p/CkSKu1YJR99/?igshid=YmMyMTA2M2Y="
+            />
+            <FooterIcon
+              children={<FaTwitter fill="#000" fontSize={"20px"} />}
               link="https://www.instagram.com/p/CkSKu1YJR99/?igshid=YmMyMTA2M2Y="
             />
           </div>
