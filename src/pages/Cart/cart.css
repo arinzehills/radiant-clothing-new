@@ -320,6 +320,10 @@ button:disabled {
   min-width: 100px;
 }
 
+.spin {
+  animation: spin 1s infinite linear;
+}
+
 @media screen and (max-width: 1200px) {
   .cart-container,
   .cart-container > :nth-child(1) > div:nth-child(1),
@@ -363,5 +367,30 @@ button:disabled {
   .checkout .parent {
     grid-template-columns: 1fr;
     max-width: 95%;
+  }
+}
+
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
