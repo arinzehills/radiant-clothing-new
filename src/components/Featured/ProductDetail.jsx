@@ -157,12 +157,14 @@ const ProductDetail = ({}) => {
           children={"Add to Wishlist"}
           onClick={() => handleAddToWhishList(product)}
         />
-        <div>
+        <div
+          style={{
+            width: "50vw",
+            overflowWrap: "break-word",
+          }}
+        >
           <h3>Product Details</h3>
-          <p
-            className="avenir_class"
-            style={{ lineHeight: "inherit", width: "80%" }}
-          >
+          <p className="avenir_class" style={{ lineHeight: "inherit" }}>
             {product.description}
           </p>
         </div>

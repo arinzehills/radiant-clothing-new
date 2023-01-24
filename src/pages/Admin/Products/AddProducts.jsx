@@ -35,7 +35,9 @@ const AddProducts = ({ setOpenModal, isEdit, product }) => {
   const [loading, setLoading] = useState(false);
   const fileNamesRef = React.useRef();
   const pickFileRef = React.useRef();
-  const [category, setCategory] = useState("Select category");
+  const [category, setCategory] = useState(
+    product?.category ?? "Select category"
+  );
   let [referenceLinks, setReferenceLinks] = useState([
     // "",
     // "",
