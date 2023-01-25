@@ -78,11 +78,19 @@ const PhoneUpper = ({ handleClick, click }) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          paddingLeft: "1.5rem",
+          transform: "translate(5%,-10%)",
+          maxWidth: "91vw",
         }}
       >
         <InputWithIcon
           inputHeight={"45px"}
+          inputWidth={
+            window.innerWidth < 660
+              ? "98vw"
+              : window.innerWidth < 960
+              ? "85vw"
+              : "107%"
+          }
           onHandleChange={(e) => setSearchTerm(e.target.value)}
           inputData={{
             label: "Search products..",

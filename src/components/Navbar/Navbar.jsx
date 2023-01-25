@@ -59,9 +59,10 @@ const Navbar = () => {
       {window.innerWidth < 769 ? (
         <PhoneUpper handleClick={handleClick} click={click} />
       ) : (
+        // <div></div>
         <UpperNavbar />
       )}
-      <div className="navbar">
+      <div className={click ? "navbar active" : "navbar"}>
         <div className="navbar-container container">
           {/* <div className="menu-icon" onClick={handleClick}>
             {click ? (

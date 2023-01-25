@@ -28,9 +28,9 @@ const InputWithIcon = ({
           width:
             inputWidth ??
             (window.innerWidth < 660
-              ? "95vw"
+              ? "79%"
               : window.innerWidth < 960
-              ? "85vw"
+              ? "85%"
               : "107%"),
           justifyContent: "space-between",
           alignItems: "flex-end",
