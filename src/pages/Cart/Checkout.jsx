@@ -4,18 +4,48 @@ import { CgClose, CgCloseO } from "react-icons/cg";
 import { ImSpinner2 } from "react-icons/im";
 import { CustomInput } from ".";
 import axios from "axios";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 import "./cart.css";
+
+const Error = ({ text }) => {
+  return <span style={{ fontSize: 12, color: "coral" }}>{text}</span>;
+};
 
 const Checkout = ({ toggleCheckout, getTotalPrice }) => {
   const [loading, setLoading] = useState(false);
   // const API_URL = "http://localhost:3002/payment/";
 
   const API_URL = window.baseUrl + "payment/";
-  console.log(API_URL);
   const navigate = useNavigate();
 
   const [totalAmount, getTotalAmount] = useState(() => getTotalPrice());
+
+  const validationSchema = Yup.object().shape({
+    fullname: Yup.string().required("This field is required"),
+    phoneNumber: Yup.string().required("This field is required"),
+    addressLine1: Yup.string().required("This field is required"),
+    addressLine2: Yup.string().required("This field is required"),
+    state: Yup.string().required("This field is required"),
+    country: Yup.string().required("This field is required")
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      fullname: "",
+      phoneNumber: "",
+      addressLine1: "",
+      addressLine2: "",
+      state: "",
+      country: ""
+    },
+    validationSchema,
+    onSubmit(values) {
+      paymentHandler();
+      console.log(values);
+    }
+  });
 
   const initPayment = (data) => {
     const options = {
@@ -36,18 +66,17 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
         }
       },
       theme: {
-        color: "#686CFD",
-      },
+        color: "#686CFD"
+      }
     };
 
     const rzp1 = new window.Razorpay(options);
     rzp1.open();
   };
 
-  const paymentHandler = async (e) => {
+  const paymentHandler = async () => {
     setLoading(true);
     try {
-      e.preventDefault();
       const orderUrl = `${API_URL}order`;
       const { data } = await axios.post(orderUrl, { amount: totalAmount }); // never send price directly. Instead send product ID and handle the rest from backend
       console.log(data);
@@ -104,7 +133,7 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
                 cursor: "pointer",
                 position: "absolute",
                 right: 15,
-                top: 13,
+                top: 13
               }}
             />
             <h2
@@ -113,61 +142,132 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
               Checkout
             </h2>
             <p>Personal Information</p>
-            <div>
+            <form
+              style={{
+                marginTop: 20,
+                display: "flex",
+                flexDirection: "column",
+                gap: 20
+              }}
+              onSubmit={formik.handleSubmit}
+            >
               <div className="parent">
-                <CustomInput placeholder="Full Name" className="input-style" />
-                <CustomInput
-                  placeholder="Phone Number"
-                  className="input-style"
-                />
+                <div>
+                  <CustomInput
+                    label="Full Name"
+                    placeholder="Full Name"
+                    className="input-style"
+                    {...formik.getFieldProps("fullname")}
+                  />
+                  {formik.touched.fullname && formik.errors.fullname && (
+                    <Error text={formik.errors.fullname} />
+                  )}
+                </div>
+                <div>
+                  <CustomInput
+                    label="Phone Number"
+                    placeholder="Phone Number"
+                    className="input-style"
+                    {...formik.getFieldProps("phoneNumber")}
+                  />
+                  {formik.touched.phoneNumber && formik.errors.phoneNumber && (
+                    <Error text={formik.errors.phoneNumber} />
+                  )}
+                </div>
               </div>
-              <CustomInput
-                type="email"
-                placeholder="Email"
-                className="input-style"
-              />
+              <div>
+                <CustomInput
+                  label="Address Line 1"
+                  type="text"
+                  placeholder="Address Line 1"
+                  className="input-style"
+                  helperText="Street address, P.O.Box, Company name, c/o"
+                  {...formik.getFieldProps("addressLine1")}
+                />
+                {formik.touched.addressLine1 && formik.errors.addressLine1 && (
+                  <Error text={formik.errors.addressLine1} />
+                )}
+              </div>
+              <div>
+                <CustomInput
+                  label="Address Line 2"
+                  type="text"
+                  placeholder="Address Line 2"
+                  className="input-style"
+                  helperText="Apartment, suite, unit, building, floor, etc"
+                  {...formik.getFieldProps("addressLine2")}
+                />
+                {formik.touched.addressLine2 && formik.errors.addressLine2 && (
+                  <Error text={formik.errors.addressLine2} />
+                )}
+              </div>
               <div className="parent">
-                <CustomInput placeholder="City" className="input-style" />
-                <CustomInput placeholder="State" className="input-style" />
+                <div>
+                  <CustomInput
+                    label="State"
+                    placeholder="State/Pronvince/Region"
+                    className="input-style"
+                    {...formik.getFieldProps("state")}
+                  />
+                  {formik.touched.state && formik.errors.state && (
+                    <Error text={formik.errors.state} />
+                  )}
+                </div>
+                <div>
+                  <CustomInput
+                    label="Country"
+                    placeholder="Country"
+                    className="input-style"
+                    {...formik.getFieldProps("country")}
+                  />
+                  {formik.touched.country && formik.errors.country && (
+                    <Error text={formik.errors.country} />
+                  )}
+                </div>
               </div>
               <div
                 style={{
                   display: "flex",
                   justifyContent: "flex-end",
-                  marginTop: 10,
+                  marginTop: 10
                 }}
               >
                 <button
                   onClick={toggleCheckout}
+                  type="button"
                   style={{
                     fontSize: 14,
                     marginRight: 8,
                     padding: "8px 20px",
                     background: "gray",
                     borderRadius: 6,
-                    color: "white",
+                    color: "white"
                   }}
                 >
                   Back
                 </button>
                 <button
+                  type="submit"
                   disabled={loading}
                   className="proceed-to-pay-btn"
-                  onClick={paymentHandler}
                 >
                   {loading ? (
-                    <ImSpinner2 size={20} style={{ marginInline: "auto" }} />
+                    <ImSpinner2
+                      className="spin"
+                      size={20}
+                      style={{ marginInline: "auto" }}
+                    />
                   ) : (
                     `Proceed to Pay`
                   )}
                 </button>
               </div>
-            </div>
+            </form>
             <div
               style={{
                 marginTop: 20,
                 borderTop: "1px solid gainsboro",
-                paddingTop: 5,
+                paddingTop: 5
               }}
             >
               <p style={{ fontSize: 12 }}>
