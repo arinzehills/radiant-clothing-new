@@ -14,6 +14,7 @@ const InputWithIcon = ({
   ref,
   value,
   inputHeight,
+  inputWidth,
   showbtn,
   style,
 }) => {
@@ -25,11 +26,12 @@ const InputWithIcon = ({
           ...style,
           display: "flex",
           width:
-            window.innerWidth < 660
+            inputWidth ??
+            (window.innerWidth < 660
               ? "95vw"
               : window.innerWidth < 960
               ? "85vw"
-              : "107%",
+              : "107%"),
           justifyContent: "space-between",
           alignItems: "flex-end",
         }}
