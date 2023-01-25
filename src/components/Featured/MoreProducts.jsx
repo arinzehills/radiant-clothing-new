@@ -34,12 +34,19 @@ const MoreProducts = () => {
           showSubHeader={true}
         />
       </div>
-      <ProductListItem
-        // colorClass={productsSet.colorClass}
-        // imgSrc={productsSet.image}
-        loading={loading}
-        products={productsData?.products}
-      />
+      <div
+        className=""
+        style={{
+          marginTop: "10rem",
+        }}
+      >
+        <ProductListItem
+          // colorClass={productsSet.colorClass}
+          // imgSrc={productsSet.image}
+          loading={loading}
+          products={productsData?.products}
+        />
+      </div>
     </div>
   );
 };
