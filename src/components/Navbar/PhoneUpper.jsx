@@ -73,25 +73,24 @@ const PhoneUpper = ({ handleClick, click }) => {
           )}
         </div>
       </div>
-      {/* <div
-        style={
-          {
-            // display: "flex",
-            // justifyContent: "center",
-            // alignItems: "center",
-          }
-        }
-      > */}
-      <InputWithIcon
-        inputHeight={"45px"}
-        onHandleChange={(e) => setSearchTerm(e.target.value)}
-        inputData={{
-          label: "Search products..",
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          paddingLeft: "1.5rem",
         }}
-        iconName={"ic:outline-search"}
-        onClickIcon={() => navigate("/products")}
-      />
-      {/* </div> */}
+      >
+        <InputWithIcon
+          inputHeight={"45px"}
+          onHandleChange={(e) => setSearchTerm(e.target.value)}
+          inputData={{
+            label: "Search products..",
+          }}
+          iconName={"ic:outline-search"}
+          onClickIcon={() => navigate("/products")}
+        />
+      </div>
     </div>
   );
 };
