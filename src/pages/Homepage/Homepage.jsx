@@ -56,7 +56,9 @@ const Homepage = () => {
         </div>
       ) : (
         categoriesData?.images.length !== 0 && (
-          <ImageSlider slides={categoriesData?.images} />
+          <div style={{ marginTop: window.innerWidth < 700 && "-7.5rem" }}>
+            <ImageSlider slides={categoriesData?.images} />
+          </div>
           // <div></div>
         )
       )}

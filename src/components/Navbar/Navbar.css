@@ -36,19 +36,14 @@
 }
 
 .navbar {
-  height: 70px;
+  height: 40px;
   display: flex;
-  /* justify-content: start; */
-  /* align-items: flex-start; */
-
-  /* justify-content: center;
-  align-items: center; */
+  justify-content: center;
+  align-items: center;
   position: relative;
   top: 100px;
   z-index: 999;
-  padding-top: 0.2rem;
-  padding-bottom: 0.5rem;
-  margin-bottom: 5.5rem;
+  margin-bottom: 7.5rem;
   /* background: linear-gradient(
     to right bottom,
     rgba(255, 255, 255, 0.1),
@@ -190,11 +185,10 @@
   }
   .navbar {
     height: 0;
-    /* visibility: hidden; */
-    /* display: none; */
-    margin-bottom: -10px;
     background: #000;
     position: relative;
+    visibility: hidden;
+    /* margin-bottom: 8.5rem; */
   }
   .navbar.active {
     visibility: visible;
@@ -220,7 +214,7 @@
     text-align: right;
     /* padding: 5rem; */
     position: absolute;
-    top: 0px;
+    top: -5rem;
     left: -100%;
     /* opacity: 1; */
     /* display: none; */
