@@ -92,6 +92,11 @@ code {
   justify-content: center;
   align-items: center;
 }
+input[type="radio"]:checked {
+  outline: none;
+  background-color: hotpink;
+  border: 1px solid hotpink;
+}
 .class_justify_contents_row {
   display: flex;
   justify-content: center;

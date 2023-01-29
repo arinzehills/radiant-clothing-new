@@ -59,6 +59,7 @@ button:disabled {
   border-radius: 4px;
   background: rgb(74 222 128);
 }
+
 .cart-container > :nth-child(1) > div:nth-child(1) {
   width: 66%;
   background-color: white;
@@ -319,7 +320,15 @@ button:disabled {
   color: white;
   min-width: 100px;
 }
-
+#address_radio {
+  accent-color: rgb(247, 111, 93);
+}
+input[type="radio"]:checked {
+  outline: none;
+  /* display: ; */
+  background-color: hotpink;
+  border: 1px solid hotpink;
+}
 .spin {
   animation: spin 1s infinite linear;
 }

@@ -41,14 +41,7 @@ export const CustomInput = (props) => {
 const Cart = () => {
   const navigate = useNavigate();
   const { user, setUser } = useUser();
-  const {
-    data: billingAddresses,
-    loading: loadingAddresses,
-    error,
-  } = useFetch({
-    url: window.baseUrl + "payment/getBillingAddress",
-    fetchParamData: { user_id: user._id },
-  });
+
   const currencyFormater = (number) => {
     return new Intl.NumberFormat("en-EN", {
       style: "currency",
@@ -70,7 +63,15 @@ const Cart = () => {
   const [showAddress, setShowAddress] = useState(false);
   const { cartItems, setCartItems, whishLists, setWhishLists } =
     useContext(CartContext);
-
+  const {
+    data: billingAddresses,
+    loading: loadingAddresses,
+    error,
+  } = useFetch({
+    url: window.baseUrl + "payment/getBillingAddress",
+    fetchParamData: { user_id: user._id },
+    secondParam: checkout,
+  });
   const API_URL = window.baseUrl + "payment/";
 
   const handleAddToCart = (item) => {
@@ -173,7 +174,10 @@ const Cart = () => {
       <div class="cart-container">
         <div>
           {showAddress ? (
-            <AddressContainer billingAddresses={billingAddresses} />
+            <AddressContainer
+              billingAddresses={billingAddresses}
+              toggleCheckout={toggleCheckout}
+            />
           ) : (
             <CartContainer
               cartItems={cartItems}

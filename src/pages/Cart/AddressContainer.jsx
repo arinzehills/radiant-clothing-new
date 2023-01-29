@@ -3,11 +3,16 @@ import React from "react";
 import { Button } from "../../components/Button/Button";
 import useUser from "../../useUser";
 import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
-const AddressContainer = ({ billingAddresses }) => {
+const AddressContainer = ({ billingAddresses, toggleCheckout }) => {
   const { user, setUser } = useUser();
   // const addr = ["", ""];
-  console.log(billingAddresses);
+  const [selected, setSelected] = useState(
+    billingAddresses.billing_address[0].id
+  );
+
+  console.log(billingAddresses?.billing_address[0].id);
   return (
     <AnimatePresence>
       <motion.div
@@ -39,13 +44,20 @@ const AddressContainer = ({ billingAddresses }) => {
               boxShadow:
                 "0 0 6px 0 rgb(78 42 222 / 2%), 0 6px 18px 0 rgb(78 42 222 / 2%)",
             }}
+            onClick={() => setSelected(addr.id)}
           >
             <div
               className="class_justify_contents_column withGap"
               style={{ alignItems: "flex-start" }}
             >
               <div className="class_justify_contents_row withGap">
-                <input type="radio" onSelect={true} />
+                <input
+                  type="radio"
+                  style={{ color: "red" }}
+                  color="red"
+                  checked={addr.id == selected ? true : false}
+                  value={addr.id}
+                />
                 <h4>{addr.fullname ?? user.full_name ?? ""}</h4>
               </div>
               <p className="avenir_class" style={{ lineHeight: "inherit" }}>
@@ -63,6 +75,7 @@ const AddressContainer = ({ billingAddresses }) => {
         ))}
         <div>
           <div
+            onClick={toggleCheckout}
             className="class_justify_contents_row withGap"
             style={{
               color: "var(--light-orange)",

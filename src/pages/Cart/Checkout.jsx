@@ -6,7 +6,7 @@ import axios from "axios";
 import { CustomInput } from ".";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import { v4 } from "uuid";
 import "./cart.css";
 import useUser from "../../useUser";
 
@@ -31,6 +31,7 @@ const Checkout = ({ toggleCheckout, getTotalPrice, paymentHandler }) => {
 
   const formik = useFormik({
     initialValues: {
+      id: v4(),
       fullname: user?.full_name ?? "",
       phoneNumber: user?.phone ?? "",
       addressLine1: user?.address ?? "",
