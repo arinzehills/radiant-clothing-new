@@ -2,25 +2,23 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { CgClose, CgCloseO } from "react-icons/cg";
 import { ImSpinner2 } from "react-icons/im";
-import { CustomInput } from ".";
 import axios from "axios";
+import { CustomInput } from ".";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import "./cart.css";
+import useUser from "../../useUser";
 
 const Error = ({ text }) => {
   return <span style={{ fontSize: 12, color: "coral" }}>{text}</span>;
 };
 
-const Checkout = ({ toggleCheckout, getTotalPrice }) => {
-  const [loading, setLoading] = useState(false);
+const Checkout = ({ toggleCheckout, getTotalPrice, paymentHandler }) => {
   // const API_URL = "http://localhost:3002/payment/";
-
+  const { user, setUser } = useUser();
+  const [loading, setLoading] = useState(false);
   const API_URL = window.baseUrl + "payment/";
-  const navigate = useNavigate();
-
-  const [totalAmount, getTotalAmount] = useState(() => getTotalPrice());
 
   const validationSchema = Yup.object().shape({
     fullname: Yup.string().required("This field is required"),
@@ -28,59 +26,37 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
     addressLine1: Yup.string().required("This field is required"),
     addressLine2: Yup.string().required("This field is required"),
     state: Yup.string().required("This field is required"),
-    country: Yup.string().required("This field is required")
+    country: Yup.string().required("This field is required"),
   });
 
   const formik = useFormik({
     initialValues: {
-      fullname: "",
-      phoneNumber: "",
-      addressLine1: "",
+      fullname: user?.full_name ?? "",
+      phoneNumber: user?.phone ?? "",
+      addressLine1: user?.address ?? "",
       addressLine2: "",
       state: "",
-      country: ""
+      country: "",
     },
     validationSchema,
     onSubmit(values) {
-      paymentHandler();
+      // paymentHandler();
+
+      saveBillingAddress(values);
       console.log(values);
-    }
+    },
   });
-
-  const initPayment = (data) => {
-    const options = {
-      key: data.KEY_ID,
-      order_id: data.id,
-      currency: data.currency,
-      amount: data.amount,
-      name: "Radiant Clothing",
-      description: "Super amamzing description...",
-      handler: async (response) => {
-        response.amount = data.amount;
-        try {
-          const { data } = axios.post(`${API_URL}verify`, response);
-          window.localStorage.removeItem("radiant_cart_item");
-          navigate("/payment-success");
-        } catch (err) {
-          console.log(err);
-        }
-      },
-      theme: {
-        color: "#686CFD"
-      }
-    };
-
-    const rzp1 = new window.Razorpay(options);
-    rzp1.open();
-  };
-
-  const paymentHandler = async () => {
+  const saveBillingAddress = async (values) => {
     setLoading(true);
     try {
-      const orderUrl = `${API_URL}order`;
-      const { data } = await axios.post(orderUrl, { amount: totalAmount }); // never send price directly. Instead send product ID and handle the rest from backend
+      const saveUrl = `${API_URL}add_billing_address`;
+      const { data } = await axios.post(saveUrl, {
+        user_id: user._id,
+        billing_address: values,
+      }); // never send price directly. Instead send product ID and handle the rest from backend
       console.log(data);
-      initPayment(data.data);
+      setUser(data.user);
+      toggleCheckout();
     } catch (error) {
       console.log(error);
     } finally {
@@ -133,7 +109,7 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
                 cursor: "pointer",
                 position: "absolute",
                 right: 15,
-                top: 13
+                top: 13,
               }}
             />
             <h2
@@ -147,7 +123,7 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
                 marginTop: 20,
                 display: "flex",
                 flexDirection: "column",
-                gap: 20
+                gap: 20,
               }}
               onSubmit={formik.handleSubmit}
             >
@@ -229,7 +205,7 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
                 style={{
                   display: "flex",
                   justifyContent: "flex-end",
-                  marginTop: 10
+                  marginTop: 10,
                 }}
               >
                 <button
@@ -241,7 +217,7 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
                     padding: "8px 20px",
                     background: "gray",
                     borderRadius: 6,
-                    color: "white"
+                    color: "white",
                   }}
                 >
                   Back
@@ -258,25 +234,11 @@ const Checkout = ({ toggleCheckout, getTotalPrice }) => {
                       style={{ marginInline: "auto" }}
                     />
                   ) : (
-                    `Proceed to Pay`
+                    `Save & Proceed`
                   )}
                 </button>
               </div>
             </form>
-            <div
-              style={{
-                marginTop: 20,
-                borderTop: "1px solid gainsboro",
-                paddingTop: 5
-              }}
-            >
-              <p style={{ fontSize: 12 }}>
-                <span style={{ color: "coral", fontWeight: 700 }}>NOTE:</span>{" "}
-                The Informations supplied above are used for order tracking
-                purpose only and is treated in compliance with the US privacy
-                act 1929.
-              </p>
-            </div>
           </div>
         </div>
       </div>

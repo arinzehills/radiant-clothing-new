@@ -61,7 +61,7 @@ const AnimatedModal = ({
                   opacity: 1,
                   transition: {
                     delay: 0.2,
-                    duration: 0.7,
+                    duration: 0.6,
                   },
                 }}
                 exit={{ opacity: 0, x: 100 }}

@@ -1,18 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
-import { AiFillDelete } from "react-icons/ai";
 import { BsCart4, BsPatchCheck } from "react-icons/bs";
-import { IoMdArrowBack, IoMdNotifications } from "react-icons/io";
-import search from "../../../public/images/no-record-found.png";
 import { Link, useNavigate } from "react-router-dom";
 import { ClickableToast } from "../../components/Featured/ProductItem";
-
 import "./cart.css";
+import axios from "axios";
 import Checkout from "./Checkout";
 import CartContext from "../../context/CartContext";
 import { toast } from "react-toastify";
 import { toastOptions } from "../../components/Featured/ProductItem";
 import empty from "../../../public/images/empty.png";
 import { RiDeleteBin2Fill } from "react-icons/ri";
+import AddressContainer from "./AddressContainer";
+import CartContainer from "./CartContainer";
+import useFetch from "../../useFetch";
+import useUser from "../../useUser";
 
 export const CustomInput = (props) => {
   const { helperText, label } = props;
@@ -28,7 +29,9 @@ export const CustomInput = (props) => {
   else
     return (
       <div>
-        {label ? <label  style={{ fontSize: 13, fontWeight: 600 }}>{label}</label> : null}
+        {label ? (
+          <label style={{ fontSize: 13, fontWeight: 600 }}>{label}</label>
+        ) : null}
         <input style={{ width: "100%" }} type="text" {...props} />
         <p style={{ fontSize: 12 }}>{helperText}</p>
       </div>
@@ -37,45 +40,38 @@ export const CustomInput = (props) => {
 
 const Cart = () => {
   const navigate = useNavigate();
+  const { user, setUser } = useUser();
+  const {
+    data: billingAddresses,
+    loading: loadingAddresses,
+    error,
+  } = useFetch({
+    url: window.baseUrl + "payment/getBillingAddress",
+    fetchParamData: { user_id: user._id },
+  });
   const currencyFormater = (number) => {
     return new Intl.NumberFormat("en-EN", {
       style: "currency",
-      currency: "INR"
+      currency: "INR",
     }).format(number);
   };
   const dummyProducts = [
-    {
-      imgUrl: "../../../public/images/contact.jpg",
-      name: "Lorem Ipsum dolor sit amet. consectutur",
-      category: "Native",
-      price: "$4,500",
-      quantity: 1
-    },
     {
       imgUrl: "../../../public/images/white_shopping.jpg",
       name: "Lorem Ipsum dolor sit amet. consectutur",
       category: "English",
       price: "$7,000",
-      quantity: 1
+      quantity: 1,
     },
-    {
-      imgUrl: "../../../public/images/straight-suit.jpeg",
-      name: "Lorem Ipsum dolor sit amet. consectutur",
-      category: "Ankara",
-      price: "$12,750",
-      quantity: 1
-    },
-    {
-      imgUrl: "../../../public/images/white_shopping.jpg",
-      name: "Lorem Ipsum dolor sit amet. consectutur",
-      category: "Multipurpose",
-      price: "$4,500",
-      quantity: 1
-    }
   ];
+
   const [checkout, setCheckout] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [showAddress, setShowAddress] = useState(false);
   const { cartItems, setCartItems, whishLists, setWhishLists } =
     useContext(CartContext);
+
+  const API_URL = window.baseUrl + "payment/";
 
   const handleAddToCart = (item) => {
     const index = cartItems.findIndex((cartItem) => cartItem._id === item._id);
@@ -88,42 +84,10 @@ const Cart = () => {
     toast.success(<ClickableToast />, toastOptions);
   };
 
-  const removeItem = (_id, size) => {
-    const newCartItems = cartItems.filter(
-      (item) => item._id !== _id && item.size !== size
-    );
-    setCartItems(newCartItems);
-    toast.warn("One item removed from cart", toastOptions);
-  };
-
   const removeWhishList = (_id) => {
     const newWhishList = whishLists.filter((item) => item._id !== _id);
     setWhishLists(newWhishList);
     toast.warn("One item removed from whishlist", toastOptions);
-  };
-
-  const minusQuantity = (_id, size) => {
-    const currentItem = cartItems.find(
-      (item) => item._id === _id && item.size === size
-    );
-    if (currentItem.quantityToBuy === 1) return;
-    const newCartItems = cartItems.map((item) => {
-      if (item._id === _id) {
-        return { ...item, quantityToBuy: item.quantityToBuy - 1 };
-      } else return item;
-    });
-    setCartItems(newCartItems);
-  };
-
-  const plusQuantity = (_id, size) => {
-    const newCartItems = cartItems.map((item) => {
-      console.log(_id === item._id);
-      console.log(size, item.size);
-      if (item._id === _id && item.size === size) {
-        return { ...item, quantityToBuy: item.quantityToBuy + 1 };
-      } else return item;
-    });
-    setCartItems(newCartItems);
   };
 
   const getTotalPrice = () => {
@@ -145,158 +109,77 @@ const Cart = () => {
   const toggleCheckout = () => {
     setCheckout(!checkout);
   };
+  const [totalAmount, getTotalAmount] = useState(() => getTotalPrice());
 
   useEffect(() => {
     getTotalPrice();
   }, [cartItems]);
-  const percetage = (product) => {
-    var discount = (product.price - product.discount_price) / product.price;
-    return (discount * 100).toFixed(0) + "%";
+
+  const initPayment = (data) => {
+    const options = {
+      key: data.KEY_ID,
+      order_id: data.id,
+      currency: data.currency,
+      amount: data.amount,
+      name: "Radiant Clothing",
+
+      description: "Super amamzing description...",
+      handler: async (response) => {
+        response.amount = data.amount;
+        try {
+          const { data } = axios.post(`${API_URL}verify`, response);
+          window.localStorage.removeItem("radiant_cart_item");
+          navigate("/payment-success");
+        } catch (err) {
+          console.log(err);
+        }
+      },
+      prefill: {
+        method: "card",
+        name: "Gaurav Kumar",
+        contact: "+919000090000",
+        email: "gaurav.kumar@example.com",
+        // "card[name]": "Gaurav Kumar",
+        "card[number]": "4111111111111111",
+        "card[expiry]": "12/21",
+        "card[cvv]": "123",
+      },
+      theme: {
+        color: "#686CFD",
+      },
+    };
+
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
   };
+
+  const paymentHandler = async () => {
+    setLoading(true);
+    try {
+      const orderUrl = `${API_URL}order`;
+      const { data } = await axios.post(orderUrl, { amount: totalAmount }); // never send price directly. Instead send product ID and handle the rest from backend
+      console.log(data);
+      initPayment(data.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  console.log(billingAddresses);
+
   return (
     <>
       <div class="cart-container">
         <div>
-          <div style={{ position: "relative" }}>
-            <p>Cart ({cartItems.length})</p>
-            <span
-              role="button"
-              onClick={() => navigate("/")}
-              className="back-span"
-            >
-              {" "}
-              <IoMdArrowBack /> Go back to shopping
-            </span>
-            <>
-              {cartItems.length ? (
-                <div className="cart-with-items">
-                  {cartItems.map((item, idx) => (
-                    <div
-                      className="item"
-                      style={{
-                        borderTop: idx !== 0 ? "1px solid gainsboro" : "none"
-                      }}
-                    >
-                      <div className="top">
-                        <div key={idx}>
-                          <img src={item.images[0]} />
-                          <div>
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: 4,
-                                marginRight: 10
-                              }}
-                            >
-                              <p style={{ fontSize: 14, fontWeight: 700 }}>
-                                {item.product_name} -{" "}
-                                <span style={{ fontWeight: 400 }}>
-                                  {item.description}
-                                </span>{" "}
-                              </p>
-                              <p style={{ textTransform: "capitalize" }}>
-                                <span
-                                  style={{ marginBlock: 5, fontWeight: 600 }}
-                                >
-                                  Category
-                                </span>{" "}
-                                - {item.category}
-                              </p>
-                              <p>
-                                Size -{" "}
-                                <span style={{ color: "coral" }}>
-                                  {item.size || "XXL"}
-                                </span>
-                              </p>
-                              <p
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  gap: 4
-                                }}
-                              >
-                                <IoMdNotifications color="coral" size={20} />{" "}
-                                <span>{item.quantity || 0} units left</span>
-                              </p>
-                            </div>
-                            <div>
-                              <p style={{ fontSize: 14, fontWeight: 600 }}>
-                                {currencyFormater(item.discount_price)}
-                              </p>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  gap: 8,
-                                  fontSize: 14
-                                }}
-                              >
-                                <p
-                                  style={{
-                                    whiteSpace: "nowrap",
-                                    textDecoration: "line-through",
-                                    color: "coral"
-                                  }}
-                                >
-                                  {/* N 8,000 */}
-                                  {item.price}
-                                </p>
-                                {/* <p>50%</p> */}
-                                <p>{percetage(item)}</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="bottom">
-                        <button onClick={() => removeItem(item._id, item.size)}>
-                          <AiFillDelete color="coral" size={22} />
-                          <span>DELETE</span>
-                        </button>
-                        <div>
-                          <button
-                            onClick={() => minusQuantity(item._id, item.size)}
-                            style={{
-                              padding: "2px 12px ",
-                              borderRadius: 4,
-                              fontSize: 24,
-                              background:
-                                item.quantityToBuy === 1
-                                  ? "rgb(220 252 231)"
-                                  : "rgb(74 222 128)"
-                            }}
-                          >
-                            -
-                          </button>
-                          <span style={{ fontWeight: 600 }}>
-                            {item.quantityToBuy}
-                          </span>
-                          <button
-                            onClick={() => plusQuantity(item._id, item.size)}
-                            style={{
-                              padding: " 4px 10px",
-                              borderRadius: 4,
-                              fontSize: 20,
-                              background: "rgb(74 222 128)"
-                            }}
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div class="cart-without-items ">
-                  <img src={search} />
-                  <p>Your cart is empty at the moment!</p>
-                  <Link to="../">Start Shopping</Link>
-                </div>
-              )}
-            </>
-          </div>
+          {showAddress ? (
+            <AddressContainer billingAddresses={billingAddresses} />
+          ) : (
+            <CartContainer
+              cartItems={cartItems}
+              currencyFormater={currencyFormater}
+            />
+          )}
           <div className="cart-summary">
             <p style={{ fontWeight: 600 }}>Cart Summary</p>
             <div style={{ borderBottom: "1px solid gainsboro", padding: 20 }}>
@@ -313,19 +196,32 @@ const Cart = () => {
               style={{
                 display: "flex",
                 justifyContent: "space-between",
-                width: "100%"
+                width: "100%",
               }}
             >
               <button
                 disabled={getTotalPrice() === 0}
-                onClick={toggleCheckout}
+                onClick={() =>
+                  billingAddresses?.billing_address?.length === 0
+                    ? toggleCheckout()
+                    : showAddress
+                    ? paymentHandler()
+                    : setShowAddress(true)
+                }
                 className="checkout-btn"
               >
-                CHECKOUT {currencyFormater(getTotalPrice() + getTotalGst())}
+                {showAddress
+                  ? `Proceed ${currencyFormater(
+                      getTotalPrice() + getTotalGst()
+                    )}`
+                  : `CHECKOUT ${currencyFormater(
+                      getTotalPrice() + getTotalGst()
+                    )}`}
               </button>
             </div>
           </div>
         </div>
+        {/* wish list starts here */}
         <div className="saved-for-later">
           <p>Your Wishlists</p>
           {whishLists.length ? (
@@ -334,7 +230,7 @@ const Cart = () => {
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(4,1fr)",
-                gap: 10
+                gap: 10,
               }}
             >
               {whishLists.map((product, idx) => (
@@ -345,7 +241,7 @@ const Cart = () => {
                       marginRight: 28,
                       display: "flex",
                       justifyContent: "space-between",
-                      alignItems: "center"
+                      alignItems: "center",
                     }}
                   >
                     <div>
@@ -378,7 +274,7 @@ const Cart = () => {
                 display: "grid",
                 placeContent: "center",
                 paddingBottom: 20,
-                textAlign: "center"
+                textAlign: "center",
               }}
             >
               <img src={empty} style={{ width: 200, margin: "auto" }} />
@@ -415,6 +311,8 @@ const Cart = () => {
         <Checkout
           toggleCheckout={toggleCheckout}
           getTotalPrice={getTotalPrice}
+          loading={loading}
+          paymentHandler={paymentHandler}
         />
       )}
     </>
