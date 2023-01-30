@@ -33,6 +33,7 @@ import About from "./pages/About/About";
 import ProductDetail from "./components/Featured/ProductDetail";
 import Terms from "./pages/Terms/Terms";
 import MoreProducts from "./components/Featured/MoreProducts";
+import PrivateRoutes from "./utils/PrivateRoutes";
 
 function App() {
   const [handleNotData, setHandleNotData] = useState({
@@ -90,7 +91,9 @@ function App() {
           </Route>
           <Route path="/about" exact element={<About />} />
           <Route path="/terms-and-condition" exact element={<Terms />} />
+          <Route element={<PrivateRoutes token={token} />}>
           <Route path="/cart" element={<Cart />} />
+          </Route>
           <Route path="/cart/checkout" element={<Checkout />} />
           <Route path="dashboard" element={<Dashboard />}>
             <Route

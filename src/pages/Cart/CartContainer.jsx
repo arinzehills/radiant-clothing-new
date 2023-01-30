@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import search from "../../../public/images/no-record-found.png";
 import { AiFillDelete } from "react-icons/ai";
 import { IoMdArrowBack, IoMdNotifications } from "react-icons/io";
@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 const CartContainer = ({ currencyFormater }) => {
   const { cartItems, setCartItems } = useContext(CartContext);
-
+const navigate=useNavigate()
   const percetage = (product) => {
     var discount = (product.price - product.discount_price) / product.price;
     return (discount * 100).toFixed(0) + "%";

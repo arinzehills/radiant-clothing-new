@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Formhero from "../../components/Formhero/Formhero";
 import Loader from "../../components/Loader/Loader";
 import { login } from "./data";
@@ -18,7 +18,7 @@ function Login({ message }) {
   const [isSubmit, setIsSubmit] = useState(false);
   const [loading, setLoading] = useState(false);
   const history = useNavigate();
-
+  const location = useLocation()
   const inputValues = [formValues.email, formValues.password];
   const inputLabels = ["Enter email", "Password..."];
   const inputNames = ["email", "password"];
@@ -46,7 +46,7 @@ function Login({ message }) {
       login();
     }
   }, [formErrors]);
-  console.log(loading);
+
   const login = async () => {
     setLoading(true);
     const data = {
@@ -69,7 +69,7 @@ function Login({ message }) {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        // console.log( data['token']);
+        console.log( location.state);
 
         if (data["success"] === true) {
           const token = data["user"].token;
@@ -77,7 +77,7 @@ function Login({ message }) {
 
           setToken(token);
           setUser(user);
-          history("/");
+          history(location.state===null ?"/":location.state.from);
           setLoading(false);
         } else {
           const error = data["message"];

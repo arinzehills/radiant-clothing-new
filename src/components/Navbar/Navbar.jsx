@@ -81,22 +81,6 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
-<<<<<<< HEAD
-            <li
-              className={
-                currentTab === 2 ? "underline_link nav-items" : "nav-items"
-              }
-            >
-              <Link
-                to="/pricing"
-                className="nav-links"
-                onClick={() => closeMobileMenu(2)}
-              >
-                Categories
-              </Link>
-            </li>
-=======
->>>>>>> 065f37409b56ef8f0d32ad9a917dda82c2500519
             <li
               className={`${currentTab === 4 ? "nav-items " : "nav-items "}
                   categories-dropdown

@@ -14,7 +14,7 @@ const Error = ({ text }) => {
   return <span style={{ fontSize: 12, color: "coral" }}>{text}</span>;
 };
 
-const Checkout = ({ toggleCheckout, getTotalPrice, paymentHandler }) => {
+const Checkout = ({ toggleCheckout, setShowAddress }) => {
   // const API_URL = "http://localhost:3002/payment/";
   const { user, setUser } = useUser();
   const [loading, setLoading] = useState(false);
@@ -36,6 +36,8 @@ const Checkout = ({ toggleCheckout, getTotalPrice, paymentHandler }) => {
       phoneNumber: user?.phone ?? "",
       addressLine1: user?.address ?? "",
       addressLine2: "",
+      postalCode: "",
+      city: "",
       state: "",
       country: "",
     },
@@ -57,6 +59,7 @@ const Checkout = ({ toggleCheckout, getTotalPrice, paymentHandler }) => {
       }); // never send price directly. Instead send product ID and handle the rest from backend
       console.log(data);
       setUser(data.user);
+      setShowAddress(true)
       toggleCheckout();
     } catch (error) {
       console.log(error);
@@ -177,6 +180,30 @@ const Checkout = ({ toggleCheckout, getTotalPrice, paymentHandler }) => {
                 {formik.touched.addressLine2 && formik.errors.addressLine2 && (
                   <Error text={formik.errors.addressLine2} />
                 )}
+              </div>
+              <div className="parent">
+                <div>
+                  <CustomInput
+                    label="Postal Code"
+                    placeholder="Postal Code"
+                    className="input-style"
+                    {...formik.getFieldProps("postalCode")}
+                  />
+                  {formik.touched.state && formik.errors.state && (
+                    <Error text={formik.errors.state} />
+                  )}
+                </div>
+                <div>
+                  <CustomInput
+                    label="City"
+                    placeholder="City"
+                    className="input-style"
+                    {...formik.getFieldProps("city")}
+                  />
+                  {formik.touched.country && formik.errors.country && (
+                    <Error text={formik.errors.country} />
+                  )}
+                </div>
               </div>
               <div className="parent">
                 <div>

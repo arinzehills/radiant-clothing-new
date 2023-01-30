@@ -176,6 +176,7 @@ const Cart = () => {
             <AddressContainer
               billingAddresses={billingAddresses}
               toggleCheckout={toggleCheckout}
+              loadingAddr={loadingAddresses}
             />
           ) : (
             <CartContainer
@@ -313,9 +314,8 @@ const Cart = () => {
       {checkout && (
         <Checkout
           toggleCheckout={toggleCheckout}
-          getTotalPrice={getTotalPrice}
           loading={loading}
-          paymentHandler={paymentHandler}
+          setShowAddress={setShowAddress}
         />
       )}
     </>
