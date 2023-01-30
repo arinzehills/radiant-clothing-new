@@ -62,7 +62,7 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
-            {/* <li
+            <li
               className={
                 currentTab === 2 ? "underline_link nav-items" : "nav-items"
               }
@@ -74,7 +74,7 @@ const Navbar = () => {
               >
                 Categories
               </Link>
-            </li> */}
+            </li>
             <li
               className={
                 currentTab === 3 ? "underline_link nav-items" : "nav-items"

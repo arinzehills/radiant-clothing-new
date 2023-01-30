@@ -48,6 +48,7 @@ const Cart = () => {
       quantity: 1,
     },
   ];
+  
   const [checkout, setCheckout] = useState(false);
   const [cartItems, setCartItems] = useState([
     {
