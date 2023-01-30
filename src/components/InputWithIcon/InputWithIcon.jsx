@@ -14,20 +14,24 @@ const InputWithIcon = ({
   ref,
   value,
   inputHeight,
+  inputWidth,
   showbtn,
+  style,
 }) => {
   return (
     <>
       <div
         key={inputkey}
         style={{
+          ...style,
           display: "flex",
           width:
-            window.innerWidth < 660
+            inputWidth ??
+            (window.innerWidth < 660
               ? "79%"
               : window.innerWidth < 960
               ? "85%"
-              : "107%",
+              : "107%"),
           justifyContent: "space-between",
           alignItems: "flex-end",
         }}
@@ -57,7 +61,7 @@ const InputWithIcon = ({
           {showbtn ? (
             <Button>Upload File</Button>
           ) : (
-            <div style={{ background: "" }}>
+            <div style={{ background: "", cursor: "pointer" }}>
               <Icon
                 icon={iconName ?? "fa-solid:file-upload"}
                 fontSize={"38px"}

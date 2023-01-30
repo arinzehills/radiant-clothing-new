@@ -1,31 +1,54 @@
-import React, { useState, useEffect } from "react";
-import { AiFillDelete } from "react-icons/ai";
+import React, { useState, useEffect, useContext } from "react";
 import { BsCart4, BsPatchCheck } from "react-icons/bs";
-import { IoMdNotifications } from "react-icons/io";
-import imgUrl1 from "../../../public/images/contact.jpg";
-import search from "../../../public/images/no-record-found.png";
-import { Link } from "react-router-dom";
-import { CgCloseO } from "react-icons/cg";
+import { Link, useNavigate } from "react-router-dom";
+import { ClickableToast } from "../../components/Featured/ProductItem";
+import "./cart.css";
+import axios from "axios";
+import Checkout from "./Checkout";
+import CartContext from "../../context/CartContext";
+import { toast } from "react-toastify";
+import { toastOptions } from "../../components/Featured/ProductItem";
+import empty from "../../../public/images/empty.png";
+import { RiDeleteBin2Fill } from "react-icons/ri";
+import AddressContainer from "./AddressContainer";
+import CartContainer from "./CartContainer";
+import useFetch from "../../useFetch";
+import useUser from "../../useUser";
 
-const CustomInput = (props) => {
-  return <input type="text" {...props} />;
+export const CustomInput = (props) => {
+  const { helperText, label } = props;
+  if (!helperText)
+    return (
+      <div>
+        {label ? (
+          <label style={{ fontSize: 13, fontWeight: 600 }}>{label}</label>
+        ) : null}
+        <input type="text" {...props} />
+      </div>
+    );
+  else
+    return (
+      <div>
+        {label ? (
+          <label style={{ fontSize: 13, fontWeight: 600 }}>{label}</label>
+        ) : null}
+        <input style={{ width: "100%" }} type="text" {...props} />
+        <p style={{ fontSize: 12 }}>{helperText}</p>
+      </div>
+    );
 };
 
 const Cart = () => {
+  const navigate = useNavigate();
+  const { user, setUser } = useUser();
+
   const currencyFormater = (number) => {
     return new Intl.NumberFormat("en-EN", {
       style: "currency",
-      currency: "NGN",
+      currency: "INR",
     }).format(number);
   };
   const dummyProducts = [
-    {
-      imgUrl: "../../../public/images/contact.jpg",
-      name: "Lorem Ipsum dolor sit amet. consectutur",
-      category: "Native",
-      price: "$4,500",
-      quantity: 1,
-    },
     {
       imgUrl: "../../../public/images/white_shopping.jpg",
       name: "Lorem Ipsum dolor sit amet. consectutur",
@@ -33,235 +56,253 @@ const Cart = () => {
       price: "$7,000",
       quantity: 1,
     },
-    {
-      imgUrl: "../../../public/images/straight-suit.jpeg",
-      name: "Lorem Ipsum dolor sit amet. consectutur",
-      category: "Ankara",
-      price: "$12,750",
-      quantity: 1,
-    },
-    {
-      imgUrl: "../../../public/images/white_shopping.jpg",
-      name: "Lorem Ipsum dolor sit amet. consectutur",
-      category: "Multipurpose",
-      price: "$4,500",
-      quantity: 1,
-    },
   ];
-  
   const [checkout, setCheckout] = useState(false);
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "De Facto Man Regular Knitted Fit Polo . Tshirt . Black",
-      category: "Native",
-      size: "M",
-      price: 2800,
-      imgUrl: imgUrl1,
-      quantity: 1,
-    },
-    {
-      id: 2,
-      name: "De Facto Man Regular Knitted Fit Polo . Tshirt . Black",
-      category: "Native",
-      size: "M",
-      price: 1000,
-      imgUrl: imgUrl1,
-      quantity: 1,
-    },
-  ]);
+  const [loading, setLoading] = useState(false);
+  const [showAddress, setShowAddress] = useState(false);
+  const { cartItems, setCartItems, whishLists, setWhishLists } =
+    useContext(CartContext);
+  const {
+    data: billingAddresses,
+    loading: loadingAddresses,
+    error,
+  } = useFetch({
+    url: window.baseUrl + "payment/getBillingAddress",
+    fetchParamData: { user_id: user._id },
+    secondParam: checkout,
+  });
+  const API_URL = window.baseUrl + "payment/";
 
-  const removeItem = (id) => {
-    const newCartItems = cartItems.filter((item) => item.id !== id);
-    setCartItems(newCartItems);
+  const handleAddToCart = (item) => {
+    const index = cartItems.findIndex((cartItem) => cartItem._id === item._id);
+    if (index >= 0) {
+      toast.success(<ClickableToast text="Already in cart" />, toastOptions);
+      return;
+    }
+    item.quantityToBuy = 1;
+    setCartItems((prev) => [item, ...prev]);
+    toast.success(<ClickableToast />, toastOptions);
   };
 
-  const minusQuantity = (id) => {
-    const currentItem = cartItems.find((item) => item.id === id);
-    if (currentItem.quantity === 1) return;
-    const newCartItems = cartItems.map((item) => {
-      if (item.id === id) {
-        return { ...item, quantity: item.quantity - 1 };
-      } else return item;
-    });
-    setCartItems(newCartItems);
-  };
-  const plusQuantity = (id) => {
-    const newCartItems = cartItems.map((item) => {
-      if (item.id === id) {
-        return { ...item, quantity: item.quantity + 1 };
-      } else return item;
-    });
-    setCartItems(newCartItems);
+  const removeWhishList = (_id) => {
+    const newWhishList = whishLists.filter((item) => item._id !== _id);
+    setWhishLists(newWhishList);
+    toast.warn("One item removed from whishlist", toastOptions);
   };
 
   const getTotalPrice = () => {
     let totalPrice = 0;
     cartItems.map((item) => {
-      totalPrice += item.price * item.quantity;
+      totalPrice += item.discount_price * item.quantityToBuy;
     });
     console.log(totalPrice);
+    return totalPrice;
+  };
+  const getTotalGst = () => {
+    let totalPrice = 0;
+    cartItems.map((item) => {
+      totalPrice += item.gst * item.quantityToBuy;
+    });
     return totalPrice;
   };
 
   const toggleCheckout = () => {
     setCheckout(!checkout);
   };
+  const [totalAmount, getTotalAmount] = useState(() => getTotalPrice());
 
   useEffect(() => {
     getTotalPrice();
   }, [cartItems]);
 
+  const initPayment = (data) => {
+    const options = {
+      key: data.KEY_ID,
+      order_id: data.id,
+      currency: data.currency,
+      amount: data.amount,
+      name: "Radiant Clothing",
+
+      description: "Super amamzing description...",
+      handler: async (response) => {
+        response.amount = data.amount;
+        try {
+          const { data } = axios.post(`${API_URL}verify`, response);
+          window.localStorage.removeItem("radiant_cart_item");
+          navigate("/payment-success");
+        } catch (err) {
+          console.log(err);
+        }
+      },
+      prefill: {
+        method: "card",
+        name: "Gaurav Kumar",
+        contact: "+919000090000",
+        email: "gaurav.kumar@example.com",
+        // "card[name]": "Gaurav Kumar",
+        "card[number]": "4111111111111111",
+        "card[expiry]": "12/21",
+        "card[cvv]": "123",
+      },
+      theme: {
+        color: "#686CFD",
+      },
+    };
+
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
+  };
+
+  const paymentHandler = async () => {
+    setLoading(true);
+    try {
+      const orderUrl = `${API_URL}order`;
+      const { data } = await axios.post(orderUrl, { amount: totalAmount }); // never send price directly. Instead send product ID and handle the rest from backend
+      console.log(data);
+      initPayment(data.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  console.log(billingAddresses);
+
   return (
     <>
-      <div class="mx-auto w-[1200px] bg-[#f5f5f5] px-10 py-7 mb-10 mt-3">
-        <div class="flex gap-5">
-          <div class="w-2/3 bg-white rounded ">
-            <p class="border-b p-5 font-semibold">Cart ({cartItems.length})</p>
-            <>
-              {cartItems.length ? (
-                <div>
-                  {cartItems.map((item, idx) => (
-                    <div className={`${idx !== 0 && "border-t"} `}>
-                      <div class="p-5">
-                        <div key={idx} class="flex gap-3 text-sm">
-                          <img
-                            class="w-16 h-24 object-cover"
-                            src={item.imgUrl}
-                          />
-                          <div class="flex justify-between flex-1">
-                            <div class="flex flex-col gap-1">
-                              <p class="text-base">{item.name}</p>
-                              <p>Category - {item.category}</p>
-                              <p>
-                                Size -{" "}
-                                <span class="text-[coral]">
-                                  {item.size || "M"}
-                                </span>
-                              </p>
-                              <p class="flex items-center gap-1">
-                                <IoMdNotifications color="coral" size={20} />{" "}
-                                <span>7 units left</span>
-                              </p>
-                            </div>
-                            <div>
-                              <p class="text-base font-semibold">
-                                {currencyFormater(item.price)}
-                              </p>
-                              <div class="flex items-center gap-2 text-sm">
-                                <p class="line-through text-[coral]">N 8,000</p>
-                                <p>50%</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="p-5 flex items-center justify-between">
-                        <button
-                          onClick={() => removeItem(item.id)}
-                          class="flex items-center gap-2"
-                        >
-                          <AiFillDelete color="coral" size={22} />
-                          <span class="text-sm text-[coral] font-semibold">
-                            DELETE
-                          </span>
-                        </button>
-                        <div class="flex items-center gap-4">
-                          <button
-                            onClick={() => minusQuantity(item.id)}
-                            class={`${
-                              item.quantity === 1
-                                ? "bg-green-100"
-                                : "bg-green-400"
-                            }  px-2.5 py-0.5 rounded text-2xl`}
-                          >
-                            -
-                          </button>
-                          <span class="font-semibold">{item.quantity}</span>
-                          <button
-                            onClick={() => plusQuantity(item.id)}
-                            class="bg-green-400 px-2.5 py-1 rounded text-xl"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div class="h-52 rounded bg-white grid place-content-center text-center">
-                  <img src={search} class="w-14 mx-auto" />
-                  <p class="mt-2 mb-6">Your cart is empty at the monent!</p>
-                  <Link
-                    to="../"
-                    class="w-fit mx-auto text-white text-sm px-4 py-1.5 rounded bg-[coral]"
-                  >
-                    Start Shopping
-                  </Link>
-                </div>
-              )}
-            </>
-          </div>
-          <div class="w-1/3 bg-white rounded h-fit pb-5">
-            <p class="border-b p-5 font-semibold">Cart Summary</p>
-            <div class="border-b p-5">
-              <div class="flex justify-between items-center">
-                <p class="font-semibold">Subtotal</p>
+      <div class="cart-container">
+        <div>
+          {showAddress ? (
+            <AddressContainer
+              billingAddresses={billingAddresses}
+              toggleCheckout={toggleCheckout}
+            />
+          ) : (
+            <CartContainer
+              cartItems={cartItems}
+              currencyFormater={currencyFormater}
+            />
+          )}
+          <div className="cart-summary">
+            <p style={{ fontWeight: 600 }}>Cart Summary</p>
+            <div style={{ borderBottom: "1px solid gainsboro", padding: 20 }}>
+              <div class="subtotal ">
+                <p style={{ fontWeight: 600, paddingBlock: 5 }}>GST</p>
+                <p>{currencyFormater(getTotalGst())}</p>
+              </div>
+              <div class="subtotal ">
+                <p style={{ fontWeight: 600, paddingBlock: 5 }}>Subtotal</p>
                 <p>{currencyFormater(getTotalPrice())}</p>
               </div>
             </div>
-            <div class="flex justify-between w-full">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
+              }}
+            >
               <button
-                onClick={toggleCheckout}
-                class="mx-auto flex gap-3 font-semibold text-sm text-white mt-5 px-10 py-2 bg-green-400 rounded"
+                disabled={getTotalPrice() === 0}
+                onClick={() =>
+                  billingAddresses?.billing_address?.length === 0
+                    ? toggleCheckout()
+                    : showAddress
+                    ? paymentHandler()
+                    : setShowAddress(true)
+                }
+                className="checkout-btn"
               >
-                CHECKOUT {currencyFormater(getTotalPrice())}
+                {showAddress
+                  ? `Proceed ${currencyFormater(
+                      getTotalPrice() + getTotalGst()
+                    )}`
+                  : `CHECKOUT ${currencyFormater(
+                      getTotalPrice() + getTotalGst()
+                    )}`}
               </button>
             </div>
           </div>
         </div>
-        <div class="mt-6 rounded bg-white">
-          <p class="p-5 border-b font-semibold">Saved For Later</p>
-          <div class="p-5 flex gap-4 r">
-            {dummyProducts.map((product, idx) => (
-              <div key={idx} class="flex flex-col">
-                <img
-                  class="w-[90%] rounded h-32 object-cover"
-                  src={product.imgUrl}
-                />
-                <p class="mt-2">{product.name}</p>
-                <p class="mt-1 text-green-400">{product.category}</p>
-                <div class="flex items-center justify-between  w-[90%] mt-5">
-                  <p class="font-semibold">{product.price}</p>
-                  <button>
-                    <BsCart4 size={22} />
-                    {/* <p class="text-xs px-5 py-2 bg-green-400 rounded">Add To Cart Now</p> */}
-                  </button>
+        {/* wish list starts here */}
+        <div className="saved-for-later">
+          <p>Your Wishlists</p>
+          {whishLists.length ? (
+            <div
+              className="four-grid"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(4,1fr)",
+                gap: 10,
+              }}
+            >
+              {whishLists.map((product, idx) => (
+                <div key={idx} class="item">
+                  <img style={{ marginBottom: 5 }} src={product.images[0]} />
+                  <div
+                    style={{
+                      marginRight: 28,
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div>
+                      <p style={{ marginTop: 8 }}>{product.product_name}</p>
+                      <p style={{ marginTop: 4, color: "rgb(74 222 128)" }}>
+                        {product.category}
+                      </p>
+                    </div>
+                    <span
+                      onClick={() => removeWhishList(product._id)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <RiDeleteBin2Fill color="red" size={21} />
+                    </span>
+                  </div>
+                  <div class="bottom">
+                    <p style={{ fontWeight: 600 }}>
+                      {currencyFormater(product.price)}
+                    </p>
+                    <button onClick={() => handleAddToCart(product)}>
+                      <BsCart4 size={22} />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div
+              style={{
+                display: "grid",
+                placeContent: "center",
+                paddingBottom: 20,
+                textAlign: "center",
+              }}
+            >
+              <img src={empty} style={{ width: 200, margin: "auto" }} />
+              <p style={{ fontSize: 12, marginTop: -20, marginBottom: 15 }}>
+                Items added to wishlists are <br /> displayed here.
+              </p>
+            </div>
+          )}
         </div>
-        <div class="mt-6 rounded bg-white">
-          <p class="p-5 border-b font-semibold">You May Also Like</p>
-          <div class="p-5 flex gap-4 ">
+        <div className="also-like" style={{ display: "none" }}>
+          <p>You May Also Like</p>
+          <div>
             {dummyProducts.map((product, idx) => (
-              <div
-                key={idx}
-                class={`flex flex-col justify-between items-center text-center`}
-              >
-                <img
-                  class="w-24 rounded h-32 object-cover"
-                  src={product.imgUrl}
-                />
-                <p class="mt-2 text-sm">{product.name}</p>
-                <p class="mt-1 text-[tomato]">{product.category}</p>
-                <div class="flex items-center justify-between  w-[90%] mt-5">
-                  <p class="font-semibold">{product.price}</p>
+              <div key={idx} class={`item`}>
+                <img src={product.imgUrl} />
+                <p style={{ width: "80%", marginTop: 8, fontSize: 14 }}>
+                  {product.name}
+                </p>
+                <p style={{ marginTop: 4, color: "tomato" }}>
+                  {product.category}
+                </p>
+                <div class="bottom ">
+                  <p style={{ fontWeight: 600 }}>{product.price}</p>
                   <button>
                     <BsCart4 size={22} />
-                    {/* <p class="text-xs px-5 py-2 bg-green-400 rounded">Add To Cart Now</p> */}
                   </button>
                 </div>
               </div>
@@ -270,66 +311,12 @@ const Cart = () => {
         </div>
       </div>
       {checkout && (
-        <div className="z-[1000] fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm grid place-content-center">
-          <button
-            onClick={toggleCheckout}
-            className="fixed top-5 right-5 text-sm flex items-center gap-1 text-[coral] font-semibold"
-          >
-            CLOSE
-            <CgCloseO size={24} color="coral" />
-          </button>
-          <div className="grid w-[1000px] grid-cols-2 gap-5">
-            <div className="bg-white rounded p-5 py-7">
-              <p className="pb-5 border-b font-semibold">
-                Personal Information
-              </p>
-              <div className="flex flex-col gap-4 mt-6">
-                <div className="grid grid-cols-2 gap-3">
-                  <CustomInput
-                    placeholder="Full Name"
-                    className="px-3 py-2 border outline-none rounded-sm text-sm"
-                  />
-                  <CustomInput
-                    placeholder="Phone Number"
-                    className="px-3 py-2 border outline-none rounded-sm text-sm"
-                  />
-                </div>
-                <CustomInput
-                  type="email"
-                  placeholder="Email"
-                  className="px-3 py-2 border outline-none rounded-sm text-sm"
-                />
-                <div className="grid grid-cols-2 gap-3">
-                  <CustomInput
-                    placeholder="City"
-                    className="px-3 py-2 border outline-none rounded-sm text-sm"
-                  />
-                  <CustomInput
-                    placeholder="State"
-                    className="px-3 py-2 border outline-none rounded-sm text-sm"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="bg-white rounded p-5 py-7">
-              <p className="pb-5 border-b font-semibold">Delivery</p>
-              <div className="flex gap-5 mt-10">
-                <button className="relative h-20 w-full rounded bg-white shadow grid place-content-center text-center font-semibold">
-                  STRIPE
-                  <BsPatchCheck className="absolute top-2 right-2" />
-                </button>
-                <button className="h-20 w-full rounded bg-white shadow grid place-content-center text-center font-semibold">
-                  MONIFY
-                </button>
-              </div>
-              <div className="flex justify-end">
-                <button className="mt-5 px-5 py-2 text-sm rounded bg-[#ce8448] text-white">
-                  Proceed to Pay
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Checkout
+          toggleCheckout={toggleCheckout}
+          getTotalPrice={getTotalPrice}
+          loading={loading}
+          paymentHandler={paymentHandler}
+        />
       )}
     </>
   );

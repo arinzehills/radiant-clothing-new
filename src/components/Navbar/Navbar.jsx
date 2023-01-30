@@ -6,9 +6,25 @@ import { TiTimesOutline } from "react-icons/ti";
 import { Button } from "../Button/Button";
 // import {logo} from '../../../assets/logo_transparent.png
 import "./Navbar.css";
+import "./CategoriesList.css";
 import UpperNavbar from "./UpperNavbar";
 import PhoneUpper from "./PhoneUpper";
+import { Icon } from "@iconify/react";
+import useFetch from "../../useFetch";
 const Navbar = () => {
+  const {
+    data: categoriesData,
+    loading: loadingCategory,
+    errorCategory,
+  } = useFetch({
+    url: window.baseUrl + "admin/getCategories",
+    // secondParam: activeRow,
+  });
+  !loadingCategory &&
+    categoriesData?.categories.forEach((cat, index) => {
+      // cat.image = cat.images[0];
+      console.log(cat.category);
+    });
   const [click, setClick] = useState(false);
   const [currentTab, setCurrentTab] = useState(0);
   const handleClick = () => setClick(!click);
@@ -35,25 +51,28 @@ const Navbar = () => {
     showButton();
   }, []);
   window.addEventListener("resize", showButton);
-
+  console.log(
+    categoriesData?.categories.filter((cat) => "clothing" == cat.super_category)
+  );
   return (
     <>
-      {window.innerWidth < 769 ? <PhoneUpper /> : <UpperNavbar />}
-      <div className="navbar">
+      {window.innerWidth < 769 ? (
+        <PhoneUpper handleClick={handleClick} click={click} />
+      ) : (
+        // <div></div>
+        <UpperNavbar />
+      )}
+      <div className={click ? "navbar active" : "navbar"}>
         <div className="navbar-container container">
-          <div className="menu-icon" onClick={handleClick}>
+          {/* <div className="menu-icon" onClick={handleClick}>
             {click ? (
               <TiTimesOutline fontSize={48} />
             ) : (
               <HiMenuAlt4 fontSize={48} />
             )}
-          </div>
+          </div> */}
           <ul className={click ? "nav-menu active" : "nav-menu"} style={{}}>
-            <li
-              className={
-                currentTab === 1 ? "underline_link nav-items" : "nav-items"
-              }
-            >
+            <li className={currentTab === 1 ? " nav-items" : "nav-items"}>
               <Link
                 to="/"
                 className="nav-links"
@@ -62,6 +81,7 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
+<<<<<<< HEAD
             <li
               className={
                 currentTab === 2 ? "underline_link nav-items" : "nav-items"
@@ -75,76 +95,116 @@ const Navbar = () => {
                 Categories
               </Link>
             </li>
+=======
+>>>>>>> 065f37409b56ef8f0d32ad9a917dda82c2500519
             <li
-              className={
-                currentTab === 3 ? "underline_link nav-items" : "nav-items"
-              }
+              className={`${currentTab === 4 ? "nav-items " : "nav-items "}
+                  categories-dropdown
+                  `}
             >
+              <Link
+                to="/"
+                className="nav-links  dropdown-link"
+                onClick={() => setCurrentTab(2)}
+              >
+                Clothing
+              </Link>
+              <div className="categories_dropdown-content">
+                {loadingCategory ? (
+                  <div
+                    className="class_justify_contents_column"
+                    style={{ height: "200px" }}
+                  >
+                    loading...
+                  </div>
+                ) : (
+                  categoriesData?.categories.map(
+                    (item) =>
+                      item.super_category === "clothing" && (
+                        <Link
+                          to={`/categories/${item.category}`}
+                          key={item.category}
+                          onClick={() => closeMobileMenu(3)}
+                        >
+                          {item.category}
+                        </Link>
+                      )
+                  )
+                )}
+              </div>
+            </li>
+            <li
+              className={`
+                ${currentTab === 4 ? "nav-items " : "nav-items "}
+                  categories-dropdown
+                  `}
+            >
+              <Link
+                to="/"
+                className="nav-links  dropdown-link"
+                onClick={() => setCurrentTab(4)}
+              >
+                Indian Accessories
+              </Link>
+              <div className="categories_dropdown-content">
+                {loadingCategory ? (
+                  <div
+                    className="class_justify_contents_column"
+                    style={{ height: "200px" }}
+                  >
+                    loading...
+                  </div>
+                ) : (
+                  categoriesData?.categories.map(
+                    (item) =>
+                      item.super_category === "accessories" && (
+                        <Link
+                          to={`/categories/${item.category}`}
+                          key={item.category}
+                          onClick={() => closeMobileMenu(4)}
+                        >
+                          {item.category}
+                        </Link>
+                      )
+                  )
+                )}
+              </div>
+            </li>
+            <li className={currentTab === 5 ? " nav-items" : "nav-items"}>
               <Link
                 to="/contact"
                 className="nav-links"
-                onClick={() => closeMobileMenu(3)}
+                onClick={() => closeMobileMenu(5)}
               >
                 Contact Us
-              </Link>
-            </li>
-            <li
-              className={
-                currentTab === 4 ? "underline_link nav-items" : "nav-items"
-              }
-            >
-              <Link
-                to="/content-creators"
-                className="nav-links"
-                onClick={() => closeMobileMenu(4)}
-              >
-                About Us
-              </Link>
-            </li>
-            <li
-              className={
-                currentTab === 4 ? "underline_link nav-items" : "nav-items"
-              }
-            >
-              <Link
-                to="/faqs"
-                className="nav-links"
-                onClick={() => closeMobileMenu(4)}
-              >
-                FAQ
               </Link>
             </li>
           </ul>
         </div>
 
         <ul className={click ? "nav-menu active" : "nav-menu"}>
-          <li
-            className={
-              currentTab === 4 ? "underline_link nav-items" : "nav-items"
-            }
-            style={{ width: "200px" }}
-          >
-            {/* <Link`
-              to="/content-creators"
+          <li className={currentTab === 6 ? " nav-items" : "nav-items"}>
+            <Link
+              to="/faqs"
               className="nav-links"
-              onClick={() => closeMobileMenu(4)}
+              onClick={() => closeMobileMenu(6)}
             >
-              Terms and condition
-            </Link> */}
+              FAQ
+            </Link>
           </li>
-          {/* <li
-            className={
-              currentTab === 4 ? "underline_link nav-items" : "nav-items"
-            }
+
+          <li
+            className={currentTab === 7 ? " nav-items" : "nav-items"}
+            style={{ width: "150px" }}
           >
             <Link
-              to="/content-creators"
+              to="/about"
               className="nav-links"
-              onClick={() => closeMobileMenu(4)}
+              onClick={() => closeMobileMenu(7)}
             >
-              Privacy
+              About Us
             </Link>
-          </li> */}
+          </li>
         </ul>
       </div>
     </>

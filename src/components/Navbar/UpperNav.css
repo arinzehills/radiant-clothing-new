@@ -1,0 +1,7 @@
+.upper_nav_container {
+  position: fixed;
+  width: 100%;
+  z-index: 1999;
+
+  /* display: none; */
+}

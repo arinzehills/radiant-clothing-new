@@ -2,7 +2,14 @@ import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
 import "./ImageSlider.css";
 
-const ImageSlider = ({ slides, isNotMap, style, imageStyle, iconSize }) => {
+const ImageSlider = ({
+  slides,
+  isNotMap,
+  style,
+  imageStyle,
+  iconSize,
+  onClick,
+}) => {
   const [current, setCurrent] = useState(0);
   const length = slides.length;
   const delay = 2500;
@@ -16,30 +23,40 @@ const ImageSlider = ({ slides, isNotMap, style, imageStyle, iconSize }) => {
   };
   if (!Array.isArray(slides) || slides.length <= 0) {
     // if is not an array return null
+    console.log("if is not an array return null");
     return null;
   }
 
   useEffect(() => {
-    setTimeout(
-      () =>
-        setCurrent((prevIndex) =>
-          prevIndex === length - 1 ? 0 : prevIndex + 1
-        ),
-      delay
-    );
-    return () => {};
+    if (isNotMap) {
+    } else {
+      setTimeout(
+        () =>
+          setCurrent((prevIndex) =>
+            prevIndex === length - 1 ? 0 : prevIndex + 1
+          ),
+        delay
+      );
+      return () => {};
+    }
   }, [current]);
   return (
-    <section className="slider" style={style}>
+    <section className="slider" style={style} onClick={onClick}>
       <Icon
         icon="material-symbols:arrow-back-ios"
         className="slider-arrow-left"
-        onClick={prevSlide}
+        onClick={(e) => {
+          e.stopPropagation();
+          prevSlide();
+        }}
       />
       <Icon
         icon="material-symbols:arrow-forward-ios-rounded"
         className="slider-arrow-right "
-        onClick={nextSlide}
+        onClick={(e) => {
+          e.stopPropagation();
+          nextSlide();
+        }}
       />
       {slides.map((slide, index) => (
         <div
@@ -48,7 +65,7 @@ const ImageSlider = ({ slides, isNotMap, style, imageStyle, iconSize }) => {
         >
           {index === current && (
             <img
-              src={isNotMap ? slide : slide.img}
+              src={isNotMap ? slide : slide.image}
               alt="slide image"
               style={imageStyle}
               className="slider-image"

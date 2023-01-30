@@ -20,6 +20,19 @@ import Login from "./pages/Login/Login";
 import Contactus from "./pages/Contact/Contactus";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Cart/Checkout";
+import { Dashboard } from "./pages/Dashboard/Dashboard";
+import UserOrders from "./pages/Dashboard/Orders/UserOrders";
+import WishList from "./pages/Dashboard/WishList/WishList";
+import SliderImages from "./pages/Admin/SliderImages/SliderImages";
+import Categorypage from "./pages/Category/Categorypage";
+import Success from "./pages/Success";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import About from "./pages/About/About";
+import ProductDetail from "./components/Featured/ProductDetail";
+import Terms from "./pages/Terms/Terms";
+import MoreProducts from "./components/Featured/MoreProducts";
 
 function App() {
   const [handleNotData, setHandleNotData] = useState({
@@ -35,11 +48,31 @@ function App() {
       });
     }
   }, [handleNotData.message]);
+
+  const loadScript = (src) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  };
+
+  useEffect(() => {
+    loadScript("https://checkout.razorpay.com/v1/checkout.js");
+  });
+
   const { token, setToken } = useToken();
 
   return (
     <div className="App">
       <ReactNotifications />
+      <ToastContainer />
 
       <Switch>
         {/* <Route path='/' exact element={<Home/>}> */}
@@ -47,13 +80,42 @@ function App() {
           <Route index element={<Homepage />} />
           <Route path="/faqs" exact element={<FAQs />} />
           <Route path="/contact" exact element={<Contactus />} />
+          <Route path="/categories">
+            <Route path=":category" exact element={<Categorypage />} />
+          </Route>
+          <Route path="/more-products" exact element={<MoreProducts />} />
+          <Route path="/products">
+            <Route index element={<MoreProducts />} />
+            <Route path=":product" exact element={<ProductDetail />} />
+          </Route>
+          <Route path="/about" exact element={<About />} />
+          <Route path="/terms-and-condition" exact element={<Terms />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart/checkout" element={<Checkout />} />
-
+          <Route path="dashboard" element={<Dashboard />}>
+            <Route
+              path="orders"
+              element={<UserOrders setHandleNotData={setHandleNotData} />}
+            />
+            <Route
+              path="wishlist"
+              element={<WishList setHandleNotData={setHandleNotData} />}
+            />
+            <Route
+              path="settings"
+              element={
+                <SettingsComponent
+                  // handleNot={handleNot}
+                  setHandleNotData={setHandleNotData}
+                />
+              }
+            />
+          </Route>
           {/* <Route path="/portfolio" exact element={<Porfolio />} />
           <Route path="/skills" exact element={<Skills />} />
           <Route path="/contact" exact element={<Contact />} /> */}
         </Route>
+        <Route path="/payment-success" element={<Success />} />
         <Route
           path="/login"
           exact
@@ -61,7 +123,6 @@ function App() {
           element={<Login setHandleNotData={setHandleNotData} />}
           // element={token === null ? <Login /> : <Navigate to={"/dashboard"} />}
         />
-
         <Route path="/register" element={<Register />} />
         {/* <Route path="/forgotPassword" exact element={<ForgotPassword />} /> */}
         {/* <Route path="/resetPassword" exact element={<ResetPassword />} /> */}
@@ -83,6 +144,15 @@ function App() {
               path="products"
               element={
                 <Products
+                  handleNotData={handleNotData}
+                  setHandleNotData={setHandleNotData}
+                />
+              }
+            />
+            <Route
+              path="images"
+              element={
+                <SliderImages
                   handleNotData={handleNotData}
                   setHandleNotData={setHandleNotData}
                 />

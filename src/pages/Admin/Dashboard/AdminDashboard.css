@@ -9,6 +9,7 @@
   display: grid;
   grid-template-columns: 2fr 2fr;
   gap: 1.1rem;
+  row-gap: 4rem;
   /* grid-auto-columns: minmax(150px, 150px); */
   grid-template-areas:
     "content content"
@@ -23,6 +24,7 @@
    */
 
   height: 95px;
+  padding: 1rem;
   width: 189px;
   box-shadow: 0 0 6px 20px rgb(78 42 222 / 2%), 0 6px 18px 0 rgb(78 42 222 / 2%);
 }
@@ -45,15 +47,16 @@
   margin-left: 1rem;
   /* box-shadow: 0 10px 30px 20px rgb(131 8 255 / 20%); */
   box-shadow: 0 0 6px 0 rgb(78 42 222 / 2%), 0 6px 18px 0 rgb(131 8 255 / 20%);
-
-  background: linear-gradient(
+  padding-left: 10px;
+  background: var(--orange-gradient);
+  /* linear-gradient(
     to top right,
-    var(--dark-blue),
-    var(--light-purple)
-  );
+    var(--dark-gold),
+    var(--light-gold)
+  ); */
 }
 .admin_revenue:hover {
-  box-shadow: 0 10px 30px 20px rgb(131 8 255 / 20%);
+  box-shadow: 0 10px 30px 20px rgba(255, 185, 8, 0.1);
   transition: all 0.5s ease;
   transform: scale(1.05);
 }
@@ -77,13 +80,13 @@
   .admin_grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 1.5rem;
     align-items: center;
     justify-content: center;
   }
   .grid-card {
-    /* max-width: 150px; */
-    /* width: 100%; */
+    /* max-width: 150px;
+    width: 100%; */
   }
   .revenue_chart {
     margin-top: 20px;

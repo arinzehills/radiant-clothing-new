@@ -15,6 +15,36 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.more_pop {
+  background: #41f1b625;
+  padding: 5px;
+  line-height: 0;
+  border-radius: 10px;
+  border-bottom-left-radius: 0px;
+  height: 10px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 12px;
+  color: var(--success);
+}
+.more_pop.whitebg {
+  background: #f7dff743;
+  padding: 5px;
+  line-height: 0;
+  border-radius: 10px;
+  border-bottom-left-radius: 0px;
+  height: 10px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 12px;
+  color: white;
+}
+.more_pop.danger {
+  background: #fac9cc43;
+  color: rgb(255, 0, 0);
+}
 .centerClass {
   display: flex;
   justify-content: center;
@@ -62,10 +92,18 @@ code {
   justify-content: center;
   align-items: center;
 }
+input[type="radio"]:checked {
+  outline: none;
+  background-color: hotpink;
+  border: 1px solid hotpink;
+}
 .class_justify_contents_row {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.withGap {
+  gap: 1rem;
 }
 /* For visibility */
 .showTip {
@@ -76,4 +114,9 @@ code {
   background: #daa520b1;
   padding: 2px;
   margin-bottom: 3.6rem;
+}
+@media screen and (max-width: 768px) {
+  .avenir_class {
+    line-height: inherit;
+  }
 }

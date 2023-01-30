@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Formhero from "../../components/Formhero/Formhero";
+import handleNot from "../../components/HandleNotification/HandleNot";
 import Loader from "../../components/Loader/Loader";
 
 const Register = ({ setSuccessMessage }) => {
-  const initialValues = { name: "", email: "", password: "" };
+  const initialValues = { name: "", email: "", phone: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [responseError, setResponseError] = useState("");
@@ -13,14 +14,24 @@ const Register = ({ setSuccessMessage }) => {
   const [showModal, setShowModal] = useState(false);
   const history = useNavigate();
   const errors = {};
-  const inputValues = [formValues.name, formValues.email, formValues.password];
+  const inputValues = [
+    formValues.name,
+    formValues.email,
+    formValues.phone,
+    formValues.password,
+  ];
 
-  const inputNames = ["name", "email", "password"];
-  const inputErrors = [formErrors.name, formErrors.email, formErrors.password];
+  const inputNames = ["name", "email", "phone", "password"];
+  const inputErrors = [
+    formErrors.name,
+    formErrors.email,
+    formErrors.phone,
+    formErrors.password,
+  ];
   const homeData = {
     headline: "Register",
     buttonLabel: ["Sign up", "Login"],
-    inputLabels: ["Name..", "Enter email", "Password..."],
+    inputLabels: ["Name..", "Enter email", "Enter phone...", "Password..."],
     inputValues: inputValues,
     inputNames: inputNames,
     imageRight: "svg/twocircle.svg",
@@ -59,6 +70,7 @@ const Register = ({ setSuccessMessage }) => {
     const data = {
       name: formValues.name,
       email: formValues.email,
+      phone: formValues.phone,
       password: formValues.password,
     };
     // const url="http://localhost/buyenergy_api/public/api/register";
@@ -82,12 +94,18 @@ const Register = ({ setSuccessMessage }) => {
         if (data["success"] === true) {
           const token = data["token"];
           console.log(token);
-          // history('/login')
+          history("/login");
           // setToken(token)
+          handleNot({
+            title: "Success",
+            message:
+              data["message"] + "You can now log in" ?? "re successfully",
+            backgroundColor: "var(--success)",
+          });
           setShowModal(true);
           setLoading(false);
         } else {
-          const error = data["email"][0];
+          const error = data["message"];
           console.log(error);
           setResponseError(error);
           setLoading(false);
@@ -109,6 +127,9 @@ const Register = ({ setSuccessMessage }) => {
       errors.email = "Email is required";
     } else if (!regex.test(values.email)) {
       errors.email = "Please enter a valid email address";
+    }
+    if (!values.phone) {
+      errors.phone = "Phone is required";
     }
     if (!values.password) {
       errors.password = "Password is required";

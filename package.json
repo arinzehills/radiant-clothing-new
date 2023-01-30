@@ -9,28 +9,39 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.2.1",
     "currency-symbol-map": "^5.1.0",
+    "express": "^4.18.2",
+    "formik": "^2.2.9",
     "framer-motion": "^6.3.11",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
     "oaf-react-router": "^3.0.0",
+    "razorpay": "^2.8.4",
     "react": "^17.0.2",
     "react-animated-slider": "^1.1.4",
     "react-chartjs-2": "^4.1.0",
     "react-circular-progressbar": "^2.0.4",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
+    "react-icon": "^1.0.0",
     "react-icons": "^4.7.1",
     "react-notifications-component": "^3.4.1",
-    "react-router-dom": "^6.3.0"
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.3.0",
+    "react-toastify": "^9.1.1",
+    "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.2",
+    "uuid": "^9.0.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@iconify/react": "^4.0.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@vitejs/plugin-react": "^2.2.0",
-    "autoprefixer": "^10.4.13",
     "history": "^5.2.0",
-    "postcss": "^8.4.20",
-    "tailwindcss": "^3.2.4",
     "vite": "^3.2.3"
   }
 }

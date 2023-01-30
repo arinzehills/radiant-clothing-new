@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
+import { Link, useNavigate } from "react-router-dom";
+import SearchContext from "../../context/SearchContext";
 import useFetch from "../../useFetch";
+import { Button } from "../Button/Button";
 import GradientHeaders from "../GradientHeaders/GradientHeaders";
 import LazyLoader from "../LazyLoader/LazyLoader";
 
@@ -8,8 +11,10 @@ import ProgressBar from "../ProgressBar/ProgressBar";
 import { DummyData } from "./DummyData";
 import "./Featured.css";
 import ProductItem from "./ProductItem";
+import ProductListItem from "./ProductListItem";
 
 const Featured = () => {
+  const navigate = useNavigate();
   const {
     data: productsData,
     loading,
@@ -18,16 +23,20 @@ const Featured = () => {
     url: window.baseUrl + "admin/getProducts",
     // secondParam: activeRow,
   });
+  const catLoadArr = ["", "", "", "", ""];
+
   const {
     data: categoriesData,
-    loadingCategory,
+    loading: loadingCategory,
     errorCategory,
   } = useFetch({
     url: window.baseUrl + "admin/getCategories",
     // secondParam: activeRow,
   });
+  console.log("productsData?.products");
+  console.log(productsData?.products);
   !loading &&
-    productsData?.products.forEach((product, index) => {
+    productsData?.products?.forEach((product, index) => {
       product.image = product.images[0];
     });
   !loadingCategory &&
@@ -37,43 +46,6 @@ const Featured = () => {
     });
   const [productsSet, setProductsSet] = useState(productsData?.products);
 
-  const ProductListItem = ({ products, loading }) => {
-    return (
-      <div className="product-list-item">
-        {loading ? (
-          <div
-            style={{
-              display: "flex",
-
-              flexDirection: "row",
-              width: "100%",
-            }}
-          >
-            <ProductItem loading={loading} />
-          </div>
-        ) : (
-          products.map((item) => (
-            // <div classname="class_justify_contents_row">
-            <div
-              style={{
-                display: "flex",
-
-                flexDirection: "row",
-                width: "100%",
-              }}
-            >
-              <ProductItem
-                item={item}
-                productsSet={productsSet}
-                loading={loading}
-              />
-            </div>
-          ))
-        )}
-      </div>
-    );
-  };
-  const catLoadArr = ["", "", "", "", ""];
   return (
     <div>
       <Helmet>
@@ -135,17 +107,29 @@ const Featured = () => {
                 />
               ))
             : categoriesData?.categories.map((item) => (
-                <div
-                  className="class_justify_contents_column "
-                  style={{ height: "150px", width: "150px" }}
+                <Link
+                  to={`/categories/${item.category}`}
+                  key={item.category}
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
                 >
-                  <img
-                    src={item.image}
-                    alt="cat-image"
-                    style={{ height: "90%", width: "90%" }}
-                  />
-                  {item.category}
-                </div>
+                  <div
+                    className="class_justify_contents_column "
+                    style={{
+                      height: "150px",
+                      width: "150px",
+                    }}
+                  >
+                    <img
+                      src={item.image}
+                      alt="cat-image"
+                      style={{ height: "90%", width: "90%" }}
+                    />
+                    {item.category}
+                  </div>
+                </Link>
               ))}
         </div>
       </div>
@@ -161,7 +145,7 @@ const Featured = () => {
         <GradientHeaders
           fontSize={"4.5vw"}
           text={"Products"}
-          subHeader={"."}
+          subHeader={"Featured products"}
           uppercase={true}
           showSubHeader={true}
         />
@@ -170,8 +154,24 @@ const Featured = () => {
         // colorClass={productsSet.colorClass}
         // imgSrc={productsSet.image}
         loading={loading}
-        products={productsData?.products}
+        products={productsData?.products.slice(0, 12)}
       />
+      <div
+        className="class_justify_contents_row"
+        style={{
+          justifyContent: "end",
+          marginTop: window.innerWidth < 700 ? "1rem" : "-3rem",
+          marginBottom: "2rem",
+        }}
+      >
+        <Button
+          children={"More Products"}
+          onClick={() => navigate("/products")}
+          buttonColor="orange"
+          isCircular={true}
+          style={{ color: "white" }}
+        />
+      </div>
     </div>
   );
 };

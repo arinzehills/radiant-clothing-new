@@ -11,6 +11,7 @@ const ProfilePicsComponent = ({
   isOnline,
   isCirclular,
   userType,
+  nameColor,
   isImage,
   setHandleNotData,
   showCaret,
@@ -29,6 +30,7 @@ const ProfilePicsComponent = ({
         <Link
           to={`/dashboard/${routeLink}`}
           style={{ textDecoration: "none", color: "black", cursor: "pointer" }}
+          onClick={() => setOpenDropDown(false)}
         >
           {/* <Link to="/dashboard/team"> */}
           <div className="dashboard-card-row prfrow">
@@ -107,14 +109,14 @@ const ProfilePicsComponent = ({
                   className="profile_pics_dropDown_content"
                 >
                   <IconAndName
-                    title={"Teams"}
-                    routeLink={"team"}
-                    iconName={"gridicons:multiple-users"}
+                    title={"Orders"}
+                    routeLink={"orders"}
+                    iconName={"bx:cart"}
                   />
                   <IconAndName
-                    routeLink={"settings"}
-                    title={"Settings"}
-                    iconName={"clarity:settings-outline-badged"}
+                    routeLink={"wishlist"}
+                    title={"Wish List"}
+                    iconName={"mdi:love"}
                   />
                   <IconAndName
                     title={"Profile"}
@@ -164,6 +166,7 @@ const ProfilePicsComponent = ({
           )}
         </div>
 
+        {/* {window.innerWidth > 660 && ( */}
         <div
           className={isCirclular ? "pic-text iscircular" : "pic-text"}
           style={{
@@ -177,6 +180,7 @@ const ProfilePicsComponent = ({
               // gap: 0,
               marginLeft: "-6px",
               textTransform: "capitalize",
+              color: nameColor,
             }}
           >
             {isOnline === "Online" && (
@@ -186,7 +190,7 @@ const ProfilePicsComponent = ({
                 // style={{ paddingTop: "6px" }}
               />
             )}
-            {name}
+            {!name ? "User" : name}
           </p>
 
           {!isCirclular && (
@@ -197,6 +201,7 @@ const ProfilePicsComponent = ({
             </span>
           )}
         </div>
+        {/* )} */}
         {isCirclular && //if this is a circlular profile pics component show this icon
           (showCaret === false ? (
             ""

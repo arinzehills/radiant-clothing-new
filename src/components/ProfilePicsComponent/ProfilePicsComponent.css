@@ -24,8 +24,8 @@
   font-weight: 500;
   background: linear-gradient(
     45deg,
-    var(--dark-purple) 40%,
-    var(--light-purple) 40%
+    var(--dark-gold) 40%,
+    var(--light-gold) 40%
   );
   color: white;
   height: auto;
@@ -64,7 +64,7 @@
   position: fixed;
   height: 100vh;
   width: 100vw;
-  z-index: 9999;
+  z-index: 99999;
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.089);
@@ -116,17 +116,20 @@
 @media screen and (max-width: 760px) {
   .prf-container {
     width: 80%;
+    /* display: no; */
   }
   .pic-wrapper {
-    /* height: 20px; */
+    height: 30px;
+    min-width: 35px;
+    /* display: none; */
   }
   .prf-container.iscircular {
-    width: 90px;
-    border: 0.5px solid #e7e8f1;
+    width: 35px;
+    /* border: 0.5px solid #e7e8f1; */
   }
   .pic-wrapper.iscircular {
-    height: 25px;
-    width: 25px;
+    height: 35px;
+    width: 35px;
     /* background: red; */
   }
   .pic-text.iscircular {

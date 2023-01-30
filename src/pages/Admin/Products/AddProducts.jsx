@@ -1,31 +1,51 @@
 import React, { useState, useEffect } from "react";
+import { Icon } from "@iconify/react";
 import { Button } from "../../../components/Button/Button";
 import handleNot from "../../../components/HandleNotification/HandleNot";
 import ImageSlider from "../../../components/HeroSlider/ImageSlider";
 import DropDownField from "../../../components/Inputfield/DropDownField";
 import InputField from "../../../components/Inputfield/InputField";
 import TextArea from "../../../components/Inputfield/TextArea";
+import InputWithIcon from "../../../components/InputWithIcon/InputWithIcon";
 import useFetch from "../../../useFetch";
 import handleChange from "../../../utils/handleChange";
 import SupportUpload from "./SupportUpload";
 
-const AddProducts = ({ setOpenModal }) => {
+const AddProducts = ({ setOpenModal, isEdit, product }) => {
   const initialValues = {
-    product_name: "",
-    description: "",
-    price: "",
-    images: [],
+    product_id: product?._id ?? "",
+    product_name: product?.product_name ?? "",
+    description: product?.description ?? "",
+    quantity: product?.quantity ?? "",
+    price: product?.price ?? "",
+    discount_price: product?.discount_price ?? "",
+    gst: product?.gst ?? "",
+    images: product?.images ?? [],
   };
   const [formValues, setFormValues] = useState(initialValues);
+
+  const superCategories = ["Clothing", "Accessories", "Footwears"];
+
+  const [superCategory, setSuperCategory] = useState("Select category");
   const [responseError, setResponseError] = useState("");
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const [files, setFiles] = useState([]);
-  const [filespathList, setFilespathList] = useState([]);
+  const [filespathList, setFilespathList] = useState(product?.images ?? []);
   const [loading, setLoading] = useState(false);
   const fileNamesRef = React.useRef();
   const pickFileRef = React.useRef();
-  const [category, setCategory] = useState("Select category");
+  const [category, setCategory] = useState(
+    product?.category ?? "Select category"
+  );
+  let [referenceLinks, setReferenceLinks] = useState([
+    // "",
+    // "",
+    { links: "" },
+    { links: "" },
+  ]);
+
+  const [percentageDiscount, setPercentageDiscount] = useState(0);
   // const [categories, setCategories] = useState(["loading"]);
   const categories = [];
   const {
@@ -53,7 +73,7 @@ const AddProducts = ({ setOpenModal }) => {
   categoriesData?.categories.forEach((cat, index) => {
     categories.push(cat.category);
   });
-  console.log(categories);
+
   const handleAddFilePath = (files) => {
     const newArr = [];
     for (let i = 0; i < files.length; i++) {
@@ -61,8 +81,6 @@ const AddProducts = ({ setOpenModal }) => {
     }
     setFilespathList([...filespathList, ...newArr]);
   };
-  console.log(files);
-  console.log(filespathList);
   useEffect(() => {
     handleAddFilePath(files);
 
@@ -76,28 +94,36 @@ const AddProducts = ({ setOpenModal }) => {
     console.log(formValues);
   };
   useEffect(() => {
-    console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues + "This has validated");
       addProducts();
     }
   }, [formErrors]);
 
   const addProducts = async () => {
+    console.log(formValues.gst);
     setLoading(true);
     const data = new FormData();
+    data.append("product_id", formValues.product_id);
     data.append("product_name", formValues.product_name);
+    data.append("super_category", superCategory);
     data.append("category", category);
     data.append("price", formValues.price);
+    data.append("discount_price", formValues.discount_price);
+    data.append("gst", formValues.gst);
+    data.append("quantity", formValues.quantity);
     data.append("description", formValues.description);
     // data.append("image", files);
     for (let i = 0; i < files.length; i++) {
-      // console.log(formValues.supporting_materials[i].name);
       data.append("image", files[i]);
+    }
+    for (let i = 0; i < referenceLinks.length; i++) {
+      data.append("sizes", referenceLinks[i]["links"]);
     }
     console.log(Object.fromEntries(data));
 
-    const url = window.baseUrl + "admin/addProduct";
+    const url = product
+      ? window.baseUrl + "admin/editProduct"
+      : window.baseUrl + "admin/addProduct";
     fetch(url, {
       method: "POST",
       body: data,
@@ -105,10 +131,7 @@ const AddProducts = ({ setOpenModal }) => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        // console.log( data['token']);
-
         if (data["success"] === true) {
-          console.log("success");
           handleNot({
             title: "Success",
             message: data["message"] ?? "Your request have been Placed!",
@@ -124,11 +147,8 @@ const AddProducts = ({ setOpenModal }) => {
               error ?? "Their is an error in your request data, try again!",
             backgroundColor: "var(--danger)",
           });
-          // console.log(error);
-          // setResponseError(error);
           setLoading(false);
         }
-        // console.log('Success:', data);
       })
       .catch((error) => {
         setLoading(false);
@@ -153,6 +173,34 @@ const AddProducts = ({ setOpenModal }) => {
     }
     return errors;
   };
+  useEffect(() => {
+    if (formValues.discount_price === "") {
+      setPercentageDiscount(0);
+    } else if (formValues.price === "") {
+      setFormErrors({ ...formErrors, discount_price: "enter price first" });
+    } else {
+      const percetage =
+        (formValues.price - formValues.discount_price) / formValues.price;
+      setPercentageDiscount(percetage * 100);
+    }
+  }, [formValues.discount_price]);
+
+  const handleAddLinks = () => {
+    setReferenceLinks([...referenceLinks, { links: "" }]);
+  };
+  const handleRemoveLinks = (index) => {
+    const list = [...referenceLinks];
+    list.splice(index, 1); //starting from index zero remove one service
+    setReferenceLinks(list); //set links to new list
+  };
+  const handleLinksChange = (e, index) => {
+    const { name, value } = e.target;
+    console.log(e.target.name);
+    const list = [...referenceLinks];
+    list[index][name] = value;
+    setReferenceLinks(list);
+  };
+
   return (
     <>
       <div>
@@ -164,6 +212,7 @@ const AddProducts = ({ setOpenModal }) => {
           name={"product_name"}
           inputStyle="input--shadow-purple"
           inputColor="purple-input"
+          style={{ width: "100%" }}
           onHandleChange={(e) => handleChange(e, formValues, setFormValues)}
         />
 
@@ -173,13 +222,115 @@ const AddProducts = ({ setOpenModal }) => {
           label={"Enter price"}
           name={"price"}
           inputStyle="input--shadow-purple"
+          style={{ width: "100%" }}
           inputColor="purple-input"
-          onHandleChange={(e) => handleChange(e, formValues, setFormValues)}
+          type={"number"}
+          onHandleChange={(e) =>
+            !isNaN(e.nativeEvent?.data) &&
+            handleChange(e, formValues, setFormValues)
+          }
           value={formValues.price}
         />
         <p className="errors">{formErrors.price}</p>
+        <div
+          className="class_justify_contents_row"
+          style={{ justifyContent: "space-between" }}
+        >
+          <h5 style={{ lineHeight: 0 }}>Discount price</h5>
+          <div
+            className={
+              percentageDiscount.toString().includes("-")
+                ? "more_pop danger"
+                : "more_pop"
+            }
+            dangerouslySetInnerHTML={{
+              __html: `<span><h4> ${percentageDiscount.toFixed(
+                2
+              )}%  discount<h4></span>`,
+            }}
+          />
+        </div>
+        <InputField
+          label={"Enter price"}
+          name={"discount_price"}
+          inputStyle="input--shadow-purple"
+          style={{ width: "100%" }}
+          inputColor="purple-input"
+          type={"number"}
+          onHandleChange={(e) =>
+            !isNaN(e.nativeEvent?.data) &&
+            handleChange(e, formValues, setFormValues)
+          }
+          value={formValues.discount_price}
+        />
+        <p className="errors">{formErrors.discount_price}</p>
+        <h5 style={{ lineHeight: 0 }}>Gst price</h5>
+        <InputField
+          label={"Enter product gst"}
+          name={"gst"}
+          inputStyle="input--shadow-purple"
+          style={{ width: "100%" }}
+          inputColor="purple-input"
+          type={"number"}
+          onHandleChange={(e) =>
+            !isNaN(e.nativeEvent?.data) &&
+            handleChange(e, formValues, setFormValues)
+          }
+          value={formValues.gst}
+        />
+        <h5 style={{ lineHeight: 0 }}>Quantity in Stock </h5>
+        <InputField
+          label={"Enter quantity of products in stock"}
+          name={"quantity"}
+          inputStyle="input--shadow-purple"
+          style={{ width: "100%" }}
+          inputColor="purple-input"
+          onHandleChange={(e) =>
+            !isNaN(e.nativeEvent?.data) &&
+            handleChange(e, formValues, setFormValues)
+          }
+          value={formValues.quantity}
+        />
+        <p className="errors">{formErrors.quantity}</p>
+        <h5>Add Sizes </h5>
+        {referenceLinks.map((links, index) => (
+          <div>
+            <InputWithIcon
+              // inputkey={index + 1}
+              name="links"
+              iconName={"bi:dash-square-fill"}
+              style={{ width: "100%" }}
+              inputHeight="37px"
+              placeholder="Type here or select"
+              onClickIcon={() => handleRemoveLinks(index)}
+              onHandleChange={(e) => handleLinksChange(e, index)}
+            />
+            {referenceLinks.length - 1 === index && (
+              <div
+                style={{
+                  color: "var(--light-purple)",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                }}
+                onClick={handleAddLinks}
+              >
+                <Icon icon="akar-icons:circle-plus-fill" fontSize={23} />
+                <p>Add Another</p>
+              </div>
+            )}{" "}
+          </div>
+        ))}
+        {/* <div className={{}}>
+          <h5 style={{ lineHeight: 0 }}>Main category</h5>
+          <DropDownField
+            options={superCategories}
+            selected={superCategory}
+            setSelected={setSuperCategory}
+          />
+        </div> */}
         <div className={{}}>
-          <h2>Categories</h2>
+          <h5>Categories</h5>
           <DropDownField
             options={categories}
             selected={category}
@@ -193,6 +344,7 @@ const AddProducts = ({ setOpenModal }) => {
         </h5>
         <TextArea
           label={"Enter product description"}
+          style={{ width: "100%" }}
           name={"description"}
           onHandleChange={(e) => handleChange(e, formValues, setFormValues)}
           value={formValues.description}
@@ -201,7 +353,10 @@ const AddProducts = ({ setOpenModal }) => {
 
         <p className="errors">{responseError ?? ""}</p>
         {/* <p>{filespathList.join(",")}</p> */}
-        <div style={{ width: "100%", gap: "5px", overflowX: "hidden" }}>
+        <div
+          style={{ width: "100%", gap: "5px", overflowX: "hidden" }}
+          className="class_justify_contents_row"
+        >
           {filespathList.map((image) => (
             <img src={image} height="50px" />
           ))}
@@ -228,7 +383,7 @@ const AddProducts = ({ setOpenModal }) => {
           onClick={onSubmit}
           loading={loading}
         >
-          Add
+          {product ? "Update" : "Add"}
         </Button>
       </div>
     </>

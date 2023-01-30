@@ -3,17 +3,27 @@ import { Link } from "react-router-dom";
 import {
   FaFacebook,
   FaInstagram,
-  FaYoutube,
   FaWhatsapp,
   FaTwitter,
   FaLinkedin,
 } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 import "./Footer.css";
 import ButtonWithIcon from "../ButtonWithIcon/ButtonWithIcon";
 import { Button } from "../Button/Button";
 import GradientText from "../utilitiescomponent/GradientText";
+import useFetch from "../../useFetch";
 
 function Footer() {
+  const {
+    data: categoriesData,
+    loading: loadingCategory,
+    errorCategory,
+  } = useFetch({
+    url: window.baseUrl + "admin/getCategories",
+    // secondParam: activeRow,
+  });
+
   const FooterText = () => {
     return (
       <>
@@ -26,6 +36,7 @@ function Footer() {
             paddingTop: "8rem",
             gap: "1rem",
             color: "white",
+
             background: "black",
           }}
         >
@@ -42,19 +53,31 @@ function Footer() {
                 Talk to us now
               </p>
               <h3 style={{ textTransform: "uppercase" }}>Contact Us</h3>
-              <p>5701 Outlets at Tejon Pkwy, New Delhi ranch CA 93203 India.</p>
+              <p>
+                Email:{" "}
+                <a href="mailto:info@radiantclothings.com">
+                  info@radiantclothings.com
+                </a>
+              </p>
+              <p>
+                Mobile: <a href="tel:+91 9984924444">+91 9984924444</a>
+              </p>
+              <p>
+                3143/56-59, Ram Krishna Marg, Pratap Market, Aminabad, Lucknow,
+                Uttar Pradesh-226018.
+              </p>
             </div>
             <div>
               <p className={"italics"}>Explore!</p>
               <h3 style={{ color: "white", textTransform: "uppercase" }}>
-                Our services
+                Customer Service
               </h3>
               <div className="footer-link-items">
-                <Link to="/pricing">Home</Link>
-                <Link to="/pricing">About us</Link>
-                <Link to="/pricing">Contact Us</Link>
-                <Link to="/pricing">FAQ</Link>
-                <Link to="/pricing">Terms and Condition</Link>
+                <Link to="/">Home</Link>
+                <Link to="/about">About us</Link>
+                <Link to="/contact">Contact Us</Link>
+                <Link to="/faqs">FAQ</Link>
+                <Link to="/terms-and-condition">Terms and Condition</Link>
                 {/* <a href="https://www.conterize.com/blog">Blog</a> */}
               </div>
             </div>
@@ -64,12 +87,23 @@ function Footer() {
                 Featured Categories
               </h3>
               <div className="footer-link-items">
-                <Link to="/pricing">Home</Link>
-                <Link to="/pricing">About us</Link>
-                <Link to="/pricing">Contact Us</Link>
-                <Link to="/pricing">FAQ</Link>
-                <Link to="/pricing">Terms and Condition</Link>
-                {/* <a href="https://www.conterize.com/blog">Blog</a> */}
+                {loadingCategory ? (
+                  <div
+                    className="class_justify_contents_column"
+                    style={{ height: "200px" }}
+                  >
+                    loading...
+                  </div>
+                ) : (
+                  categoriesData?.categories?.map((item) => (
+                    <Link
+                      to={`/categories/${item.category}`}
+                      key={item.category}
+                    >
+                      {item.category}
+                    </Link>
+                  ))
+                )}
               </div>
             </div>
           </div>
@@ -83,55 +117,59 @@ function Footer() {
           }}
           className={"class_justify_contents_column"}
         >
-          <p
-            className="avenir_class"
-            style={{
-              width: "500px",
-            }}
-          >
-            follow us on
-          </p>
+          <p className="avenir_class">follow us on</p>
           <div className="centerClass" style={{ gap: "1rem" }}>
-            <FooterIcon iconName={"FaFacebook"} />
-            <FooterIcon iconName={"FaInstagram"} />
-            <FooterIcon iconName={"FaTwitter"} />
-            <FooterIcon iconName={"FaWhatsapp"} />
-            <FooterIcon iconName={"FaLinkedin"} />
+            <FooterIcon
+              children={<FaWhatsapp fill="#000" fontSize={"20px"} />}
+              link="https://wa.me/message/DTUDWWSTGG5UP1?src=qr"
+            />
+            <FooterIcon
+              children={<FaFacebook fill="#000" fontSize={"20px"} />}
+              link="https://www.facebook.com/radiantclothinglko"
+            />
+            {/* <FooterIcon
+              children={<MdEmail fill="#000" fontSize={"20px"} />}
+              link="mailto:info@radiantclothings.com"
+            /> */}
+            <FooterIcon
+              children={<FaInstagram fill="#000" fontSize={"20px"} />}
+              link="https://www.instagram.com/p/CkSKu1YJR99/?igshid=YmMyMTA2M2Y="
+            />
+            <FooterIcon
+              children={<FaLinkedin fill="#000" fontSize={"20px"} />}
+              link="www.linkedin.com/company/radiant-clothing-lucknow"
+            />
+            <FooterIcon
+              children={<FaTwitter fill="#000" fontSize={"20px"} />}
+              link="https://twitter.com/RadiantCloth"
+            />
           </div>
-          {/* <GradientText
+          <p>&copy; 2023</p>
+          <GradientText
             text={" RADIANT CLOTHING"}
-            style={{ lineHeight: 1, fontSize: "2vw", textAlign: "left" }}
-          /> */}
-          <p>&copy; 2022</p>
+            style={{ lineHeight: 1, fontSize: "1.5vw", textAlign: "left" }}
+          />
+          <p className="avenir_class">Designed by- Ascend Digital</p>
         </div>
       </>
     );
   };
-  const FooterIcon = ({ iconName }) => {
+  const FooterIcon = ({ children, link }) => {
     return (
-      <>
+      <a href={link} target="_blank">
         <div
           style={{
             // background: "white",
             height: "50px",
             width: "50px",
             borderRadius: "50px",
+            cursor: "pointer",
           }}
           className=" centerClass gold_color_light"
         >
-          {iconName === "FaTwitter" ? (
-            <FaTwitter fill="#000" fontSize={"20px"} />
-          ) : iconName === "FaLinkedin" ? (
-            <FaLinkedin fill="#000" fontSize={"20px"} />
-          ) : iconName === "FaWhatsapp" ? (
-            <FaWhatsapp fill="#000" fontSize={"20px"} />
-          ) : iconName === "FaInstagram" ? (
-            <FaInstagram fill="#000" fontSize={"20px"} />
-          ) : (
-            <FaFacebook fill="#000" fontSize={"20px"} />
-          )}
+          {children}
         </div>
-      </>
+      </a>
     );
   };
   return (
@@ -144,22 +182,9 @@ function Footer() {
           position: "relative",
         }}
       >
-        <div
-          style={{
-            width: window.innerWidth < 960 ? "70%" : "80%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-evenly",
-            gap: "2rem",
-            borderRadius: "13px",
-            height: window.innerWidth < 960 ? "20rem" : "8rem",
-            color: "black",
-            flexDirection: window.innerWidth < 960 && "column",
-          }}
-          className="gold_color"
-        >
+        <div style={{}} className="gold_color footer-contact">
           <h2>Contact</h2>
-          <p style={{ fontWeight: "600" }}>
+          <p style={{ fontWeight: "500" }}>
             Have more questions? Or need more <br />
             information contact me
           </p>

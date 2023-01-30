@@ -33,6 +33,7 @@ function InputField({
       <input
         name={name}
         type={type ?? "text"}
+        step={type && 0.01}
         style={style}
         className={`input
                 ${checkInputStyle}

@@ -3,8 +3,17 @@ import Featured from "../../components/Featured/Featured";
 import Skills from "../../components/Featured/Featured";
 import HeroSlider from "../../components/HeroSlider/HeroSlider";
 import ImageSlider from "../../components/HeroSlider/ImageSlider";
+import GradientText from "../../components/utilitiescomponent/GradientText";
+import useFetch from "../../useFetch";
 
 const Homepage = () => {
+  const {
+    data: categoriesData,
+    loading,
+    error,
+  } = useFetch({
+    url: window.baseUrl + "admin/getHomeimages",
+  });
   const homeData = {
     headline: "Arinze Chris Hills",
     description:
@@ -21,25 +30,42 @@ const Homepage = () => {
   };
   const slides = [
     {
-      title: "Radiant Clothin ",
+      title: "Radiant Clothing ",
       description: "the best e-shop,makes u glow",
-      img: "https://res.cloudinary.com/difxlvoq8/image/upload/v1665786719/cld-sample-5.jpg",
-    },
-    {
-      title: "Shopping the best way you can",
-      description: "Radiant allows you to shop\nfrom the comforts of you home",
-      img: "https://res.cloudinary.com/difxlvoq8/image/upload/v1665786717/cld-sample.jpg",
-    },
-    {
-      title: "Best way to Shop\n Jeweries",
-      description: "We sell all kinds of laptops, iphone and many IT equipment",
-      img: "https://res.cloudinary.com/djsk1t9zp/image/upload/v1668862268/successful-young-businesswoman-shaking-hand-male-coworker_u2nbgp.jpg",
+      image:
+        "https://res.cloudinary.com/difxlvoq8/image/upload/v1665786719/cld-sample-5.jpg",
     },
   ];
   return (
     <>
       {/* <HeroSlider /> */}
-      <ImageSlider slides={slides} />
+      {loading ? (
+        <div
+          className="class_justify_contents_column"
+          style={{
+            maxHeight: "300px",
+            height: "1000px",
+            width: "100%",
+            background: "black",
+          }}
+        >
+          <GradientText
+            text={"RADIANT CLOTHING"}
+            style={{ lineHeight: 1, fontSize: "3vw", textAlign: "left" }}
+          />
+        </div>
+      ) : (
+        categoriesData?.images.length !== 0 && (
+          <div style={{ marginTop: window.innerWidth < 700 && "-7.5rem" }}>
+            <ImageSlider slides={categoriesData?.images} />
+          </div>
+          // <div></div>
+        )
+      )}
+      {/* <ImageSlider slides={slides} /> */}
+      <div style={{ marginTop: "1rem" }} className="class_justify_contents_row">
+        <img src="/images/freeshipping.png" width={"100%"} height="200px" />
+      </div>
       <div style={{ marginTop: "12rem" }}></div>
       <Featured />
     </>

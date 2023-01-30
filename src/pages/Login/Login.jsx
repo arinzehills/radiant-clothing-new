@@ -4,8 +4,13 @@ import Formhero from "../../components/Formhero/Formhero";
 import Loader from "../../components/Loader/Loader";
 import { login } from "./data";
 import PropTypes from "prop-types";
+import useToken from "../../useToken";
+import useUser from "../../useUser";
 
-function Login({ setToken, setUser, message }) {
+function Login({ message }) {
+  const { token, setToken } = useToken();
+  const { user, setUser } = useUser();
+
   const initialValues = { email: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [responseError, setResponseError] = useState("");
@@ -48,10 +53,7 @@ function Login({ setToken, setUser, message }) {
       email: formValues.email,
       password: formValues.password,
     };
-    // const url="http://localhost/buyenergy_api/public/api/login";
-    // const url=window.baseUrl + "login";
-    // const url="https://buyenergy.herokuapp.com/public/api/login";
-    const url = "https://buyenergy.herokuapp.com/public/api/login";
+    const url = window.baseUrl + "login";
 
     fetch(url, {
       // credentials: 'include
@@ -70,12 +72,12 @@ function Login({ setToken, setUser, message }) {
         // console.log( data['token']);
 
         if (data["success"] === true) {
-          const token = data["token"];
+          const token = data["user"].token;
           const user = data["user"];
 
           setToken(token);
           setUser(user);
-          history("/dashboard");
+          history("/");
           setLoading(false);
         } else {
           const error = data["message"];

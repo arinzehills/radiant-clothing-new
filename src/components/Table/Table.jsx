@@ -39,7 +39,7 @@ const Table = ({
           //   <OnlineStatus value={item[`${columnItem.value}`]} />
           <div>online Status</div>
         ) : columnItem.value === "image" ? (
-          <img src={item[`${columnItem.value}`]} height="50px" width="50px" />
+          <img src={item[`${columnItem.value}`]} height="100px" width="100px" />
         ) : (
           <td key={index}>{item[`${columnItem.value}`]}</td>
         );
@@ -58,11 +58,9 @@ const Table = ({
       )} */}
       <table>
         <thead>
-          <tr>
-            {columnData.map((item, index) => (
-              <TableHeadItem item={item} key={index} />
-            ))}
-          </tr>
+          {columnData.map((item, index) => (
+            <TableHeadItem item={item} key={index} />
+          ))}
         </thead>
         <tbody>
           {loading ? (
@@ -83,7 +81,13 @@ const Table = ({
         </tbody>
       </table>
       {data?.length === 0 && (
-        <div>NO data</div>
+        // <div>NO data</div>
+        <div className="class_justify_contents_column ">
+          <img src="/svg/notfound.svg" alt="" height={"300px"} />
+          <span className="italics" style={{ fontSize: "20px" }}>
+            No Data Found
+          </span>
+        </div>
         // <NoDataFound
         //   message={messageNotFound}
         //   showpositionClass={showNotFoundPosition}

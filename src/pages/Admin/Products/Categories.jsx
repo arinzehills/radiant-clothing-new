@@ -4,6 +4,7 @@ import AnimatedModal from "../../../components/AnimatedModal/AnimatedModal";
 import { Button } from "../../../components/Button/Button";
 import Table from "../../../components/Table/Table";
 import useFetch from "../../../useFetch";
+import handleDelete from "../../../utils/handleDelete";
 import AddCategories from "./AddCategories";
 
 const Categories = ({ setHandleNotData }) => {
@@ -14,27 +15,40 @@ const Categories = ({ setHandleNotData }) => {
     error,
   } = useFetch({
     url: window.baseUrl + "admin/getCategories",
-    // secondParam: activeRow,
+    secondParam: openModal,
   });
   let columnData = [
+    { heading: "S/N", value: "sn" },
     { heading: "Image", value: "image" },
+    { heading: "Main Category", value: "super_category" },
     { heading: "Category", value: "category" },
-    { heading: "Edit", value: "action" },
-    { Delete: "Delete", value: "delete" },
+    { heading: "Delete", value: "delete" },
   ];
   let categoriesImage = [];
   !loading &&
     categoriesData?.categories.forEach((cat, index) => {
-      const image = cat.image;
-      // categoriesImage.push(image);
-      cat.action = (
-        <Button
-          buttonColor={"black"}
-          children={"Edit"}
-          style={{ background: "var(--success)", width: "100px" }}
+      cat.delete = (
+        <Icon
+          icon="ic:baseline-delete"
+          color="var(--danger)"
+          style={{ paddingLeft: "20px", fontSize: "1.5rem" }}
+          onClick={() =>
+            handleDelete(
+              window.baseUrl + "admin/deleteCategory?id=" + cat._id,
+              setOpenModal
+            )
+          }
         />
       );
-      cat.delete = <Icon icon="ic:baseline-delete" color="var(--danger)" />;
+      cat.sn = (
+        <p
+          icon="ic:baseline-delete"
+          color="var(--danger)"
+          style={{ paddingLeft: "20px", fontSize: "1rem" }}
+        >
+          {index + 1}
+        </p>
+      );
     });
   console.log(categoriesImage);
 
@@ -50,7 +64,11 @@ const Categories = ({ setHandleNotData }) => {
           setOpenModal={setOpenModal}
         />
       </AnimatedModal>
-      <div style={{}}>
+      <div
+        style={{
+          marginTop: window.innerWidth < 660 && "2rem",
+        }}
+      >
         <Button
           buttonStyle={"btn--normal"}
           buttonColor="orange"

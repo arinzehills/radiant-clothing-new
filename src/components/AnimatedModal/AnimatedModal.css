@@ -8,6 +8,10 @@
   z-index: 9999999;
   backdrop-filter: blur(2px);
 }
+.full_backdrop {
+  width: 100vw;
+  left: 0;
+}
 .animatedmodal_content_wrapper {
   position: fixed;
   /* min-height: 33rem; */

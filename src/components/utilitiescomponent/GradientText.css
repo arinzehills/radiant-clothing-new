@@ -14,7 +14,7 @@
     var(--light-gold) 20%,
     var(--dark-gold) 40%,
     var(--lightblue-blue) 60%,
-    var(--lightblue-light-blue) 80%
+    #d6ad45 80%
   );
   background-size: 200% auto;
   color: #000;
@@ -30,7 +30,7 @@
     var(--light-gold) 20%,
     var(--dark-gold) 40%,
     var(--light-gold) 60%,
-    var(--lightblue-light-blue) 80%
+    var(--light-gold) 80%
   );
   background-size: 200% auto;
   color: #000;

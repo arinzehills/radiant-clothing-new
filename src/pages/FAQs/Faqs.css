@@ -33,21 +33,23 @@
   max-height: 100px;
   overflow: hidden;
 }
-.faq_container.active {
+.faq_container.faq_active {
   /* height: 300px;
   transition: all 0.9s ease-in; */
   transition: max-height all 0.9s ease-in;
   max-height: 500px;
 }
 
-.icon_wrapper {
+.faq_icon_wrapper {
   background: var(--black);
+  border-radius: 10px;
   height: 50px;
   width: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  max-width: 50px;
+  max-height: 50px;
   color: #ffffff;
 }
 .faq_row {
@@ -69,8 +71,7 @@
 .accordian_content {
   padding: 0.18rem;
   display: flex;
-  align-items: flex-start;
-  align-content: center;
+  align-items: center;
   justify-items: start;
   /* transition: max-height 0.6s ease-in; */
   transition: all 0.9s ease-out;
@@ -92,18 +93,19 @@
 }
 .faq_icon {
   transition: all 0.9s ease-out;
-  opacity: 0;
+  position: absolute;
+  /* display: none; */
 }
-.faq_icon.icon-active {
+.faq_icon.faq_icon-active {
   /* -webkit-animation: spin 1s linear;
   -moz-animation: spin 1s linear;
   animation: spin 1s linear; */
   transform: rotate(90deg);
-  opacity: 1;
+  /* display: block; */
 }
-.faq_icon.icon-active2 {
+.faq_icon.faq_icon-active2 {
   transform: rotate(-90deg);
-  opacity: 1;
+  /* display: block; */
 }
 @keyframes spin {
   100% {
@@ -116,16 +118,20 @@
   .faq_wrapper h2 {
     font-size: 32px;
   }
+  .faq_row h3 {
+    font-size: 15px;
+    width: 80%;
+  }
   .faq_section {
     /* margin: 0 28rem 0; */
     padding: 2rem 1rem 2rem 0.5rem;
   }
   .faq_container {
-    width: 105%;
+    width: 90%;
     max-height: 150px;
     margin: 0.5rem 0rem;
   }
-  .faq_container.active {
+  .faq_container.faq_active {
     max-height: 750px;
   }
 }

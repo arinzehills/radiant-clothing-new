@@ -19,9 +19,10 @@ import {
   Legend,
 } from "chart.js";
 import Overall from "./Overall";
-import RevenueChart from "./RevenueChart";
 import useUser from "../../../useUser";
 import NavComponent from "../../Dashboard/components/NavComponent/NavComponent";
+import getSymbolFromCurrency from "currency-symbol-map";
+import useFetch from "../../../useFetch";
 
 ChartJS.register(
   CategoryScale,
@@ -86,7 +87,14 @@ const chartData = {
 const AdminDashboard = ({ setHandleNotData }) => {
   const [click, setClick] = useOutletContext();
   const { user, setUser } = useUser();
-
+  const {
+    data: ordersData,
+    loading,
+    error,
+  } = useFetch({
+    url: window.baseUrl + "payment/orders",
+    // secondParam: openModal,
+  });
   const handleClick = () => setClick(!click);
   const IconWrapper = ({ type, IconPadding, iconFontSize }) => {
     return (
@@ -135,7 +143,7 @@ const AdminDashboard = ({ setHandleNotData }) => {
     const percentage = 66;
     return (
       <div
-        className={`dashboard-card grid-card ${className}`}
+        className={`grid-card ${className}`}
         style={{
           display: "flex",
           flexDirection: "row",
@@ -166,7 +174,7 @@ const AdminDashboard = ({ setHandleNotData }) => {
             <IconWrapper type={type ?? "sales"} />
             <p style={{ fontSize: "24px" }}>{value ?? "value"}</p>
           </div>
-          <h4>Total {title} Today</h4>
+          <h4>Total {title} </h4>
           <h3
             style={{
               fontSize: window.innerWidth < 960 ? "14px" : "18px",
@@ -196,6 +204,7 @@ const AdminDashboard = ({ setHandleNotData }) => {
       </div>
     );
   };
+  console.log(ordersData);
 
   return (
     <>
@@ -208,21 +217,37 @@ const AdminDashboard = ({ setHandleNotData }) => {
       />
       <div className="admin_section">
         <div className="admin_grid">
-          <GridCard title={"Sales"} value="32" type="sales" />
-          <GridCard title={"Orders"} value="329" type="order" />
-          <GridCard title={"Revenue"} value="21" type="revenue" />
-          <GridCard title={"Visits"} value="32" type="visits" />
+          <GridCard
+            title={"Sales Today"}
+            value={
+              getSymbolFromCurrency("INR") +
+                ordersData?.analytics.totalSalesToday ?? "32"
+            }
+            type="sales"
+          />
+          <GridCard
+            title={"Orders Today"}
+            value={ordersData?.analytics.totalOrdersToday ?? "329"}
+            type="order"
+          />
+          <GridCard
+            title={"Customers"}
+            value={ordersData?.users ?? "0"}
+            type="revenue"
+          />
+          <GridCard title={"Visits Today"} value="32" type="visits" />
         </div>
         <div className="admin_revenue">
           <h2>REVENUE</h2>
-          <h1>$3293</h1>
+          <h1>
+            {getSymbolFromCurrency("INR")} {ordersData?.analytics.totalRevenue}
+          </h1>
           <Line options={chartOptions} data={chartData} />
         </div>
         <div className="admin_overall">
           <Overall />
         </div>
       </div>
-      <RevenueChart />
     </>
   );
 };
