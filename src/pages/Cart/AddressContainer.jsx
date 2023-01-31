@@ -3,16 +3,30 @@ import React from "react";
 import { Button } from "../../components/Button/Button";
 import useUser from "../../useUser";
 import { motion, AnimatePresence } from "framer-motion";
+import axios from "axios";
+import { ImSpinner2 } from "react-icons/im";
 import { useState } from "react";
 
-const AddressContainer = ({ billingAddresses, toggleCheckout,loadingAddr }) => {
+const AddressContainer = ({ billingAddresses, toggleCheckout,loadingAddr,selected,setSelected }) => {
   const { user, setUser } = useUser();
+  const [loading,setLoading]=useState(false)
   // const addr = ["", ""];
   console.log(loadingAddr)
-  const [selected, setSelected] = useState(
-    billingAddresses?.billing_address[0]?.id
-  );
-
+ 
+  const deleteAddress = async (address_id) => {
+    setLoading(true);
+    try {
+      const orderUrl = `${window.baseUrl}payment/deleteBillingAddress`;
+      const { data } = await axios.post(orderUrl, {user_id:user._id, address_id: address_id }); // never send price directly. Instead send product ID and handle the rest from backend
+      console.log(data);
+      setLoading(false);
+      toggleCheckout()
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   // console.log(billingAddresses?.billing_address[0].id);
   return (
     <AnimatePresence>
@@ -48,7 +62,7 @@ const AddressContainer = ({ billingAddresses, toggleCheckout,loadingAddr }) => {
               boxShadow:
                 "0 0 6px 0 rgb(78 42 222 / 2%), 0 6px 18px 0 rgb(78 42 222 / 2%)",
             }}
-            onClick={() => setSelected(addr.id)}
+            onClick={() => setSelected(addr)}
           >
             <div
               className="class_justify_contents_column withGap"
@@ -59,7 +73,7 @@ const AddressContainer = ({ billingAddresses, toggleCheckout,loadingAddr }) => {
                   type="radio"
                   style={{ color: "red" }}
                   color="red"
-                  checked={addr.id == selected ? true : false}
+                  checked={addr.id == selected?.id ? true : false}
                   value={addr.id}
                 />
                 <h4>{addr.fullname ?? user.full_name ?? ""}</h4>
@@ -72,8 +86,14 @@ const AddressContainer = ({ billingAddresses, toggleCheckout,loadingAddr }) => {
               </p>
               <h3>Mobile:{addr.phoneNumber ?? user.phone}</h3>
               <div className="class_justify_contents_row withGap">
-                <Button buttonColor={"black"} buttonStyle="btn--outline">
-                  Remove
+                <Button buttonColor={"black"} buttonStyle="btn--outline" onClick={()=>deleteAddress(addr.id)}>
+                  {loading ? (
+                    <ImSpinner2
+                      className="spin"
+                      size={20}
+                      style={{ marginInline: "auto" }}
+                    />
+                  ) : 'Remove'}
                 </Button>
 
               </div>
