@@ -115,7 +115,7 @@ const Cart = () => {
   const toggleCheckout = () => {
     setCheckout(!checkout);
   };
-  const [totalAmount, getTotalAmount] = useState(() => getTotalPrice());
+  const [totalAmount, getTotalAmount] = useState(() => getTotalPrice()+ getTotalGst());
 
   useEffect(() => {
     getTotalPrice();
@@ -128,13 +128,14 @@ const Cart = () => {
       currency: data.currency,
       amount: data.amount,
       name: "Radiant Clothing",
-
       description: "Super amamzing description...",
       handler: async (response) => {
+        selectedAddress.email=user.email
         response.amount = data.amount;
         response.user_id = user._id;
         response.billing_address=selectedAddress;
         response.products=cartItems
+        response.sub_total= getTotalPrice();
         console.log(response)
         try {
           const { data } = axios.post(`${API_URL}verify`, response);

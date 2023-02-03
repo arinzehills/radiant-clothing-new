@@ -34,6 +34,7 @@ import ProductDetail from "./components/Featured/ProductDetail";
 import Terms from "./pages/Terms/Terms";
 import MoreProducts from "./components/Featured/MoreProducts";
 import PrivateRoutes from "./utils/PrivateRoutes";
+import OrderDetail from "./components/OrderDetail/OrderDetail";
 
 function App() {
   const [handleNotData, setHandleNotData] = useState({
@@ -99,6 +100,10 @@ function App() {
             <Route
               path="orders"
               element={<UserOrders setHandleNotData={setHandleNotData} />}
+            />
+            <Route
+              path="order-details"
+              element={<OrderDetail setHandleNotData={setHandleNotData} />}
             />
             <Route
               path="wishlist"
