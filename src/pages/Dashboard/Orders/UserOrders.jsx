@@ -44,12 +44,12 @@ orders.forEach((order, index) => {
           />
            */}
           <Button
-            buttonColor={"black"}
+            buttonColor={"orange"}
             children={"View Details"}
             onClick={()=>navigate("/dashboard/order-details",{
               state:{ order_id:order.order_id }
             })}
-            style={{ background: "var(--success)", width: "100px" }}
+            // style={{ background: "var(--success)", width: "100px" }}
             />
         </div>
       );

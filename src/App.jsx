@@ -158,6 +158,10 @@ function App() {
               }
             />
             <Route
+              path="order-details"
+              element={<OrderDetail setHandleNotData={setHandleNotData} />}
+            />
+            <Route
               path="images"
               element={
                 <SliderImages
