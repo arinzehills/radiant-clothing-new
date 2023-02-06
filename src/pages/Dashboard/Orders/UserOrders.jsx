@@ -11,13 +11,13 @@ import moment from "moment";
 const UserOrders = () => {
   const { user, setUser } = useUser();
   const { token, setToken } = useToken();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const {
     data: orders,
     loading,
     error,
   } = useFetch({
-    url: window.baseUrl + "payment/getUserOrders?token="+token,
+    url: window.baseUrl + "payment/getUserOrders?token=" + token,
     // secondParam: activeRow,
   });
   let columnData = [
@@ -28,13 +28,13 @@ const UserOrders = () => {
     { heading: "Date", value: "date" },
     { heading: "Actions", value: "action" },
   ];
-  console.log(orders)
+  console.log(orders);
   !loading &&
-orders.forEach((order, index) => {
+    orders.forEach((order, index) => {
       // orderegoriesImage.push(image);
-      order.total = order.amount/100;
-      order.date =moment(order.createdAt).format("MM/DD/YYYY hh:mm:ss");
-      order.status = order.isPaid===true?"Success" :"failed";
+      order.total = order.amount / 100;
+      order.date = moment(order.createdAt).format("MM/DD/YYYY hh:mm A");
+      order.status = order.isPaid === true ? "Success" : "failed";
       order.action = (
         <div className="class_justify_contents_row">
           {/* <Button
@@ -46,11 +46,13 @@ orders.forEach((order, index) => {
           <Button
             buttonColor={"orange"}
             children={"View Details"}
-            onClick={()=>navigate("/dashboard/order-details",{
-              state:{ order_id:order.order_id }
-            })}
+            onClick={() =>
+              navigate("/dashboard/order-details", {
+                state: { order_id: order.order_id },
+              })
+            }
             // style={{ background: "var(--success)", width: "100px" }}
-            />
+          />
         </div>
       );
     });
@@ -66,9 +68,11 @@ orders.forEach((order, index) => {
       <Table
         loading={loading}
         data={orders}
-        onClickRow={(order)=>navigate('/dashboard/order-details',{
-          state:{ order_id:order.order_id }
-        })}
+        onClickRow={(order) =>
+          navigate("/dashboard/order-details", {
+            state: { order_id: order.order_id },
+          })
+        }
         // data={tableData}
         columnData={columnData}
       />
