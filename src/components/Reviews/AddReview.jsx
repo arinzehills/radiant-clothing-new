@@ -9,22 +9,22 @@ import RatingStars from "./RatingStars";
 
 const AddReview = ({ setOpenModal, product_id }) => {
   const [loading, setLoading] = useState(false);
-  const [rating, setRating] = useState({ rate: 0 });
+  const [rating, setRating] = useState({ ratings: 0 });
   const { token, setToken } = useToken();
   const [detail, setDetail] = useState("");
   const [error, setError] = useState("");
   console.log(product_id);
   const ratingIcon = [
-    { rate: 1 },
-    { rate: 2 },
-    { rate: 3 },
-    { rate: 4 },
-    { rate: 5 },
+    { ratings: 1 },
+    { ratings: 2 },
+    { ratings: 3 },
+    { ratings: 4 },
+    { ratings: 5 },
   ];
   const rateItem = async () => {
     setLoading(true);
     const data = {
-      rate: rating.rate,
+      rate: rating.ratings,
       detail: detail,
       product_id: product_id,
     };
@@ -46,7 +46,7 @@ const AddReview = ({ setOpenModal, product_id }) => {
             message: data["message"] ?? "Your request have been Placed!",
             backgroundColor: "var(--success)",
           });
-          // setOpenModal(false);
+          setOpenModal(false);
         } else {
           const error = data["message"];
           console.log(error);
@@ -61,7 +61,7 @@ const AddReview = ({ setOpenModal, product_id }) => {
   };
   return (
     <div style={{ padding: "3rem" }} className="class_justify_contents_column">
-      <RatingStars setRating={setRating} rating={rating} />
+      <RatingStars setRating={setRating} rating={rating.ratings} />
       <div
         className="class_justify_contents_column"
         style={{ alignItems: "start" }}

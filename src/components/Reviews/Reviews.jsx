@@ -83,11 +83,11 @@ const Reviews = ({ reviews }) => {
               <div style={{ gap: "1rem" }}>
                 <RatingStars rating={review.ratings} />
                 <p>{review.details}</p>
-                <div className="class_justify_contents_row">
+                <div className="class_justify_contents_row withGap">
                   <ProfilePicsComponent
                     name={review?.user_email}
                     isCirclular={true}
-                    size="10px"
+                    size="120px"
                     showCaret={false}
                     //   nameColor={"white"}
                   />

@@ -22,7 +22,7 @@ const RatingStars = ({ setRating, rating }) => {
               size={"25px"}
               color={rating >= rate.ratings && "var(--light-gold)"}
               className={"product-item-icon"}
-              onClick={() => setRating({ rate: index + 1 })}
+              onClick={() => setRating({ ratings: index + 1 })}
             />
             <pre className="showTip">
               {index === 0
