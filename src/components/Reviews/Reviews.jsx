@@ -14,7 +14,14 @@ const Reviews = ({ reviews }) => {
       setRating({ ratings: reviews[0]?.ratings });
     }
   }, []);
-  console.log(reviews?.length);
+  const calcTotalReview = (reviews) => {
+    let totalReview = 0;
+    reviews.forEach((review) => {
+      totalReview = totalReview + eval(review.ratings);
+    });
+    let reviewPercentage = totalReview / reviews?.length;
+    return reviewPercentage;
+  };
   return (
     <div style={{ background: "var(--grey2)", padding: "1rem" }}>
       <h3>Verified Customer Feedback</h3>
@@ -33,7 +40,7 @@ const Reviews = ({ reviews }) => {
       >
         {/* for rating images */}
         <div>
-          <h5>Verified Ratings(2)</h5>
+          <h5>Verified Ratings({reviews?.length ?? "0"})</h5>
           <div
             style={{
               background: "var(--grey2)",
@@ -43,9 +50,18 @@ const Reviews = ({ reviews }) => {
             className="centerClass"
           >
             <h3>
-              {reviews == undefined || reviews?.length == 0 ? "" : "4.6/5"}
+              {reviews == undefined || reviews?.length == 0
+                ? ""
+                : `${calcTotalReview(reviews)}/5`}
             </h3>
-            <RatingStars rating={rating} setRating={setRating} />
+            <RatingStars
+              rating={
+                reviews == undefined || reviews?.length == 0
+                  ? "0"
+                  : calcTotalReview(reviews) + 0.5
+              }
+              setRating={setRating}
+            />
             <p>
               {reviews === undefined || reviews?.length === 0
                 ? "0 "
@@ -65,7 +81,7 @@ const Reviews = ({ reviews }) => {
           ) : (
             reviews?.map((review) => (
               <div style={{ gap: "1rem" }}>
-                <RatingStars rating={review} />
+                <RatingStars rating={review.ratings} />
                 <p>{review.details}</p>
                 <div className="class_justify_contents_row">
                   <ProfilePicsComponent

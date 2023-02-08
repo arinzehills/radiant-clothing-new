@@ -9,6 +9,7 @@ const RatingStars = ({ setRating, rating }) => {
     { ratings: 4 },
     { ratings: 5 },
   ];
+  console.log(rating);
   return (
     <div>
       <div
@@ -19,7 +20,7 @@ const RatingStars = ({ setRating, rating }) => {
           <div>
             <AiTwotoneStar
               size={"25px"}
-              color={rating?.ratings >= rate.ratings && "var(--light-gold)"}
+              color={rating >= rate.ratings && "var(--light-gold)"}
               className={"product-item-icon"}
               onClick={() => setRating({ rate: index + 1 })}
             />
