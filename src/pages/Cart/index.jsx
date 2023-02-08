@@ -142,7 +142,7 @@ const Cart = () => {
         try {
           const { data } = axios.post(`${API_URL}verify`, response);
           console.log(data);
-          // window.localStorage.removeItem("radiant_cart_item");
+          window.localStorage.removeItem("radiant_cart_item");
           navigate("/payment-success");
         } catch (err) {
           console.log(err);
