@@ -3,11 +3,11 @@ import { AiTwotoneStar } from "react-icons/ai";
 
 const RatingStars = ({ setRating, rating }) => {
   const ratingIcon = [
-    { rate: 1 },
-    { rate: 2 },
-    { rate: 3 },
-    { rate: 4 },
-    { rate: 5 },
+    { ratings: 1 },
+    { ratings: 2 },
+    { ratings: 3 },
+    { ratings: 4 },
+    { ratings: 5 },
   ];
   return (
     <div>
@@ -19,7 +19,7 @@ const RatingStars = ({ setRating, rating }) => {
           <div>
             <AiTwotoneStar
               size={"25px"}
-              color={rating.rate >= rate.rate && "var(--light-gold)"}
+              color={rating.ratings >= rate.ratings && "var(--light-gold)"}
               className={"product-item-icon"}
               onClick={() => setRating({ rate: index + 1 })}
             />
