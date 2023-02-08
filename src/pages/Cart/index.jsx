@@ -73,12 +73,12 @@ const Cart = () => {
     secondParam: checkout,
   });
   const API_URL = window.baseUrl + "payment/";
- const [selectedAddress, setSelectedAddress] = useState(
+  const [selectedAddress, setSelectedAddress] = useState(
     billingAddresses?.billing_address[0]
   );
-  useEffect(()=>{
-    setSelectedAddress( billingAddresses?.billing_address[0])
-  },[loadingAddresses])
+  useEffect(() => {
+    setSelectedAddress(billingAddresses?.billing_address[0]);
+  }, [loadingAddresses]);
   const handleAddToCart = (item) => {
     const index = cartItems.findIndex((cartItem) => cartItem._id === item._id);
     if (index >= 0) {
@@ -115,7 +115,9 @@ const Cart = () => {
   const toggleCheckout = () => {
     setCheckout(!checkout);
   };
-  const [totalAmount, getTotalAmount] = useState(() => getTotalPrice()+ getTotalGst());
+  const [totalAmount, getTotalAmount] = useState(
+    () => getTotalPrice() + getTotalGst()
+  );
 
   useEffect(() => {
     getTotalPrice();
@@ -130,27 +132,27 @@ const Cart = () => {
       name: "Radiant Clothing",
       description: "Super amamzing description...",
       handler: async (response) => {
-        selectedAddress.email=user.email
+        selectedAddress.email = user.email;
         response.amount = data.amount;
         response.user_id = user._id;
-        response.billing_address=selectedAddress;
-        response.products=cartItems
-        response.sub_total= getTotalPrice();
-        console.log(response)
+        response.billing_address = selectedAddress;
+        response.products = cartItems;
+        response.sub_total = getTotalPrice();
+        console.log(response);
         try {
           const { data } = axios.post(`${API_URL}verify`, response);
-          console.log(data)
+          console.log(data);
           // window.localStorage.removeItem("radiant_cart_item");
-          // navigate("/payment-success");
+          navigate("/payment-success");
         } catch (err) {
           console.log(err);
         }
       },
       prefill: {
         method: "card",
-        name:selectedAddress.fullname ??"Gaurav Kumar",
-        contact:selectedAddress.phoneNumber?? "+919000090000",
-        email:user.email?? "gaurav.kumar@example.com",
+        name: selectedAddress.fullname ?? "Gaurav Kumar",
+        contact: selectedAddress.phoneNumber ?? "+919000090000",
+        email: user.email ?? "gaurav.kumar@example.com",
         // "card[name]": "Gaurav Kumar",
         "card[number]": "4111111111111111",
         "card[expiry]": "12/23",
@@ -169,7 +171,7 @@ const Cart = () => {
     setLoading(true);
     try {
       const orderUrl = `${API_URL}order`;
-      const { data } = await axios.post(orderUrl, { amount: totalAmount}); // never send price directly. Instead send product ID and handle the rest from backend
+      const { data } = await axios.post(orderUrl, { amount: totalAmount }); // never send price directly. Instead send product ID and handle the rest from backend
       console.log(data);
       initPayment(data.data);
     } catch (error) {
