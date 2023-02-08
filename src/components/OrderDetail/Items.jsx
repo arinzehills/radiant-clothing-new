@@ -4,17 +4,19 @@ import Products from "../../pages/Admin/Products/Products";
 import { Button } from "../Button/Button";
 import AnimatedModal from "../AnimatedModal/AnimatedModal";
 import AddReview from "../Reviews/AddReview";
+import { useNavigate } from "react-router-dom";
 
 const Items = ({ item }) => {
   const [openModal, setOpenModal] = useState(false);
+  const navigate = useNavigate();
   return (
     <>
       <AnimatedModal
         openModal={openModal}
         setOpenModal={setOpenModal}
-        modalHeight="300px"
+        modalHeight="330px"
       >
-        <AddReview setOpenModal={setOpenModal} />
+        <AddReview setOpenModal={setOpenModal} product_id={item._id} />
       </AnimatedModal>
       <div
         className="centerClass"
@@ -25,9 +27,19 @@ const Items = ({ item }) => {
           boxShadow: "var(--box-shadow)",
           borderRadius: "20px",
           padding: "12px",
+          cursor: "pointer",
         }}
       >
-        <div className="class_justify_contents_row withGap">
+        <div
+          className="class_justify_contents_row withGap"
+          onClick={(e) => {
+            navigate(`/products/${item.product_name}`, {
+              state: {
+                item,
+              },
+            });
+          }}
+        >
           <img src={item.images[0]} alt="" height={"100px"} />
           <div>
             <h3>{item.product_name}</h3>
@@ -39,7 +51,10 @@ const Items = ({ item }) => {
               buttonColor={"orange"}
               children={"Rate item"}
               style={{ color: "white", height: "40px", width: "100px" }}
-              onClick={() => setOpenModal(true)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setOpenModal(true);
+              }}
             />
           </div>
         </div>

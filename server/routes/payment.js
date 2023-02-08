@@ -152,7 +152,6 @@ router.post("/getUserOrders", auth, async (req, res) => {
   console.log(req.user);
   const orders = await Order.find({ user_id: req.user.user_id });
   console.log(orders);
-
   res.status(200).json(orders);
 });
 router.post("/getUserOrderDetails", auth, async (req, res) => {
@@ -189,9 +188,8 @@ router.post("/add_billing_address", async (req, res) => {
 router.post("/getBillingAddress", async (req, res) => {
   try {
     var user = await User.findById(req.body.user_id);
-
     res.status(200).json({
-      billing_address: user.billing_address,
+      billing_address: user?.billing_address,
     });
   } catch (error) {
     console.log(error);

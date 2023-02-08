@@ -77,12 +77,14 @@ const OrderDetail = () => {
               </h3>
             </div>
 
-            <Button
-              buttonColor={"orange"}
-              children={"Track order"}
-              style={{ color: "white" }}
-              onClick={() => trackOrder()}
-            />
+            <div>
+           <Button
+            buttonColor={"orange"}
+            children={"Track order"}
+            style={{ color: "white" }}
+            onClick={() => trackOrder()}
+          />
+            </div>
           </div>
 
           <h3>Amount:{order.totalAmount / 100}</h3>

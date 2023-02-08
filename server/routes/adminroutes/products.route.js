@@ -230,22 +230,31 @@ router.post("/deleteProduct", async (req, res) => {
     });
   }
 });
-router.post("/rateProduct", auth, async (req, res) => {
+router.post("/reviewProduct", auth, async (req, res) => {
   const product = await Product.findById(req.body.product_id);
   const user_id = req.user.user_id;
-  const votersIds = [];
-  const rate = { user_email: req };
-  product.ratings.forEach((rate) => {
-    rate.rate.forEach((vote_id) => {
-      votersIds.push(vote_id);
-    });
-    votersForEachOption[option.option] = option.votes.length;
+  const reviewsIds = [];
+  const rate = {
+    user_email: req.user.email,
+    ratings: req.body.rate,
+    details: req.body.detail,
+  };
+  console.log("product");
+  console.log(product);
+  product?.ratings.forEach((rate) => {
+    reviewsIds.push(rate.user_email);
   });
-  const index = votersIds.indexOf(req.user.user_id);
+  const index = reviewsIds.indexOf(req.user.email);
   if (index >= 0) {
     console.log("users has given rating already");
-    return;
+    return res.status(200).json({
+      success: false,
+      message: "You have given rating on this product already 🙌 ",
+      rate: rate,
+    });
   }
+  await product.updateOne({ $push: { ratings: rate } });
+
   res.status(200).json({
     success: true,
     message: "rate Successfully 🙌 ",

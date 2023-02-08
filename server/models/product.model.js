@@ -10,7 +10,7 @@ const productSchema = new mongoose.Schema(
     gst: { type: String, default: "" },
     description: { type: String },
     quantity: { type: String },
-    ratings: { type: Object },
+    ratings: { type: Array, default: [] },
     images: { type: Array, default: [] },
     sizes: { type: Array, default: [] },
   },
