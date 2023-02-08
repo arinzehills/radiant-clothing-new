@@ -175,7 +175,7 @@ const ProductDetail = ({}) => {
       </div>
       <div style={{ padding: "2rem" }}>
         <h2>Product Reviews</h2>
-        <Reviews reviews={product.ratings} />
+        <Reviews reviews={product?.ratings} />
       </div>
     </>
   );

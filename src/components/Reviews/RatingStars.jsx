@@ -19,7 +19,7 @@ const RatingStars = ({ setRating, rating }) => {
           <div>
             <AiTwotoneStar
               size={"25px"}
-              color={rating.ratings >= rate.ratings && "var(--light-gold)"}
+              color={rating?.ratings >= rate.ratings && "var(--light-gold)"}
               className={"product-item-icon"}
               onClick={() => setRating({ rate: index + 1 })}
             />

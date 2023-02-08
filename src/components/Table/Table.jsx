@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "../Button/Button";
 import Loader from "../Loader/Loader";
 import Loader2 from "../Loader2/Loader2";
+import NoDataFound from "../NoDataFound/NoDataFound";
 // import OnlineStatus from "../../../components/OnlineStatus";
 // import DraftReqestModal from "../../../components/RequestHero/DraftReqestModal";
 // import NoDataFound from "../../Dashboard/Request/NoDataFound";
@@ -82,12 +83,7 @@ const Table = ({
       </table>
       {data?.length === 0 && (
         // <div>NO data</div>
-        <div className="class_justify_contents_column ">
-          <img src="/svg/notfound.svg" alt="" height={"300px"} />
-          <span className="italics" style={{ fontSize: "20px" }}>
-            No Data Found
-          </span>
-        </div>
+        <NoDataFound />
         // <NoDataFound
         //   message={messageNotFound}
         //   showpositionClass={showNotFoundPosition}
