@@ -10,6 +10,7 @@ import InputWithIcon from "../../../components/InputWithIcon/InputWithIcon";
 import useFetch from "../../../useFetch";
 import handleChange from "../../../utils/handleChange";
 import SupportUpload from "./SupportUpload";
+import MeasurementContainer from "./MeasurementContainer";
 
 const AddProducts = ({ setOpenModal, isEdit, product }) => {
   const initialValues = {
@@ -21,6 +22,10 @@ const AddProducts = ({ setOpenModal, isEdit, product }) => {
     discount_price: product?.discount_price ?? "",
     gst: product?.gst ?? "",
     images: product?.images ?? [],
+    length: product?.length ?? "",
+    breadth: product?.breadth ?? "",
+    height: product?.height ?? "",
+    weight: product?.weight ?? "",
   };
   const [formValues, setFormValues] = useState(initialValues);
 
@@ -111,6 +116,10 @@ const AddProducts = ({ setOpenModal, isEdit, product }) => {
     data.append("discount_price", formValues.discount_price);
     data.append("gst", formValues.gst);
     data.append("quantity", formValues.quantity);
+    data.append("length", formValues.length);
+    data.append("breadth", formValues.breadth);
+    data.append("height", formValues.height);
+    data.append("weight", formValues.weight);
     data.append("description", formValues.description);
     // data.append("image", files);
     for (let i = 0; i < files.length; i++) {
@@ -290,6 +299,11 @@ const AddProducts = ({ setOpenModal, isEdit, product }) => {
             handleChange(e, formValues, setFormValues)
           }
           value={formValues.quantity}
+        />
+        <h5 style={{ lineHeight: 0 }}>Measurement for shipment </h5>
+        <MeasurementContainer
+          formValues={formValues}
+          setFormValues={setFormValues}
         />
         <p className="errors">{formErrors.quantity}</p>
         <h5>Add Sizes </h5>
