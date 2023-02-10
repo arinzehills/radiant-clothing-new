@@ -72,6 +72,16 @@ const Cart = () => {
     fetchParamData: { user_id: user._id },
     secondParam: checkout,
   });
+  const {
+    data: courierServices,
+    loading: loadingCourier,
+    error: errorloadingCourier,
+  } = useFetch({
+    url: window.baseUrl + "payment/getServiceability",
+    // fetchParamData: { user_id: user._id },
+    secondParam: loadingAddresses,
+  });
+  console.log(courierServices);
   const API_URL = window.baseUrl + "payment/";
   const [selectedAddress, setSelectedAddress] = useState(
     billingAddresses?.billing_address[0]
