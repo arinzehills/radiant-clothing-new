@@ -49,7 +49,7 @@ function Footer() {
                 width: "250px",
               }}
             >
-              <p style={{}} className={"italics"}>
+              <p style={{ fontSize: "22px" }} className={"italics"}>
                 Talk to us now
               </p>
               <h3 style={{ textTransform: "uppercase" }}>Contact Us</h3>
@@ -68,7 +68,9 @@ function Footer() {
               </p>
             </div>
             <div>
-              <p className={"italics"}>Explore!</p>
+              <p className={"italics"} style={{ fontSize: "22px" }}>
+                Explore!
+              </p>
               <h3 style={{ color: "white", textTransform: "uppercase" }}>
                 Customer Service
               </h3>
@@ -82,7 +84,9 @@ function Footer() {
               </div>
             </div>
             <div>
-              <p className={"italics"}>Explore!</p>
+              <p className={"italics"} style={{ fontSize: "22px" }}>
+                Explore!
+              </p>
               <h3 style={{ color: "white", textTransform: "uppercase" }}>
                 Featured Categories
               </h3>
@@ -117,7 +121,7 @@ function Footer() {
           }}
           className={"class_justify_contents_column"}
         >
-          <p className="avenir_class">follow us on</p>
+          <p className="avenir_class">Follow us on</p>
           <div className="centerClass" style={{ gap: "1rem" }}>
             <FooterIcon
               children={<FaWhatsapp fill="#000" fontSize={"20px"} />}
@@ -145,10 +149,24 @@ function Footer() {
             />
           </div>
           <p>&copy; 2023</p>
-          <GradientText
+          {/* <GradientText
             text={" RADIANT CLOTHING"}
-            style={{ lineHeight: 1, fontSize: "1.5vw", textAlign: "left" }}
-          />
+            dontanimate={true}
+            style={{
+              lineHeight: 1,
+              fontSize: "1.5vw",
+              textAlign: "left",
+            }}
+          /> */}
+          <p
+            style={{
+              lineHeight: 0,
+              fontSize: "1.5vw",
+              textAlign: "left",
+            }}
+          >
+            RADIANT CLOTHING
+          </p>
           <p className="avenir_class">Designed by- Ascend Digital</p>
         </div>
       </>
@@ -186,7 +204,7 @@ function Footer() {
           <h2>Contact</h2>
           <p style={{ fontWeight: "500" }}>
             Have more questions? Or need more <br />
-            information contact me
+            information contact us
           </p>
           <Link to={"/contact"}>
             <Button

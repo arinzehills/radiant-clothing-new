@@ -72,7 +72,11 @@ const Reviews = ({ reviews }) => {
         </div>
         {/* rating details */}
         <div
-          style={{ gap: "1rem", alignItems: "flex-start" }}
+          style={{
+            gap: "1rem",
+            alignItems: "flex-start",
+            width: "100%",
+          }}
           className={"class_justify_contents_column"}
         >
           <h5>Comments from Verified Purchases</h5>

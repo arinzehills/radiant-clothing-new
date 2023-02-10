@@ -17,7 +17,7 @@ const Profile = () => {
       style={{
         boxShadow: "var(--box-shadow)",
         borderRadius: "10px",
-        padding: "10px",
+        padding: "35px",
         width: window.innerWidth < 660 ? "120%" : "100%",
         paddingBottom: "110px",
         background: "white",
@@ -32,7 +32,12 @@ const Profile = () => {
         <EditProfile setOpenModal={setOpenModal} editValue={editValue} />
       </AnimatedModal>
       <div
-        style={{ height: "70px", width: "70px", fontSize: "30px" }}
+        style={{
+          height: "70px",
+          width: "70px",
+          fontSize: "30px",
+          marginBottom: "4rem",
+        }}
         className={"centerClass pic-wrapper iscircular"}
       >
         {/* <img src="/svg/avatar.svg" height={"100px"} width={"100px"} /> */}

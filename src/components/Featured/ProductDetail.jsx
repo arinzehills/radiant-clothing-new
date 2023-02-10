@@ -61,7 +61,7 @@ const ProductDetail = ({}) => {
           justifyContent: "left",
           padding: "2rem",
           alignItems: "start",
-          marginTop: "-5rem",
+          marginTop: "-1rem",
           flexDirection: window.innerWidth < 760 && "column",
           // width: "100%",
         }}
@@ -116,8 +116,11 @@ const ProductDetail = ({}) => {
           </pre>
           <h4 style={{ margin: 0 }}>
             Price:{" "}
-            {getSymbolFromCurrency("INR") + "  " + product.discount_price}
+            {getSymbolFromCurrency("INR") +
+              "  " +
+              (parseFloat(product.discount_price) + parseFloat(product.gst))}
           </h4>
+          <p style={{ color: "var(--dark-gold)" }}>Inclusive of all taxes</p>
           <div style={{ display: "flex", alignItems: "center" }}>
             <p
               style={{

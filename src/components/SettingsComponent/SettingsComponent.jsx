@@ -6,12 +6,13 @@ import PasswordSetting from "./PasswordSetting";
 import Profile from "./Profile";
 
 const SettingsComponent = () => {
+  const { user, setUser } = useUser();
   return (
     <div>
       {" "}
       <NavComponent
         personsName={"Admin"}
-        showNotification={true}
+        showNotification={user.user_type === "admin" && true}
         //   handleClick={handleClick}
         pageTitle="Settings"
         //   setHandleNotData={setHandleNotData}

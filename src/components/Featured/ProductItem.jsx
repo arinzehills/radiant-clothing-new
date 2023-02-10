@@ -125,7 +125,7 @@ const ProductItem = ({ item, productsSet, loading }) => {
             >
               {item.product_name ?? "HTML/CSS"}
             </h3>
-            <p className="italics" style={{ fontSize: "21px" }}>
+            <p style={{ fontSize: "18px", color: "var(--dark-gold)" }}>
               {getSymbolFromCurrency("INR") + item.price}
             </p>
             {/* <ProgressBar

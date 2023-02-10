@@ -18,7 +18,7 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="success">
+    <div className="success" style={{ background: "black" }}>
       <img
         style={{ marginInline: "auto", width: 200, marginTop: -50 }}
         src={logo}

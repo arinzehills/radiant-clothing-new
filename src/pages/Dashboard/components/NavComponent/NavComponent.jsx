@@ -45,15 +45,10 @@ function NavComponent({
         <div className="nav-title-wrapper">
           {window.innerWidth > 960 && <h2>{pageTitle ?? "Dashboard"}</h2>}
         </div>
-        {
+
+        {showNotification && (
           <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-            {showNotification && (
-              <Icon
-                icon="carbon:notification-new"
-                color="gray"
-                fontSize="22px"
-              />
-            )}
+            <Icon icon="carbon:notification-new" color="gray" fontSize="22px" />
             <ProfilePicsComponent
               name={personsName ?? user?.["firstname"]}
               // isOnline={"Online" ?? user?.["online_status"]}
@@ -62,7 +57,8 @@ function NavComponent({
               setHandleNotData={setHandleNotData}
             />
           </div>
-        }
+        )}
+
         {/* {window.innerWidth < 960 && (
             <div className="nav-profile-wrapper">
               <img src="/svg/avatar.svg" style={{ height: 20 }} alt="" />

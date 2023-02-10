@@ -29,7 +29,7 @@ const UpperNavbar = () => {
           justifyContent: "space-around",
           alignItems: "center",
           padding: "0 25px",
-          height: window.innerWidth < 960 && "170px",
+          height: window.innerWidth < 960 ? "170px" : "130px",
         }}
         className="class_justify_contents_row"
       >

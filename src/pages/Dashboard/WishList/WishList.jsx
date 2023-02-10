@@ -7,7 +7,7 @@ import { RiDeleteBin4Fill } from "react-icons/ri";
 import { toast } from "react-toastify";
 import {
   ClickableToast,
-  toastOptions
+  toastOptions,
 } from "../../../components/Featured/ProductItem";
 import empty from "../../../../public/images/empty.png";
 
@@ -19,7 +19,7 @@ const WishList = () => {
   const currencyFormater = (number) => {
     return new Intl.NumberFormat("en-EN", {
       style: "currency",
-      currency: "INR"
+      currency: "INR",
     }).format(number);
   };
 
@@ -44,7 +44,6 @@ const WishList = () => {
     <div>
       <NavComponent
         personsName={user.email ?? "Admin"}
-        showNotification={true}
         //   handleClick={handleClick}
         pageTitle={`Wish Lists (${whishLists?.length || 0})`}
         // setHandleNotData={setHandleNotData}
@@ -56,7 +55,7 @@ const WishList = () => {
             display: "flex",
             flexDirection: "column",
             gap: 20,
-            marginTop: 20
+            marginTop: 20,
           }}
         >
           {whishLists.map((item, idx) => (
@@ -68,7 +67,7 @@ const WishList = () => {
                 gap: 20,
                 justifyContent: "space-between",
                 background: "white",
-                padding: "30px 20px"
+                padding: "30px 20px",
               }}
             >
               <div style={{ display: "flex", gap: 10 }}>
@@ -113,10 +112,10 @@ const WishList = () => {
             placeContent: "center",
             paddingBottom: 30,
             textAlign: "center",
-            marginTop: 10
+            marginTop: 10,
           }}
         >
-          <img src={empty} style={{ width: 200, marginTop:20 }} />
+          <img src={empty} style={{ width: 200, marginTop: 20 }} />
           <p style={{ fontSize: 12, marginTop: -5, marginBottom: 15 }}>
             Items added to wishlists are <br /> displayed here.
           </p>
