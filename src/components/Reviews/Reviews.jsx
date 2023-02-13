@@ -90,12 +90,12 @@ const Reviews = ({ reviews }) => {
                 <div className="class_justify_contents_row withGap">
                   <ProfilePicsComponent
                     name={review?.user_email}
-                    isCirclular={true}
+                    // isCirclular={true}
                     size="120px"
                     showCaret={false}
+                    userType='"21 - 1 - 1"'
                     //   nameColor={"white"}
                   />
-                  <p>{"21 - 1 - 1"}</p>
                 </div>
               </div>
             ))

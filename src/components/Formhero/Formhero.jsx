@@ -34,7 +34,7 @@ function Formhero({
   return (
     <>
       {formType != "contact" && (
-        <div style={{ width: "100%", background: "black" }}>
+        <div style={{ width: "100%", background: "black", height: "110px" }}>
           <Link to="/" className="navbar-logo">
             <img
               src="images/logo.png"
@@ -42,7 +42,7 @@ function Formhero({
                 //   margin: "-20px",
                 marginLeft: "0",
                 padding: "-100px",
-                height: 90,
+                height: 120,
               }}
               alt=""
             />
