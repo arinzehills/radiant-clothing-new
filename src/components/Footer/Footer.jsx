@@ -161,7 +161,7 @@ function Footer() {
           <p
             style={{
               lineHeight: 0,
-              fontSize: "1.5vw",
+              fontSize: window.innerWidth < 960 ? "4.5vw" : "1.5vw",
               textAlign: "left",
             }}
           >

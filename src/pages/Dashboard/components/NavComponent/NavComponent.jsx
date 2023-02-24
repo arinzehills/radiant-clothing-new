@@ -43,7 +43,7 @@ function NavComponent({
           </>
         )}
         <div className="nav-title-wrapper">
-          {window.innerWidth > 960 && <h2>{pageTitle ?? "Dashboard"}</h2>}
+          {<h2>{pageTitle ?? "Dashboard"}</h2>}
         </div>
 
         {!showNotification ||

@@ -99,7 +99,7 @@ const PasswordSetting = () => {
       }}
     >
       <div
-        className="settings-container"
+        className="settings-container "
         style={{
           width: window.innerWidth > 960 ? "110%" : "210%",
         }}

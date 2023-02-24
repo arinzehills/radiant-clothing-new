@@ -188,6 +188,8 @@
     background: #000;
     position: relative;
     visibility: hidden;
+
+    margin-bottom: 1rem;
     /* margin-bottom: 8.5rem; */
   }
   .navbar.active {

@@ -17,8 +17,8 @@ const Profile = () => {
       style={{
         boxShadow: "var(--box-shadow)",
         borderRadius: "10px",
-        padding: "35px",
-        width: window.innerWidth < 660 ? "100%" : "100%",
+        // padding: window.innerWidth < 660 ? "30px" : "35px",
+        width: window.innerWidth < 660 ? "125%" : "90%",
         paddingBottom: "110px",
         background: "white",
       }}
