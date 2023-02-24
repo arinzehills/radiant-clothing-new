@@ -159,7 +159,7 @@ const Featured = () => {
       <div
         className="class_justify_contents_row"
         style={{
-          justifyContent: "end",
+          justifyContent: window.innerWidth < 700 ? "center" : "end",
           marginTop: window.innerWidth < 700 ? "1rem" : "-3rem",
           marginBottom: "2rem",
         }}
