@@ -46,18 +46,23 @@ function NavComponent({
           {window.innerWidth > 960 && <h2>{pageTitle ?? "Dashboard"}</h2>}
         </div>
 
-        {showNotification && (
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-            <Icon icon="carbon:notification-new" color="gray" fontSize="22px" />
-            <ProfilePicsComponent
-              name={personsName ?? user?.["firstname"]}
-              // isOnline={"Online" ?? user?.["online_status"]}
-              isCirclular={true}
-              size="120px"
-              setHandleNotData={setHandleNotData}
-            />
-          </div>
-        )}
+        {!showNotification ||
+          (window.innerWidth < 769 && (
+            <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+              <Icon
+                icon="carbon:notification-new"
+                color="gray"
+                fontSize="22px"
+              />
+              <ProfilePicsComponent
+                name={personsName ?? user?.["firstname"]}
+                // isOnline={"Online" ?? user?.["online_status"]}
+                isCirclular={true}
+                size="120px"
+                setHandleNotData={setHandleNotData}
+              />
+            </div>
+          ))}
 
         {/* {window.innerWidth < 960 && (
             <div className="nav-profile-wrapper">

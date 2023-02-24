@@ -5,13 +5,15 @@ import useUser from "../../../useUser";
 import NavComponent from "../components/NavComponent/NavComponent";
 import useToken from "../../../useToken";
 import { Button } from "../../../components/Button/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import moment from "moment";
 
 const UserOrders = () => {
   const { user, setUser } = useUser();
   const { token, setToken } = useToken();
   const navigate = useNavigate();
+  const [click, setClick] = useOutletContext();
+  const handleClick = () => setClick(!click);
   const {
     data: orders,
     loading,
@@ -60,7 +62,7 @@ const UserOrders = () => {
     <div>
       <NavComponent
         personsName={user.email ?? "Admin"}
-        //   handleClick={handleClick}
+        handleClick={handleClick}
         pageTitle="Orders"
         // setHandleNotData={setHandleNotData}
       />

@@ -96,6 +96,9 @@
     height: 250px;
     width: 160px;
   }
+  .product-item:hover {
+    scale: 1;
+  }
   .product-list-item {
     grid-template-columns: repeat(2, auto);
     gap: 3rem;
@@ -103,6 +106,7 @@
     justify-content: center;
     padding-left: 1rem;
   }
+
   .product-item-image {
     max-height: 180px;
     min-width: 150px;

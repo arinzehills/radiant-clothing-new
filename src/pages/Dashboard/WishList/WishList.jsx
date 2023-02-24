@@ -10,9 +10,12 @@ import {
   toastOptions,
 } from "../../../components/Featured/ProductItem";
 import empty from "../../../../public/images/empty.png";
+import { useOutletContext } from "react-router-dom";
 
 const WishList = () => {
   const { user, setUser } = useUser();
+  const [click, setClick] = useOutletContext();
+  const handleClick = () => setClick(!click);
   const { whishLists, setWhishLists, cartItems, setCartItems } =
     useContext(CartContext);
 
@@ -44,7 +47,7 @@ const WishList = () => {
     <div>
       <NavComponent
         personsName={user.email ?? "Admin"}
-        //   handleClick={handleClick}
+        handleClick={handleClick}
         pageTitle={`Wish Lists (${whishLists?.length || 0})`}
         // setHandleNotData={setHandleNotData}
       />

@@ -65,8 +65,7 @@ const Orders = () => {
     <div>
       <NavComponent
         personsName={user.email ?? "Admin"}
-        showNotification={true}
-        //   handleClick={handleClick}
+        handleClick={handleClick}
         pageTitle="Orders"
         // setHandleNotData={setHandleNotData}
       />
