@@ -95,7 +95,7 @@ const Reviews = ({ reviews }) => {
                   size="120px"
                   showCaret={false}
                   userType={
-                    moment(review.reviewOn).format("DD-MMMM-YYYY") ??
+                    moment(review.reviewOn).format("DD-MMM-YYYY") ??
                     '"21 - 1 - 1"'
                   }
                   //   nameColor={"white"}
