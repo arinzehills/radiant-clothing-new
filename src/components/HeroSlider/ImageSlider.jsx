@@ -28,17 +28,17 @@ const ImageSlider = ({
   }
 
   useEffect(() => {
-    if (isNotMap) {
-    } else {
-      setTimeout(
-        () =>
-          setCurrent((prevIndex) =>
-            prevIndex === length - 1 ? 0 : prevIndex + 1
-          ),
-        delay
-      );
-      return () => {};
-    }
+    // if (isNotMap) {
+    // } else {
+    //   const interval = setInterval(
+    //     () =>
+    //       setCurrent((prevIndex) =>
+    //         prevIndex === length - 1 ? 0 : prevIndex + 1
+    //       ),
+    //     delay
+    //   );
+    //   return () => clearInterval(interval);
+    // }
   }, [current]);
   return (
     <section className="slider" style={style} onClick={onClick}>

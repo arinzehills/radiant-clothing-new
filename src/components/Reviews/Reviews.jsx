@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import NoDataFound from "../NoDataFound/NoDataFound";
 import ProfilePicsComponent from "../ProfilePicsComponent/ProfilePicsComponent";
 import RatingStars from "./RatingStars";
+import moment from "moment";
 
 const Reviews = ({ reviews }) => {
   const [rating, setRating] = useState();
@@ -44,7 +45,8 @@ const Reviews = ({ reviews }) => {
           <div
             style={{
               background: "var(--grey2)",
-              minHeight: "300px",
+              minHeight: "400px",
+              padding: "2rem",
               flexDirection: "column",
             }}
             className="centerClass"
@@ -87,16 +89,17 @@ const Reviews = ({ reviews }) => {
               <div style={{ gap: "1rem" }}>
                 <RatingStars rating={review.ratings} />
                 <p>{review.details}</p>
-                <div className="class_justify_contents_row withGap">
-                  <ProfilePicsComponent
-                    name={review?.user_email}
-                    // isCirclular={true}
-                    size="120px"
-                    showCaret={false}
-                    userType='"21 - 1 - 1"'
-                    //   nameColor={"white"}
-                  />
-                </div>
+                <ProfilePicsComponent
+                  name={review?.user_email}
+                  // isCirclular={true}
+                  size="120px"
+                  showCaret={false}
+                  userType={
+                    moment(review.reviewOn).format("DD-MMMM-YYYY") ??
+                    '"21 - 1 - 1"'
+                  }
+                  //   nameColor={"white"}
+                />
               </div>
             ))
           )}

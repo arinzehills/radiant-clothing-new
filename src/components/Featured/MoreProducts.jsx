@@ -20,7 +20,7 @@ const MoreProducts = () => {
     <div>
       <div
         style={{
-          marginTop: "-8rem",
+          marginTop: window.innerWidth < 760 ? "-8rem" : "-8rem",
           width: "100vw",
           zIndex: 11,
           position: "absolute",
@@ -37,7 +37,7 @@ const MoreProducts = () => {
       <div
         className=""
         style={{
-          marginTop: "10rem",
+          marginTop: window.innerWidth < 760 ? "10rem" : "17rem",
         }}
       >
         <ProductListItem
