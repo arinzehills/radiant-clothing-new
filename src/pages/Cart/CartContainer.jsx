@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 const CartContainer = ({ currencyFormater }) => {
   const { cartItems, setCartItems } = useContext(CartContext);
-const navigate=useNavigate()
+  const navigate = useNavigate();
   const percetage = (product) => {
     var discount = (product.price - product.discount_price) / product.price;
     return (discount * 100).toFixed(0) + "%";
@@ -66,17 +66,29 @@ const navigate=useNavigate()
                     <div>
                       <div
                         style={{
-                          display: "flex",
+                          display: "inline-block",
                           flexDirection: "column",
                           gap: 4,
                           marginRight: 10,
+                          width: window.innerWidth > 769 && "600px",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
                         }}
                       >
-                        <p style={{ fontSize: 14, fontWeight: 700 }}>
+                        <p
+                          style={{
+                            fontSize: 14,
+                            fontWeight: 700,
+                          }}
+                        >
                           {item.product_name} -{" "}
-                          <span style={{ fontWeight: 400 }}>
+                          <span
+                            style={{
+                              fontWeight: 400,
+                            }}
+                          >
                             {item.description}
-                          </span>{" "}
+                          </span>
                         </p>
                         <p style={{ textTransform: "capitalize" }}>
                           <span style={{ marginBlock: 5, fontWeight: 600 }}>
