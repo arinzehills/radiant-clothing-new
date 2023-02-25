@@ -218,6 +218,10 @@ const Cart = () => {
                 <p>{currencyFormater(getTotalGst())}</p>
               </div>
               <div class="subtotal ">
+                <p style={{ fontWeight: 600, paddingBlock: 5 }}>Shipping fee</p>
+                <p>{"32R"}</p>
+              </div>
+              <div class="subtotal ">
                 <p style={{ fontWeight: 600, paddingBlock: 5 }}>Subtotal</p>
                 <p>{currencyFormater(getTotalPrice())}</p>
               </div>
