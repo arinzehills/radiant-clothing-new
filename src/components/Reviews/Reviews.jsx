@@ -90,7 +90,7 @@ const Reviews = ({ reviews }) => {
                 <RatingStars rating={review.ratings} />
                 <p>{review.details}</p>
                 <ProfilePicsComponent
-                  name={review?.user_email}
+                  name={review?.user_name ?? review?.user_email}
                   // isCirclular={true}
                   size="120px"
                   showCaret={false}

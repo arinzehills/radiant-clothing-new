@@ -28,6 +28,7 @@ const Items = ({ item }) => {
           borderRadius: "20px",
           padding: "12px",
           cursor: "pointer",
+          flexDirection: window.innerWidth < 660 && "column",
         }}
       >
         <div
