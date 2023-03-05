@@ -96,7 +96,6 @@ const AddressContainer = ({
       >
         <h2>Select Addresss</h2>
         <h3>Default Addresss</h3>
-        <h3>Default Addresss</h3>
         {billingAddresses?.billing_address.map((addr, index) => (
           <div
             key={index}
