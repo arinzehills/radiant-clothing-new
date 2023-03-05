@@ -132,7 +132,8 @@ const AddressContainer = ({
               {!loadingCourier && addr.id == selected?.id ? (
                 <div style={{ color: "var(--danger)" }}>
                   {courierServices.status !== 200 && addr.id == selected?.id ? (
-                    courierServices.message
+                    courierServices.message +
+                    " Check phone number or postal code"
                   ) : courierServices.status === 200 ? (
                     <div
                       className=""
@@ -143,7 +144,8 @@ const AddressContainer = ({
                         courierServices.lowest_charge.estimated_delivery_days}
                     </div>
                   ) : (
-                    courierServices.message
+                    courierServices.message +
+                    " Check phone number or postal code"
                   )}
                 </div>
               ) : (

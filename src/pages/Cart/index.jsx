@@ -227,7 +227,11 @@ const Cart = () => {
             </div>
             <div class="subtotal " style={{ padding: "1rem" }}>
               <p style={{ fontWeight: 600, paddingBlock: 5 }}>Total</p>
-              <p>{currencyFormater(getTotalPrice() + shippingFee)}</p>
+              <p>
+                {currencyFormater(
+                  getTotalPrice() + getTotalGst() + shippingFee
+                )}
+              </p>
             </div>
             <div
               style={{
@@ -249,10 +253,10 @@ const Cart = () => {
               >
                 {showAddress
                   ? `Proceed ${currencyFormater(
-                      getTotalPrice() + getTotalGst()
+                      getTotalPrice() + getTotalGst() + shippingFee
                     )}`
                   : `CHECKOUT ${currencyFormater(
-                      getTotalPrice() + getTotalGst()
+                      getTotalPrice() + getTotalGst() + shippingFee
                     )}`}
               </button>
             </div>
