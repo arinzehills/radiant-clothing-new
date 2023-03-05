@@ -48,7 +48,7 @@
 }
 .category-item-list {
   display: grid;
-  grid-template-columns: 300px repeat(3, auto);
+  grid-template-columns: repeat(5, 1fr);
   gap: 1rem;
 }
 @media screen and (max-width: 1200px) {

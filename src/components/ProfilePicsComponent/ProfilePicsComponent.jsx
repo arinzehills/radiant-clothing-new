@@ -18,7 +18,7 @@ const ProfilePicsComponent = ({
   circularWidth,
 }) => {
   const [openDropDown, setOpenDropDown] = useState(false);
-  console.log(openDropDown);
+
   const { token, setToken } = useToken();
   const { user, setUser } = useUser();
   const ProfileDropDown = ({ openDropDown, setOpenDropDown }) => {

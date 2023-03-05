@@ -23,7 +23,6 @@ const Navbar = () => {
   !loadingCategory &&
     categoriesData?.categories.forEach((cat, index) => {
       // cat.image = cat.images[0];
-      console.log(cat.category);
     });
   const [click, setClick] = useState(false);
   const [currentTab, setCurrentTab] = useState(0);
@@ -51,9 +50,7 @@ const Navbar = () => {
     showButton();
   }, []);
   window.addEventListener("resize", showButton);
-  console.log(
-    categoriesData?.categories.filter((cat) => "clothing" == cat.super_category)
-  );
+
   return (
     <>
       {window.innerWidth < 769 ? (

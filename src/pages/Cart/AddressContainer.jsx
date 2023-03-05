@@ -1,40 +1,85 @@
 import { Icon } from "@iconify/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "../../components/Button/Button";
 import useUser from "../../useUser";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import { ImSpinner2 } from "react-icons/im";
 import { useState } from "react";
+import useFetch from "../../useFetch";
 
-const AddressContainer = ({ billingAddresses, toggleCheckout,loadingAddr,selected,setSelected }) => {
+const AddressContainer = ({
+  billingAddresses,
+  toggleCheckout,
+  loadingAddr,
+  selected,
+  setSelected,
+  setShippingFee,
+  cartItems,
+}) => {
   const { user, setUser } = useUser();
-  const [loading,setLoading]=useState(false)
-  // const addr = ["", ""];
-  console.log(loadingAddr)
- 
+  const [loading, setLoading] = useState(false);
+  selected.email = user.email;
+
   const deleteAddress = async (address_id) => {
     setLoading(true);
     try {
       const orderUrl = `${window.baseUrl}payment/deleteBillingAddress`;
-      const { data } = await axios.post(orderUrl, {user_id:user._id, address_id: address_id }); // never send price directly. Instead send product ID and handle the rest from backend
+      const { data } = await axios.post(orderUrl, {
+        user_id: user._id,
+        address_id: address_id,
+      }); // never send price directly. Instead send product ID and handle the rest from backend
       console.log(data);
       setLoading(false);
-      toggleCheckout()
+      toggleCheckout();
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
   };
-  // console.log(billingAddresses?.billing_address[0].id);
+  const getTotalPrice = () => {
+    let totalPrice = 0;
+    cartItems.map((item) => {
+      totalPrice += item.discount_price * item.quantityToBuy;
+    });
+    return totalPrice;
+  };
+
+  const {
+    data: courierServices,
+    loading: loadingCourier,
+    error: errorloadingCourier,
+  } = useFetch({
+    url: window.baseUrl + "payment/getServiceability",
+    fetchParamData: {
+      products: cartItems,
+      billing_address: selected,
+      sub_total: getTotalPrice(),
+    },
+    secondParam: selected?.id,
+  });
+  console.log(loadingCourier);
+
+  useEffect(() => {
+    if (!loadingCourier) {
+      if (courierServices.status === 200) {
+        console.log("setShippingFee has been run updately");
+        setShippingFee(courierServices.lowest_charge.freight_charge);
+      } else {
+        setShippingFee(0);
+      }
+    }
+    console.log("setShippingFee has been run");
+  }, [loadingCourier, selected?.id]);
+  console.log(courierServices);
   return (
     <AnimatePresence>
       <motion.div
         initial={{
           // scale: 0,
           x: -100,
-                opacity: 0,
+          opacity: 0,
         }}
         animate={{
           scale: 1,
@@ -45,7 +90,6 @@ const AddressContainer = ({ billingAddresses, toggleCheckout,loadingAddr,selecte
           },
         }}
         exit={{
-          
           opacity: 0,
           x: -100,
         }}
@@ -79,23 +123,60 @@ const AddressContainer = ({ billingAddresses, toggleCheckout,loadingAddr,selecte
                 <h4>{addr.fullname ?? user.full_name ?? ""}</h4>
               </div>
               <p className="avenir_class" style={{ lineHeight: "inherit" }}>
-                {addr.city +","+addr.state+","+addr.country}
+                {addr.city + "," + addr.state + "," + addr.country}
               </p>
               <p className="avenir_class" style={{ lineHeight: "inherit" }}>
-                {addr.addressLine1 +"-"+addr.postalCode}
+                {addr.addressLine1 + "-" + addr.postalCode}
               </p>
               <h3>Mobile:{addr.phoneNumber ?? user.phone}</h3>
+              {!loadingCourier && addr.id == selected?.id ? (
+                <div style={{ color: "var(--danger)" }}>
+                  {courierServices.status !== 200 && addr.id == selected?.id ? (
+                    courierServices.message
+                  ) : courierServices.status === 200 ? (
+                    <div
+                      className=""
+                      style={{ padding: "1rem", background: "#f3f3f3" }}
+                    >
+                      Expected Delivery days
+                      {` ` +
+                        courierServices.lowest_charge.estimated_delivery_days}
+                    </div>
+                  ) : (
+                    courierServices.message
+                  )}
+                </div>
+              ) : (
+                addr.id == selected?.id && (
+                  <div
+                    className="class_justify_contents_row withGap"
+                    style={{ color: "var(--danger)" }}
+                  >
+                    <ImSpinner2
+                      className="spin"
+                      size={20}
+                      style={{ marginInline: "auto" }}
+                    />
+                    <span>Loading Shipment details</span>
+                  </div>
+                )
+              )}
               <div className="class_justify_contents_row withGap">
-                <Button buttonColor={"black"} buttonStyle="btn--outline" onClick={()=>deleteAddress(addr.id)}>
+                <Button
+                  buttonColor={"black"}
+                  buttonStyle="btn--outline"
+                  onClick={() => deleteAddress(addr.id)}
+                >
                   {loading ? (
                     <ImSpinner2
                       className="spin"
                       size={20}
                       style={{ marginInline: "auto" }}
                     />
-                  ) : 'Remove'}
+                  ) : (
+                    "Remove"
+                  )}
                 </Button>
-
               </div>
             </div>
           </div>

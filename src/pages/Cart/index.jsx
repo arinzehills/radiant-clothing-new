@@ -60,7 +60,7 @@ const Cart = () => {
   const [checkout, setCheckout] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showAddress, setShowAddress] = useState(false);
-
+  const [shippingFee, setShippingFee] = useState(0);
   const { cartItems, setCartItems, whishLists, setWhishLists } =
     useContext(CartContext);
   const {
@@ -72,16 +72,7 @@ const Cart = () => {
     fetchParamData: { user_id: user._id },
     secondParam: checkout,
   });
-  const {
-    data: courierServices,
-    loading: loadingCourier,
-    error: errorloadingCourier,
-  } = useFetch({
-    url: window.baseUrl + "payment/getServiceability",
-    // fetchParamData: { user_id: user._id },
-    secondParam: loadingAddresses,
-  });
-  console.log(courierServices);
+
   const API_URL = window.baseUrl + "payment/";
   const [selectedAddress, setSelectedAddress] = useState(
     billingAddresses?.billing_address[0]
@@ -111,9 +102,9 @@ const Cart = () => {
     cartItems.map((item) => {
       totalPrice += item.discount_price * item.quantityToBuy;
     });
-    console.log(totalPrice);
     return totalPrice;
   };
+
   const getTotalGst = () => {
     let totalPrice = 0;
     cartItems.map((item) => {
@@ -148,10 +139,10 @@ const Cart = () => {
         response.billing_address = selectedAddress;
         response.products = cartItems;
         response.sub_total = getTotalPrice();
-        console.log(response);
+
         try {
           const { data } = axios.post(`${API_URL}verify`, response);
-          console.log(data);
+
           window.localStorage.removeItem("radiant_cart_item");
           navigate("/payment-success");
         } catch (err) {
@@ -182,7 +173,7 @@ const Cart = () => {
     try {
       const orderUrl = `${API_URL}order`;
       const { data } = await axios.post(orderUrl, { amount: totalAmount }); // never send price directly. Instead send product ID and handle the rest from backend
-      console.log(data);
+
       initPayment(data.data);
     } catch (error) {
       console.log(error);
@@ -190,11 +181,13 @@ const Cart = () => {
       setLoading(false);
     }
   };
-  console.log(billingAddresses);
 
   return (
     <>
-      <div class="cart-container">
+      <div
+        class="cart-container"
+        // style={{ marginTop: window.innerWidth < 960 && "13rem" }}
+      >
         <div>
           {showAddress ? (
             <AddressContainer
@@ -203,6 +196,8 @@ const Cart = () => {
               loadingAddr={loadingAddresses}
               selected={selectedAddress}
               setSelected={setSelectedAddress}
+              cartItems={cartItems}
+              setShippingFee={setShippingFee}
             />
           ) : (
             <CartContainer
@@ -217,14 +212,22 @@ const Cart = () => {
                 <p style={{ fontWeight: 600, paddingBlock: 5 }}>GST</p>
                 <p>{currencyFormater(getTotalGst())}</p>
               </div>
-              <div class="subtotal ">
-                <p style={{ fontWeight: 600, paddingBlock: 5 }}>Shipping fee</p>
-                <p>{"32R"}</p>
-              </div>
+              {selectedAddress !== null && showAddress && (
+                <div class="subtotal ">
+                  <p style={{ fontWeight: 600, paddingBlock: 5 }}>
+                    Shipping fee
+                  </p>
+                  <p>{shippingFee}</p>
+                </div>
+              )}
               <div class="subtotal ">
                 <p style={{ fontWeight: 600, paddingBlock: 5 }}>Subtotal</p>
                 <p>{currencyFormater(getTotalPrice())}</p>
               </div>
+            </div>
+            <div class="subtotal " style={{ padding: "1rem" }}>
+              <p style={{ fontWeight: 600, paddingBlock: 5 }}>Total</p>
+              <p>{currencyFormater(getTotalPrice() + shippingFee)}</p>
             </div>
             <div
               style={{

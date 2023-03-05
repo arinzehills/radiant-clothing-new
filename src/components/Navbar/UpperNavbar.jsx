@@ -20,7 +20,7 @@ const UpperNavbar = () => {
     message: "no",
     color: "var(--success)",
   });
-  console.log(token);
+
   return (
     <div className="upper_nav_container">
       <div

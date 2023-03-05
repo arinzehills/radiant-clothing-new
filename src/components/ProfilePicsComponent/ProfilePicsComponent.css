@@ -130,6 +130,8 @@
     /* display: no; */
   }
   .pic-wrapper {
+    /* height: 30px;
+    min-width: 35px; */
     /* display: none; */
   }
   .prf-container.iscircular {
@@ -139,6 +141,10 @@
   .pic-wrapper.iscircular {
     height: 35px;
     width: 35px;
+    max-width: 50px;
+    max-height: 50px;
+    min-width: 50px;
+    min-height: 50px;
     /* background: red; */
   }
   .pic-text.iscircular {

@@ -6,9 +6,9 @@ const useFetch = ({ fetchParamData, url, secondParam, method }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    setLoading(true);
     setTimeout(() => {
       const data = fetchParamData;
-
       fetch(url, {
         headers: {
           "Content-Type": "application/json",
@@ -29,7 +29,7 @@ const useFetch = ({ fetchParamData, url, secondParam, method }) => {
           setError(error.message);
         });
     }, [100]);
-  }, [url, secondParam, loading]);
+  }, [url, secondParam]);
 
   return { data, loading, error };
 };

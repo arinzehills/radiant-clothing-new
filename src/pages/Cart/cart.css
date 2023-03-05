@@ -344,10 +344,14 @@ input[type="radio"]:checked {
   }
   .cart-container {
     padding: 0 !important;
+    margin-top: 13rem;
   }
 }
 
 @media screen and (max-width: 550px) {
+  .cart-container {
+    margin-top: 13rem;
+  }
   .four-grid,
   .cart-container > .saved-for-later > div,
   .cart-container > .also-like > div {
