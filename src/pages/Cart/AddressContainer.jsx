@@ -103,6 +103,16 @@ const AddressContainer = ({
         <h2>Select Addresss</h2>
         <h3>Default Addresss</h3>
         {billingAddresses?.billing_address.length === 0 && <NoDataFound />}
+        {loadingAddr && (
+          <div className="centerClass withColumn">
+            <ImSpinner2
+              className="spin"
+              size={80}
+              style={{ marginInline: "auto", color: "var(--success)" }}
+            />
+            <h4>Loading... addresses</h4>
+          </div>
+        )}
         {billingAddresses?.billing_address.map((addr, index) => (
           <div
             key={index}
