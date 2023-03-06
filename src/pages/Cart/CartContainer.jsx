@@ -16,7 +16,8 @@ const CartContainer = ({ currencyFormater }) => {
   };
   const removeItem = (_id, size) => {
     const newCartItems = cartItems.filter(
-      (item) => item._id !== _id && item.size !== size
+      (item) => item._id !== _id
+      // && item.size === size
     );
     setCartItems(newCartItems);
     toast.warn("One item removed from cart", toastOptions);
