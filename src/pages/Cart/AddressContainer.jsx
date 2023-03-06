@@ -7,6 +7,7 @@ import axios from "axios";
 import { ImSpinner2 } from "react-icons/im";
 import { useState } from "react";
 import useFetch from "../../useFetch";
+import NoDataFound from "../../components/NoDataFound/NoDataFound";
 
 const AddressContainer = ({
   billingAddresses,
@@ -19,7 +20,9 @@ const AddressContainer = ({
 }) => {
   const { user, setUser } = useUser();
   const [loading, setLoading] = useState(false);
-  selected.email = user.email;
+  if (selected) {
+    selected.email = user.email;
+  }
 
   const deleteAddress = async (address_id) => {
     setLoading(true);
@@ -62,17 +65,20 @@ const AddressContainer = ({
   console.log(loadingCourier);
 
   useEffect(() => {
-    if (!loadingCourier) {
-      if (courierServices.status === 200) {
-        console.log("setShippingFee has been run updately");
-        setShippingFee(courierServices.lowest_charge.freight_charge);
-      } else {
-        setShippingFee(0);
+    if (selected) {
+      if (!loadingCourier) {
+        if (courierServices.status === 200) {
+          console.log("setShippingFee has been run updately");
+          setShippingFee(courierServices.lowest_charge.freight_charge);
+        } else {
+          setShippingFee(0);
+        }
       }
+      console.log("setShippingFee has been run");
     }
-    console.log("setShippingFee has been run");
   }, [loadingCourier, selected?.id]);
   console.log(courierServices);
+
   return (
     <AnimatePresence>
       <motion.div
@@ -96,6 +102,7 @@ const AddressContainer = ({
       >
         <h2>Select Addresss</h2>
         <h3>Default Addresss</h3>
+        {billingAddresses?.billing_address.length === 0 && <NoDataFound />}
         {billingAddresses?.billing_address.map((addr, index) => (
           <div
             key={index}

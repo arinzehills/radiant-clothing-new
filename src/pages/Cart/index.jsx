@@ -243,11 +243,10 @@ const Cart = () => {
               <button
                 disabled={getTotalPrice() === 0}
                 onClick={() =>
-                  billingAddresses?.billing_address?.length === 0
-                    ? toggleCheckout()
-                    : showAddress
-                    ? paymentHandler()
-                    : setShowAddress(true)
+                  // billingAddresses?.billing_address?.length === 0
+                  //   ? toggleCheckout()
+                  //   :
+                  showAddress ? paymentHandler() : setShowAddress(true)
                 }
                 className="checkout-btn"
               >

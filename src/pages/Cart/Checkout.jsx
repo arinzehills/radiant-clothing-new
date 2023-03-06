@@ -59,7 +59,7 @@ const Checkout = ({ toggleCheckout, setShowAddress }) => {
       }); // never send price directly. Instead send product ID and handle the rest from backend
       console.log(data);
       setUser(data.user);
-      setShowAddress(true)
+      // setShowAddress(true)
       toggleCheckout();
     } catch (error) {
       console.log(error);
