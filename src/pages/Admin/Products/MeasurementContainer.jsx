@@ -12,6 +12,7 @@ const MeasurementContainer = ({ formValues, setFormValues }) => {
         label={"length"}
         name={"length"}
         inputStyle="input--shadow-purple"
+        type={"number"}
         style={{ width: "10%" }}
         inputColor="purple-input"
         onHandleChange={(e) =>
@@ -21,6 +22,7 @@ const MeasurementContainer = ({ formValues, setFormValues }) => {
         value={formValues.length}
       />
       <InputField
+        type={"number"}
         label={"breadth"}
         name={"breadth"}
         inputStyle="input--shadow-purple"
@@ -34,6 +36,7 @@ const MeasurementContainer = ({ formValues, setFormValues }) => {
       />
       <InputField
         label={"height"}
+        type={"number"}
         name={"height"}
         inputStyle="input--shadow-purple"
         style={{ width: "10%" }}
@@ -45,6 +48,7 @@ const MeasurementContainer = ({ formValues, setFormValues }) => {
         value={formValues.height}
       />
       <InputField
+        type={"number"}
         label={"weight(kg)"}
         name={"weight"}
         inputStyle="input--shadow-purple"
