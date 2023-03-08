@@ -13,6 +13,7 @@ const AddressContainer = ({
   billingAddresses,
   toggleCheckout,
   loadingAddr,
+  setLoadingCourier,
   selected,
   setSelected,
   setShippingFee,
@@ -70,9 +71,12 @@ const AddressContainer = ({
         if (courierServices.status === 200) {
           console.log("setShippingFee has been run updately");
           setShippingFee(courierServices.lowest_charge.freight_charge);
+          setLoadingCourier(false);
         } else {
           setShippingFee(0);
         }
+      } else {
+        setLoadingCourier(loadingCourier);
       }
       console.log("setShippingFee has been run");
     }

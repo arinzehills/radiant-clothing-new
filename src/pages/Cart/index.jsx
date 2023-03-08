@@ -60,7 +60,8 @@ const Cart = () => {
   const [checkout, setCheckout] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showAddress, setShowAddress] = useState(false);
-  const [shippingFee, setShippingFee] = useState(0);
+  const [loadingCourier, setLoadingCourier] = useState(false);
+  const [shippingFee, setShippingFee] = useState(null);
   const { cartItems, setCartItems, whishLists, setWhishLists } =
     useContext(CartContext);
   const {
@@ -117,12 +118,15 @@ const Cart = () => {
     setCheckout(!checkout);
   };
   const [totalAmount, getTotalAmount] = useState(
-    () => getTotalPrice() + getTotalGst()
+    () => getTotalPrice() + getTotalGst() + shippingFee
   );
 
   useEffect(() => {
     getTotalPrice();
   }, [cartItems]);
+  useEffect(() => {
+    getTotalAmount();
+  }, [shippingFee, selectedAddress, loadingCourier]);
 
   const initPayment = (data) => {
     const options = {
@@ -172,6 +176,9 @@ const Cart = () => {
     setLoading(true);
     try {
       const orderUrl = `${API_URL}order`;
+      console.log("totalAmount");
+      let totalAmount = getTotalPrice() + getTotalGst() + shippingFee;
+      console.log(totalAmount);
       const { data } = await axios.post(orderUrl, { amount: totalAmount }); // never send price directly. Instead send product ID and handle the rest from backend
 
       initPayment(data.data);
@@ -195,6 +202,7 @@ const Cart = () => {
               toggleCheckout={toggleCheckout}
               loadingAddr={loadingAddresses}
               selected={selectedAddress}
+              setLoadingCourier={setLoadingCourier}
               setSelected={setSelectedAddress}
               cartItems={cartItems}
               setShippingFee={setShippingFee}
@@ -241,7 +249,9 @@ const Cart = () => {
               }}
             >
               <button
-                disabled={getTotalPrice() === 0}
+                disabled={
+                  getTotalPrice() === 0 || shippingFee === 0 || loadingCourier
+                }
                 onClick={() =>
                   // billingAddresses?.billing_address?.length === 0
                   //   ? toggleCheckout()
