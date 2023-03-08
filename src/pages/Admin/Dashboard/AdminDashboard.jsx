@@ -184,7 +184,7 @@ const AdminDashboard = ({ setHandleNotData }) => {
           </h3>
         </div>
         <div style={{ width: 80, height: 80 }}>
-          <CircularProgressbarWithChildren
+          {/* <CircularProgressbarWithChildren
             value={percentage}
             text={`${percentage}%`}
             styles={buildStyles({
@@ -199,7 +199,7 @@ const AdminDashboard = ({ setHandleNotData }) => {
               rotation: 0.25,
               pathTransitionDuration: 0.5,
             })}
-          ></CircularProgressbarWithChildren>
+          ></CircularProgressbarWithChildren> */}
         </div>
       </div>
     );

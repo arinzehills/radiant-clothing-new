@@ -23,9 +23,9 @@
   /* box-shadow: 0 10px 30px 20px rgba(182, 178, 178, 0.2);
    */
 
-  height: 95px;
+  height: 85px;
   padding: 1rem;
-  width: 189px;
+  width: 169px;
   box-shadow: 0 0 6px 20px rgb(78 42 222 / 2%), 0 6px 18px 0 rgb(78 42 222 / 2%);
 }
 .grid-card h3 {
