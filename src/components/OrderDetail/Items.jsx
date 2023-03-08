@@ -60,9 +60,12 @@ const Items = ({ item }) => {
           </div>
         </div>
         <div>
-          <p>selling price:{item.selling_price}</p>
-          <p>gst:{item.gst}</p>
-          <p>quantity:{item.quantityToBuy}</p>
+          <p>
+            Selling price:
+            {getSymbolFromCurrency("INR") + item.selling_price}
+          </p>
+          <p>Gst: {getSymbolFromCurrency("INR") + " " + item.gst}</p>
+          <p>Quantity:{item.quantityToBuy}</p>
         </div>
       </div>
     </>

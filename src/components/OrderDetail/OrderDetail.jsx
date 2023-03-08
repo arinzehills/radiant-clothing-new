@@ -10,6 +10,7 @@ import { Button } from "../Button/Button";
 import BillingAddress from "./BillingAddress";
 
 import handleNot from "../HandleNotification/HandleNot";
+import getSymbolFromCurrency from "currency-symbol-map";
 
 const OrderDetail = () => {
   const { token, setToken } = useToken();
@@ -78,16 +79,16 @@ const OrderDetail = () => {
             </div>
 
             <div>
-           <Button
-            buttonColor={"orange"}
-            children={"Track order"}
-            style={{ color: "white" }}
-            onClick={() => trackOrder()}
-          />
+              <Button
+                buttonColor={"orange"}
+                children={"Track order"}
+                style={{ color: "white" }}
+                onClick={() => trackOrder()}
+              />
             </div>
           </div>
 
-          <h3>Amount:{order.totalAmount / 100}</h3>
+          <h3>Amount: {getSymbolFromCurrency("INR") + order.amount / 100}</h3>
           <div style={{ padding: "2rem", border: "1px solid grey" }}>
             <h3>Shipping Information:</h3>
             {<BillingAddress address={order.billing_address} />}
