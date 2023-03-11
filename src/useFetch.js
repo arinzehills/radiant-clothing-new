@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useFetch = ({ fetchParamData, url, secondParam, method }) => {
+const useFetch = ({ fetchParamData, url, secondParam, thirdParam, method }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,7 +29,7 @@ const useFetch = ({ fetchParamData, url, secondParam, method }) => {
           setError(error.message);
         });
     }, [100]);
-  }, [url, secondParam]);
+  }, [url, secondParam, thirdParam]);
 
   return { data, loading, error };
 };

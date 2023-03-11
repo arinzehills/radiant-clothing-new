@@ -128,7 +128,29 @@ const Cart = () => {
   useEffect(() => {
     getTotalAmount();
   }, [shippingFee, selectedAddress, loadingCourier]);
+  const orderWithoutPayment = async () => {
+    setLoadingCourier(true);
+    setLoading(true);
+    let totalAmount = getTotalPrice() + getTotalGst() + shippingFee;
+    let data = {};
+    selectedAddress.email = user.email;
+    data.amount = totalAmount * 100;
+    data.user_id = user._id;
+    data.billing_address = selectedAddress;
+    data.products = cartItems;
+    data.sub_total = getTotalPrice();
+    var res = await axios.post(`${API_URL}without-verify`, data);
+    console.log("axios res");
+    console.log(res);
+    if (res.data.success) {
+      setLoadingCourier(false);
+      setLoading(false);
 
+      window.localStorage.removeItem("radiant_cart_item");
+      navigate("/payment-success");
+    }
+    setLoadingCourier(false);
+  };
   const initPayment = (data) => {
     const options = {
       key: data.KEY_ID,
@@ -206,6 +228,7 @@ const Cart = () => {
               setLoadingCourier={setLoadingCourier}
               setSelected={setSelectedAddress}
               cartItems={cartItems}
+              cod={cod ? 1 : 0}
               setShippingFee={setShippingFee}
             />
           ) : (
@@ -302,11 +325,17 @@ const Cart = () => {
                   // billingAddresses?.billing_address?.length === 0
                   //   ? toggleCheckout()
                   //   :
-                  showAddress ? paymentHandler() : setShowAddress(true)
+                  showAddress
+                    ? cod
+                      ? orderWithoutPayment()
+                      : paymentHandler()
+                    : setShowAddress(true)
                 }
                 className="checkout-btn"
               >
-                {showAddress
+                {loading
+                  ? "Processing..."
+                  : showAddress
                   ? `Proceed ${currencyFormater(
                       getTotalPrice() + getTotalGst() + shippingFee
                     )}`

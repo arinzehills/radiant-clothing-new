@@ -10,7 +10,7 @@ const Index = () => {
   const { setCartItems } = useContext(CartContext);
   const navigate = useNavigate();
   const handleNavigateHome = () => {
-    navigate("/");
+    navigate("/dashboard/orders");
   };
 
   useEffect(() => {

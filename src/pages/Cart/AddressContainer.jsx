@@ -15,6 +15,7 @@ const AddressContainer = ({
   loadingAddr,
   setLoadingCourier,
   selected,
+  cod,
   setSelected,
   setShippingFee,
   cartItems,
@@ -59,9 +60,11 @@ const AddressContainer = ({
     fetchParamData: {
       products: cartItems,
       billing_address: selected,
+      cod: cod,
       sub_total: getTotalPrice(),
     },
     secondParam: selected?.id,
+    thirdParam: cod,
   });
   console.log(loadingCourier);
 

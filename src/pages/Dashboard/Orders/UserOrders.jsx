@@ -34,7 +34,7 @@ const UserOrders = () => {
   !loading &&
     orders.forEach((order, index) => {
       // orderegoriesImage.push(image);
-      order.total = order.amount / 100;
+      order.total = (eval(order.amount) / 100).toFixed(1);
       order.date = moment(order.createdAt).format("MM/DD/YYYY hh:mm A");
       order.status = order.isPaid === true ? "Success" : "failed";
       order.action = (
