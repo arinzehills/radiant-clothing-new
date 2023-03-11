@@ -48,7 +48,11 @@ const CartContainer = ({ currencyFormater }) => {
   return (
     <div style={{ position: "relative" }}>
       <p>Cart ({cartItems.length})</p>
+
       <span role="button" onClick={() => navigate("/")} className="back-span">
+        <span style={{ fontSize: "12px", color: "var(--danger)" }}>
+          Shipping charges will be calculated in the next step
+        </span>
         <IoMdArrowBack /> Go back to shopping
       </span>
       <>
@@ -116,14 +120,16 @@ const CartContainer = ({ currencyFormater }) => {
                       </div>
                       <div>
                         <p style={{ fontSize: 14, fontWeight: 600 }}>
-                          {currencyFormater(item.discount_price)}
+                          {currencyFormater(
+                            eval(item.discount_price) + eval(item.gst)
+                          )}
                         </p>
                         <div
                           style={{
                             display: "flex",
                             alignItems: "center",
                             gap: 8,
-                            fontSize: 14,
+                            fontSize: "min(12px, 20px)",
                           }}
                         >
                           <p

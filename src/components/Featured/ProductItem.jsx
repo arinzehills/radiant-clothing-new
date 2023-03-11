@@ -126,7 +126,8 @@ const ProductItem = ({ item, productsSet, loading }) => {
               {item.product_name ?? "HTML/CSS"}
             </h3>
             <p style={{ fontSize: "18px", color: "var(--dark-gold)" }}>
-              {getSymbolFromCurrency("INR") + item.price}
+              {getSymbolFromCurrency("INR") +
+                (eval(item.discount_price) + eval(item.gst))}
             </p>
             {/* <ProgressBar
               percent={item.level}
