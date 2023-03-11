@@ -216,21 +216,42 @@ const Cart = () => {
           <div className="cart-summary">
             <p style={{ fontWeight: 600 }}>Cart Summary</p>
             <div style={{ borderBottom: "1px solid gainsboro", padding: 20 }}>
-              <div class="subtotal ">
+              {/* <div class="subtotal ">
                 <p style={{ fontWeight: 600, paddingBlock: 5 }}>GST</p>
                 <p>{currencyFormater(getTotalGst())}</p>
-              </div>
-              {selectedAddress !== null && showAddress && (
+              </div> */}
+              {selectedAddress !== null && showAddress ? (
                 <div class="subtotal ">
                   <p style={{ fontWeight: 600, paddingBlock: 5 }}>
                     Shipping fee
                   </p>
                   <p>{shippingFee}</p>
                 </div>
+              ) : (
+                <div
+                  class="subtotal "
+                  style={{
+                    background: "var(--danger)",
+                    padding: "2px",
+                    borderRadius: "4px",
+                    display: "none",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontWeight: 400,
+                      paddingBlock: 5,
+                      fontSize: "10px",
+                      color: "white",
+                    }}
+                  >
+                    {/* Shipping charges will be calculated in the next step */}
+                  </p>
+                </div>
               )}
               <div class="subtotal ">
                 <p style={{ fontWeight: 600, paddingBlock: 5 }}>Subtotal</p>
-                <p>{currencyFormater(getTotalPrice())}</p>
+                <p>{currencyFormater(getTotalPrice() + getTotalGst())}</p>
               </div>
             </div>
             <div class="subtotal " style={{ padding: "1rem" }}>
