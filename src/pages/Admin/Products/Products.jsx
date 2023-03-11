@@ -80,6 +80,7 @@ const Products = ({ setHandleNotData }) => {
   let columnData = [
     { heading: "Image", value: "image" },
     { heading: "Product Name", value: "product_name" },
+    { heading: "Selling Price", value: "discount_price" },
     { heading: "Price", value: "price" },
     { heading: "Description", value: "description" },
     { heading: "Category", value: "category" },

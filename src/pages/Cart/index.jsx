@@ -62,6 +62,7 @@ const Cart = () => {
   const [showAddress, setShowAddress] = useState(false);
   const [loadingCourier, setLoadingCourier] = useState(false);
   const [shippingFee, setShippingFee] = useState(null);
+  const [cod, setCoD] = useState(false);
   const { cartItems, setCartItems, whishLists, setWhishLists } =
     useContext(CartContext);
   const {
@@ -261,6 +262,30 @@ const Cart = () => {
                   getTotalPrice() + getTotalGst() + shippingFee
                 )}
               </p>
+            </div>
+            <div style={{ padding: "1rem" }}>
+              <div class="subtotal " onClick={() => setCoD(false)}>
+                <p style={{ fontWeight: 600, paddingBlock: 5 }}>Prepaid</p>
+                <input
+                  type="radio"
+                  style={{ color: "red" }}
+                  color="red"
+                  checked={!cod ? true : false}
+                  // value={addr.id}
+                />
+              </div>
+              <div class="subtotal " onClick={() => setCoD(true)}>
+                <p style={{ fontWeight: 600, paddingBlock: 5 }}>
+                  Cash on Delivery
+                </p>
+                <input
+                  type="radio"
+                  style={{ color: "red" }}
+                  color="red"
+                  checked={cod ? true : false}
+                  // value={addr.id}
+                />
+              </div>
             </div>
             <div
               style={{
