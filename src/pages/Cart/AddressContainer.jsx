@@ -8,6 +8,7 @@ import { ImSpinner2 } from "react-icons/im";
 import { useState } from "react";
 import useFetch from "../../useFetch";
 import NoDataFound from "../../components/NoDataFound/NoDataFound";
+import Checkout from "./Checkout";
 
 const AddressContainer = ({
   billingAddresses,
@@ -19,13 +20,33 @@ const AddressContainer = ({
   setSelected,
   setShippingFee,
   cartItems,
+  loading,
+  setLoading,
 }) => {
   const { user, setUser } = useUser();
-  const [loading, setLoading] = useState(false);
+  const [checkout, setCheckout] = useState(false);
   if (selected) {
     selected.email = user.email;
   }
 
+  const editAddress = async (values, setLoading) => {
+    setLoading(true);
+    try {
+      const orderUrl = `${window.baseUrl}payment/editBillingAddress`;
+      const { data } = await axios.post(orderUrl, {
+        user_id: user._id,
+        address_id: selected.id,
+        billing_address: values,
+      }); // never send price directly. Instead send product ID and handle the rest from backend
+      console.log(data);
+      setLoading(false);
+      setCheckout(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   const deleteAddress = async (address_id) => {
     setLoading(true);
     try {
@@ -88,6 +109,16 @@ const AddressContainer = ({
 
   return (
     <AnimatePresence>
+      {checkout && (
+        <Checkout
+          toggleCheckout={() => setCheckout(!checkout)}
+          loading={loading}
+          setLoading={setLoading}
+          isEdit={true}
+          address={selected}
+          editAddress={editAddress}
+        />
+      )}
       <motion.div
         initial={{
           // scale: 0,
@@ -202,6 +233,17 @@ const AddressContainer = ({
                   ) : (
                     "Remove"
                   )}
+                </Button>
+                <Button
+                  style={{
+                    background: " rgb(74 222 128)",
+                    color: "white",
+                    borderRadius: "2px",
+                    padding: "0.5rem",
+                  }}
+                  onClick={() => setCheckout(true)}
+                >
+                  Edit
                 </Button>
               </div>
             </div>

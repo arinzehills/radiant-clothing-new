@@ -7,6 +7,7 @@ import useToken from "../../../useToken";
 import useUser from "../../../useUser";
 import { Button } from "../../../components/Button/Button";
 import moment from "moment";
+import getSymbolFromCurrency from "currency-symbol-map";
 
 const Orders = () => {
   const [click, setClick] = useOutletContext();
@@ -25,7 +26,7 @@ const Orders = () => {
   let columnData = [
     // { heading: "Order ID", value: "razorpay.orderId" },
     { heading: "Total", value: "total" },
-    { heading: "Sub Total", value: "sub_total" },
+    { heading: "Sub Total", value: "sub_totals" },
     { heading: "Payment Status", value: "status" },
     { heading: "Date", value: "date" },
     { heading: "Actions", value: "action" },
@@ -37,7 +38,9 @@ const Orders = () => {
   !loading &&
     orders.forEach((order, index) => {
       // orderegoriesImage.push(image);
-      order.total = order.amount / 100;
+      order.sub_totals = getSymbolFromCurrency("INR") + eval(order.sub_total);
+      order.total =
+        getSymbolFromCurrency("INR") + (eval(order.amount) / 100).toFixed(1);
       order.date = moment(order.createdAt).format("MM/DD/YYYY hh:mm A");
       order.status = order.isPaid === true ? "Success" : "failed";
       order.action = (

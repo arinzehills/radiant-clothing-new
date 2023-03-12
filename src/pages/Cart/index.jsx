@@ -14,6 +14,7 @@ import AddressContainer from "./AddressContainer";
 import CartContainer from "./CartContainer";
 import useFetch from "../../useFetch";
 import useUser from "../../useUser";
+import getSymbolFromCurrency from "currency-symbol-map";
 
 export const CustomInput = (props) => {
   const { helperText, label } = props;
@@ -73,6 +74,7 @@ const Cart = () => {
     url: window.baseUrl + "payment/getBillingAddress",
     fetchParamData: { user_id: user._id },
     secondParam: checkout,
+    thirdParam: loading,
   });
 
   const API_URL = window.baseUrl + "payment/";
@@ -138,16 +140,14 @@ const Cart = () => {
     data.user_id = user._id;
     data.billing_address = selectedAddress;
     data.products = cartItems;
-    data.sub_total = getTotalPrice();
+    data.sub_total = getTotalPrice() + getTotalGst();
     var res = await axios.post(`${API_URL}without-verify`, data);
-    console.log("axios res");
-    console.log(res);
     if (res.data.success) {
       setLoadingCourier(false);
       setLoading(false);
 
-      window.localStorage.removeItem("radiant_cart_item");
-      navigate("/payment-success");
+      // window.localStorage.removeItem("radiant_cart_item");
+      // navigate("/payment-success");
     }
     setLoadingCourier(false);
   };
@@ -165,13 +165,13 @@ const Cart = () => {
         response.user_id = user._id;
         response.billing_address = selectedAddress;
         response.products = cartItems;
-        response.sub_total = getTotalPrice();
+        response.sub_total = getTotalPrice() + getTotalGst();
 
         try {
           const { data } = axios.post(`${API_URL}verify`, response);
 
-          window.localStorage.removeItem("radiant_cart_item");
-          navigate("/payment-success");
+          // window.localStorage.removeItem("radiant_cart_item");
+          // navigate("/payment-success");
         } catch (err) {
           console.log(err);
         }
@@ -224,12 +224,15 @@ const Cart = () => {
               billingAddresses={billingAddresses}
               toggleCheckout={toggleCheckout}
               loadingAddr={loadingAddresses}
+              loading={loading}
+              setLoading={setLoading}
               selected={selectedAddress}
               setLoadingCourier={setLoadingCourier}
               setSelected={setSelectedAddress}
               cartItems={cartItems}
               cod={cod ? 1 : 0}
               setShippingFee={setShippingFee}
+              checkout={checkout}
             />
           ) : (
             <CartContainer
@@ -249,7 +252,9 @@ const Cart = () => {
                   <p style={{ fontWeight: 600, paddingBlock: 5 }}>
                     Shipping fee
                   </p>
-                  <p>{shippingFee}</p>
+                  <p>
+                    {getSymbolFromCurrency("INR")} {shippingFee}
+                  </p>
                 </div>
               ) : (
                 <div
@@ -436,6 +441,7 @@ const Cart = () => {
         <Checkout
           toggleCheckout={toggleCheckout}
           loading={loading}
+          setLoading={setLoading}
           setShowAddress={setShowAddress}
         />
       )}

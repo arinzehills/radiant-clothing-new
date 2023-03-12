@@ -14,10 +14,15 @@ const Error = ({ text }) => {
   return <span style={{ fontSize: 12, color: "coral" }}>{text}</span>;
 };
 
-const Checkout = ({ toggleCheckout, setShowAddress }) => {
+const Checkout = ({
+  toggleCheckout,
+  editAddress,
+  address,
+  loading,
+  setLoading,
+}) => {
   // const API_URL = "http://localhost:3002/payment/";
   const { user, setUser } = useUser();
-  const [loading, setLoading] = useState(false);
   const API_URL = window.baseUrl + "payment/";
 
   const validationSchema = Yup.object().shape({
@@ -32,20 +37,19 @@ const Checkout = ({ toggleCheckout, setShowAddress }) => {
   const formik = useFormik({
     initialValues: {
       id: v4(),
-      fullname: user?.full_name ?? "",
-      phoneNumber: user?.phone ?? "",
-      addressLine1: user?.address ?? "",
-      addressLine2: "",
-      postalCode: "",
-      city: "",
-      state: "",
-      country: "",
+      fullname: address ? address.fullname : user?.full_name ?? "",
+      phoneNumber: address ? address.phoneNumber : user?.phone ?? "",
+      addressLine1: address ? address.addressLine1 : user?.address ?? "",
+      addressLine2: address ? address.addressLine2 : "",
+      postalCode: address ? address.postalCode : "",
+      city: address ? address.city : "",
+      state: address ? address.state : "",
+      country: address ? address.country : "",
     },
     validationSchema,
     onSubmit(values) {
       // paymentHandler();
-
-      saveBillingAddress(values);
+      address ? editAddress(values, setLoading) : saveBillingAddress(values);
       console.log(values);
     },
   });
@@ -59,7 +63,6 @@ const Checkout = ({ toggleCheckout, setShowAddress }) => {
       }); // never send price directly. Instead send product ID and handle the rest from backend
       console.log(data);
       setUser(data.user);
-      // setShowAddress(true)
       toggleCheckout();
     } catch (error) {
       console.log(error);
