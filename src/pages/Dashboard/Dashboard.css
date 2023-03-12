@@ -2,8 +2,9 @@
   margin-left: 21vw;
   max-width: 75%;
   padding: 2vw;
-  height: 130vh;
+  height: 100vh;
   background: #eff3ff65;
+  overflow-y: scroll;
   /* padding-left: 1vw; */
   padding-top: 0;
 }
