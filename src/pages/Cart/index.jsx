@@ -146,8 +146,8 @@ const Cart = () => {
       setLoadingCourier(false);
       setLoading(false);
 
-      // window.localStorage.removeItem("radiant_cart_item");
-      // navigate("/payment-success");
+      window.localStorage.removeItem("radiant_cart_item");
+      navigate("/payment-success");
     }
     setLoadingCourier(false);
   };
@@ -170,8 +170,8 @@ const Cart = () => {
         try {
           const { data } = axios.post(`${API_URL}verify`, response);
 
-          // window.localStorage.removeItem("radiant_cart_item");
-          // navigate("/payment-success");
+          window.localStorage.removeItem("radiant_cart_item");
+          navigate("/payment-success");
         } catch (err) {
           console.log(err);
         }
