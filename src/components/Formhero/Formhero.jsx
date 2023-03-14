@@ -203,14 +203,14 @@ function Formhero({
                             {buttonLabel[1]}
                           </Button>
                         </Link>
-                        <div className="forgot-password-link">
+                        {/* <div className="forgot-password-link">
                           <Link
                             to="/forgotPassword"
                             className="forgot-password-link"
                           >
                             Forgot Your Password
                           </Link>
-                        </div>
+                        </div> */}
                       </div>
                     )}
                   </div>
