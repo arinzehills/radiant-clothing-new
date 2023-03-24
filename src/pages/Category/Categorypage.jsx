@@ -65,7 +65,8 @@ const Categorypage = () => {
       {/* where the products/content starts */}
       <div
         style={{
-          marginTop: "-1rem",
+          marginTop: "1rem",
+
           width: "100vw",
           zIndex: 11,
           position: "absolute",
@@ -74,11 +75,14 @@ const Categorypage = () => {
         <GradientHeaders
           fontSize={"4.5vw"}
           text={"Featured"}
-          subHeader={"."}
+          subHeader={
+            window.innerWidth < 590 ? "." : "Featured products for " + category
+          }
           uppercase={true}
           showSubHeader={true}
         />
       </div>
+      <div style={{ marginTop: "8rem" }}></div>
       <ProductListItem
         // colorClass={productsSet.colorClass}
         // imgSrc={productsSet.image}

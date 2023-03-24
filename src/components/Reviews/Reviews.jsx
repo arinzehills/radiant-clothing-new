@@ -86,7 +86,7 @@ const Reviews = ({ reviews }) => {
             <NoDataFound message={"No reviews yet for this product"} />
           ) : (
             reviews?.map((review) => (
-              <div style={{ gap: "1rem" }}>
+              <div style={{ gap: "1rem" }} key={review.ratings}>
                 <RatingStars rating={review.ratings} />
                 <p>{review.details}</p>
                 <ProfilePicsComponent

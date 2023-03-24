@@ -247,23 +247,14 @@ const Cart = () => {
                 <p style={{ fontWeight: 600, paddingBlock: 5 }}>GST</p>
                 <p>{currencyFormater(getTotalGst())}</p>
               </div> */}
-              {selectedAddress !== null && showAddress ? (
-                <div class="subtotal ">
-                  <p style={{ fontWeight: 600, paddingBlock: 5 }}>
-                    Shipping fee
-                  </p>
-                  <p>
-                    {getSymbolFromCurrency("INR")} {shippingFee}
-                  </p>
-                </div>
-              ) : (
+              {!showAddress && (
                 <div
                   class="subtotal "
                   style={{
                     background: "var(--danger)",
                     padding: "2px",
+                    opacity: "0.7",
                     borderRadius: "4px",
-                    display: "none",
                   }}
                 >
                   <p
@@ -274,7 +265,17 @@ const Cart = () => {
                       color: "white",
                     }}
                   >
-                    {/* Shipping charges will be calculated in the next step */}
+                    Shipping charges will be calculated in the next step
+                  </p>
+                </div>
+              )}
+              {selectedAddress !== null && showAddress && (
+                <div class="subtotal ">
+                  <p style={{ fontWeight: 600, paddingBlock: 5 }}>
+                    Shipping fee
+                  </p>
+                  <p>
+                    {getSymbolFromCurrency("INR")} {shippingFee}
                   </p>
                 </div>
               )}

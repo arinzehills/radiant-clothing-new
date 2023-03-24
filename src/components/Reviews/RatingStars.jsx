@@ -17,7 +17,7 @@ const RatingStars = ({ setRating, rating }) => {
         style={{ marginBottom: "1rem" }}
       >
         {ratingIcon.map((rate, index) => (
-          <div>
+          <div key={rate.ratings}>
             <AiTwotoneStar
               size={"25px"}
               color={rating >= rate.ratings && "var(--light-gold)"}

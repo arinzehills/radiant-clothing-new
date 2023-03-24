@@ -20,7 +20,15 @@ const UpperNavbar = () => {
     message: "no",
     color: "var(--success)",
   });
-
+  console.log(user?.["full_name"].split(" ", user?.["full_name"].indexOf(" ")));
+  var formatted_username = user?.["full_name"].substring(
+    0,
+    user?.["full_name"].indexOf(" ")
+  );
+  var user_name =
+    formatted_username == ""
+      ? user?.["full_name"].substring(0)
+      : formatted_username;
   return (
     <div className="upper_nav_container">
       <div
@@ -65,10 +73,7 @@ const UpperNavbar = () => {
             </Link>
           ) : (
             <ProfilePicsComponent
-              name={user?.["full_name"].substring(
-                0
-                // user?.["full_name"].indexOf(" ")
-              )}
+              name={user_name}
               // isOnline={"Online" ?? user?.["online_status"]}
               isCirclular={true}
               size="120px"

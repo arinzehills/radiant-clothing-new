@@ -50,9 +50,9 @@ const CartContainer = ({ currencyFormater }) => {
       <p>Cart ({cartItems.length})</p>
 
       <span role="button" onClick={() => navigate("/")} className="back-span">
-        <span style={{ fontSize: "12px", color: "var(--danger)" }}>
+        {/* <span style={{ fontSize: "12px", color: "var(--danger)" }}>
           Shipping charges will be calculated in the next step
-        </span>
+        </span> */}
         <IoMdArrowBack /> Go back to shopping
       </span>
       <>

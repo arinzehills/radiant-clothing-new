@@ -27,9 +27,13 @@ const UserOrders = () => {
     // { heading: "Order ID", value: "razorpay.orderId" },
     { heading: "Total", value: "total" },
     { heading: "Sub Total", value: "sub_totals" },
-    { heading: "Payment Status", value: "status" },
+    window.innerWidth < 590
+      ? { heading: "Actions", value: "action" }
+      : { heading: "Payment Status", value: "status" },
     { heading: "Date", value: "date" },
-    { heading: "Actions", value: "action" },
+    window.innerWidth > 590
+      ? { heading: "Actions", value: "action" }
+      : { heading: "Payment Status", value: "status" },
   ];
   console.log(orders);
   !loading &&
@@ -51,6 +55,7 @@ const UserOrders = () => {
            */}
           <Button
             buttonColor={"orange"}
+            style={{ width: "130px" }}
             children={"View Details"}
             onClick={() =>
               navigate("/dashboard/order-details", {
