@@ -151,18 +151,23 @@ const ProductDetail = ({}) => {
               ))}
             </div>
           </div>
-          <Button
-            buttonColor={"gold"}
-            buttonStyle={'btn--normal"'}
-            children={"Add to Cart"}
-            onClick={() => setOpenModal(true)}
-          />
-          <Button
-            buttonColor={"black"}
-            buttonStyle={'btn--normal"'}
-            children={"Add to Wishlist"}
-            onClick={() => handleAddToWhishList(product)}
-          />
+          <div
+            className={window.innerWidth < 569 && "centerClass withColumn"}
+            style={{ width: window.innerWidth < 569 && "87vw" }}
+          >
+            <Button
+              buttonColor={"gold"}
+              buttonStyle={'btn--normal"'}
+              children={"Add to Cart"}
+              onClick={() => setOpenModal(true)}
+            />
+            <Button
+              buttonColor={"black"}
+              buttonStyle={'btn--normal"'}
+              children={"Add to Wishlist"}
+              onClick={() => handleAddToWhishList(product)}
+            />
+          </div>
           <div
             style={{
               width: "50vw",

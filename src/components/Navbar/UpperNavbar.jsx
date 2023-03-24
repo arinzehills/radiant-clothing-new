@@ -66,8 +66,8 @@ const UpperNavbar = () => {
           ) : (
             <ProfilePicsComponent
               name={user?.["full_name"].substring(
-                0,
-                user?.["full_name"].indexOf(" ")
+                0
+                // user?.["full_name"].indexOf(" ")
               )}
               // isOnline={"Online" ?? user?.["online_status"]}
               isCirclular={true}
