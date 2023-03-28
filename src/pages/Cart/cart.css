@@ -351,6 +351,7 @@ input[type="radio"]:checked {
 @media screen and (max-width: 550px) {
   .cart-container {
     margin-top: 1rem;
+    z-index: -99;
   }
   .four-grid,
   .cart-container > .saved-for-later > div,
