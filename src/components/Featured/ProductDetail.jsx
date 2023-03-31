@@ -15,13 +15,14 @@ import { toast } from "react-toastify";
 import ProductImages from "../ProductImages/ProductImages";
 import Reviews from "../Reviews/Reviews";
 
-const ProductDetail = ({}) => {
+const ProductDetail = ({ prd, deleteReview, loadingDelete }) => {
   const location = useLocation();
+
   // const { category } = useParams();
   const [openModal, setOpenModal] = useState(false);
   const [showFullImage, setShowFullImage] = useState(false);
   const [itemSize, setItemSize] = useState("");
-  const product = location.state.item;
+  const product = location.state ? location.state.item : prd;
   const { cartItems, setCartItems, whishLists, setWhishLists } =
     useContext(CartContext);
 
@@ -87,7 +88,7 @@ const ProductDetail = ({}) => {
           />
         </Helmet>
         {/* <img src={product.image} alt="" height={"300px"} /> */}
-        <ProductImages images={product?.images} />
+        <ProductImages images={product?.images} isAdmin={prd && true} />
         <div style={{ padding: "15px" }}>
           <h3
             style={{ textAlign: "left", margin: 0 }}
@@ -151,23 +152,25 @@ const ProductDetail = ({}) => {
               ))}
             </div>
           </div>
-          <div
-            className={window.innerWidth < 569 && "centerClass withColumn"}
-            style={{ width: window.innerWidth < 569 && "87vw" }}
-          >
-            <Button
-              buttonColor={"gold"}
-              buttonStyle={'btn--normal"'}
-              children={"Add to Cart"}
-              onClick={() => setOpenModal(true)}
-            />
-            <Button
-              buttonColor={"black"}
-              buttonStyle={'btn--normal"'}
-              children={"Add to Wishlist"}
-              onClick={() => handleAddToWhishList(product)}
-            />
-          </div>
+          {!prd && (
+            <div
+              className={window.innerWidth < 569 && "centerClass withColumn"}
+              style={{ width: window.innerWidth < 569 && "87vw" }}
+            >
+              <Button
+                buttonColor={"gold"}
+                buttonStyle={'btn--normal"'}
+                children={"Add to Cart"}
+                onClick={() => setOpenModal(true)}
+              />
+              <Button
+                buttonColor={"black"}
+                buttonStyle={'btn--normal"'}
+                children={"Add to Wishlist"}
+                onClick={() => handleAddToWhishList(product)}
+              />
+            </div>
+          )}
           <div
             style={{
               width: "50vw",
@@ -183,7 +186,12 @@ const ProductDetail = ({}) => {
       </div>
       <div style={{ padding: "2rem" }}>
         <h2>Product Reviews</h2>
-        <Reviews reviews={product?.reviews} />
+        <Reviews
+          reviews={product?.reviews}
+          isAdmin={prd && true}
+          deleteReview={deleteReview}
+          loadingDelete={loadingDelete}
+        />
       </div>
     </>
   );

@@ -32,7 +32,7 @@ export const ProductImageSlider = ({ images, currentImage, hoverHandler }) => {
     </div>
   );
 };
-const ProductImages = ({ images }) => {
+const ProductImages = ({ images, isAdmin }) => {
   const [currentImage, setCurrentImage] = useState(images[0]);
   const [showFullImage, setShowFullImage] = useState(false);
   const hoverHandler = (image, i) => {
@@ -81,8 +81,8 @@ const ProductImages = ({ images }) => {
           src={currentImage}
           alt=""
           style={{
-            width: window.innerWidth < 700 ? 200 : 500,
-            height: window.innerWidth < 700 ? 200 : 450,
+            width: window.innerWidth < 700 ? 200 : isAdmin ? 350 : 500,
+            height: window.innerWidth < 700 ? 200 : isAdmin ? 250 : 450,
           }}
         />
       </div>

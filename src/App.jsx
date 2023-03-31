@@ -35,6 +35,7 @@ import Terms from "./pages/Terms/Terms";
 import MoreProducts from "./components/Featured/MoreProducts";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import OrderDetail from "./components/OrderDetail/OrderDetail";
+import AdminProductDetail from "./pages/Admin/Products/AdminProductDetail";
 
 function App() {
   const [handleNotData, setHandleNotData] = useState({
@@ -93,7 +94,7 @@ function App() {
           <Route path="/about" exact element={<About />} />
           <Route path="/terms-and-condition" exact element={<Terms />} />
           <Route element={<PrivateRoutes token={token} />}>
-          <Route path="/cart" element={<Cart />} />
+            <Route path="/cart" element={<Cart />} />
           </Route>
           <Route path="/cart/checkout" element={<Checkout />} />
           <Route path="dashboard" element={<Dashboard />}>
@@ -148,15 +149,20 @@ function App() {
               index
               element={<AdminDashboard setHandleNotData={setHandleNotData} />}
             />
-            <Route
-              path="products"
-              element={
-                <Products
-                  handleNotData={handleNotData}
-                  setHandleNotData={setHandleNotData}
-                />
-              }
-            />
+            <Route path="products">
+              <Route
+                index
+                element={
+                  <Products
+                    handleNotData={handleNotData}
+                    setHandleNotData={setHandleNotData}
+                  />
+                }
+              />
+
+              <Route path=":product" exact element={<AdminProductDetail />} />
+            </Route>
+
             <Route
               path="order-details"
               element={<OrderDetail setHandleNotData={setHandleNotData} />}

@@ -9,11 +9,10 @@ import AddProducts from "./AddProducts";
 import Categories from "./Categories";
 import { ReactNotifications } from "react-notifications-component";
 import useFetch from "../../../useFetch";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import handleDelete from "../../../utils/handleDelete";
 import getSymbolFromCurrency from "currency-symbol-map";
 import { FiEdit } from "react-icons/fi";
-import EditGst from "./EditGst";
 
 const Products = ({ setHandleNotData }) => {
   const [click, setClick] = useOutletContext();
@@ -21,7 +20,7 @@ const Products = ({ setHandleNotData }) => {
   const [product, setProduct] = useState();
   const [currentTab, setCurrentTab] = useState(0);
   const [openModal, setOpenModal] = useState(false);
-  const [openGstModal, setOpenGstModal] = useState(false);
+  const history = useNavigate();
 
   const {
     data: categoriesData,
@@ -31,12 +30,7 @@ const Products = ({ setHandleNotData }) => {
     url: window.baseUrl + "admin/getProducts",
     secondParam: openModal,
   });
-  const { data: gstData, loading: loadingGst } = useFetch({
-    url: window.baseUrl + "admin/getGst",
-    secondParam: openGstModal,
-  });
 
-  console.log(gstData);
   const tableData = [
     {
       product_name: "Content Marketing",
@@ -96,6 +90,9 @@ const Products = ({ setHandleNotData }) => {
           <Button
             buttonColor={"black"}
             children={"Edit"}
+            onClick={() => {
+              setProduct(product), setOpenModal(true);
+            }}
             style={{ background: "var(--success)", width: "100px" }}
           />
           <Icon
@@ -123,13 +120,7 @@ const Products = ({ setHandleNotData }) => {
           product={product}
         />
       </AnimatedModal>
-      <AnimatedModal
-        modalHeight={"400px"}
-        openModal={openGstModal}
-        setOpenModal={setOpenGstModal}
-      >
-        <EditGst setOpenModal={setOpenGstModal} gstValue={gstData?.gst} />
-      </AnimatedModal>
+
       <NavComponent
         personsName={"Admin"}
         showNotification={true}
@@ -159,22 +150,14 @@ const Products = ({ setHandleNotData }) => {
                 // data={tableData}
                 columnData={columnData}
                 onClickRow={(product) => {
-                  setProduct(product), setOpenModal(true);
+                  history(
+                    `/admin/products/${product.product_name}-${product._id}`
+                  );
                 }}
               />,
               <Categories setHandleNotData={setHandleNotData} />,
             ]}
           />
-          <div style={{ gap: "3rem", cursor: "pointer" }}>
-            <span>GST: </span>
-            {getSymbolFromCurrency("INR")}
-            <span>{gstData?.gst} </span>
-            <FiEdit
-              icon="material-symbols:edit"
-              color="var(--success)"
-              onClick={() => setOpenGstModal(true)}
-            />
-          </div>
         </div>
         <Button
           buttonStyle={"btn--normal"}

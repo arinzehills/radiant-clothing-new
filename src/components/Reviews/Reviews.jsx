@@ -3,9 +3,12 @@ import NoDataFound from "../NoDataFound/NoDataFound";
 import ProfilePicsComponent from "../ProfilePicsComponent/ProfilePicsComponent";
 import RatingStars from "./RatingStars";
 import moment from "moment";
+import { Icon } from "@iconify/react";
+import { ImSpinner2 } from "react-icons/im";
 
-const Reviews = ({ reviews }) => {
+const Reviews = ({ reviews, isAdmin, deleteReview, loadingDelete }) => {
   const [rating, setRating] = useState();
+
   useEffect(() => {
     if (!Array.isArray(reviews) || reviews.length <= 0) {
       // if is not an array return null
@@ -23,6 +26,7 @@ const Reviews = ({ reviews }) => {
     let reviewPercentage = totalReview / reviews?.length;
     return reviewPercentage;
   };
+
   return (
     <div style={{ background: "var(--grey2)", padding: "1rem" }}>
       <h3>Verified Customer Feedback</h3>
@@ -85,8 +89,16 @@ const Reviews = ({ reviews }) => {
           {reviews === undefined || reviews?.length === 0 ? (
             <NoDataFound message={"No reviews yet for this product"} />
           ) : (
-            reviews?.map((review) => (
-              <div style={{ gap: "1rem" }} key={review.ratings}>
+            reviews?.map((review, index) => (
+              <div
+                style={{
+                  gap: "1rem",
+                  borderBottom: "1px solid var(--danger)",
+                  minWidth: "300px",
+                  paddingBottom: "0.7rem",
+                }}
+                key={review.ratings}
+              >
                 <RatingStars rating={review.ratings} />
                 <p>{review.details}</p>
                 <ProfilePicsComponent
@@ -100,6 +112,30 @@ const Reviews = ({ reviews }) => {
                   }
                   //   nameColor={"white"}
                 />
+                {isAdmin && (
+                  <div
+                    className="centerClass"
+                    style={{ marginTop: "1rem", justifyContent: "end" }}
+                  >
+                    {loadingDelete ? (
+                      <ImSpinner2
+                        className="spin"
+                        size={20}
+                        style={{ marginInline: "auto" }}
+                      />
+                    ) : (
+                      <Icon
+                        icon="ic:baseline-delete"
+                        onClick={() => deleteReview(review)}
+                        style={{
+                          color: "var(--danger)",
+                          fontSize: "20px",
+                          cursor: "pointer",
+                        }}
+                      />
+                    )}
+                  </div>
+                )}
               </div>
             ))
           )}

@@ -21,6 +21,7 @@
 .product-item-image {
   max-height: 180px;
   min-width: 180px;
+  max-width: 210px;
   height: 180px;
   min-height: 180px;
   width: 99.3%;

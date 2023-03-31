@@ -109,6 +109,9 @@ input[type="radio"]:checked {
   flex-direction: column;
   gap: 1rem;
 }
+.withStart {
+  align-items: start;
+}
 /* For visibility */
 .showTip {
   display: none;

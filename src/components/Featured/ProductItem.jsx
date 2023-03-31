@@ -87,7 +87,13 @@ const ProductItem = ({ item, productsSet, loading }) => {
       </AnimatedModal>
       <div
         className="product-item class_justify_contents_column"
-        style={{ alignItems: "flex-start" }}
+        // style={{ alignItems: "flex-start" }}
+        style={{
+          top: 0,
+          left: 0,
+          width: "80%",
+          height: "80%",
+        }}
         onClick={() =>
           history(`/products/${item.product_name}`, {
             state: {
