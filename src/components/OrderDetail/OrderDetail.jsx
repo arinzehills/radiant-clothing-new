@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import useFetch from "../../useFetch";
 import useToken from "../../useToken";
 import { ImSpinner2 } from "react-icons/im";
 import { BiArrowBack } from "react-icons/bi";
+import axios from "axios";
 import moment from "moment";
 import Items from "./Items";
 import { Button } from "../Button/Button";
@@ -14,14 +15,15 @@ import getSymbolFromCurrency from "currency-symbol-map";
 
 const OrderDetail = () => {
   const { token, setToken } = useToken();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const {
     data: orderData,
-    loading,
+    loading: loadingOrder,
     error,
   } = useFetch({
-    url: window.baseUrl + "payment/getUserOrderDetails?token=" + token,
+    url: window.baseUrl + "order/getUserOrderDetails?token=" + token,
     fetchParamData: { order_id: location.state.order_id },
     // secondParam: activeRow,
   });
@@ -41,6 +43,23 @@ const OrderDetail = () => {
       window.location.href = trackshipment.track_url;
     }
   };
+  const returnOrder = async (order) => {
+    console.log("delete Review Hitted at front end");
+    setLoading(true);
+    try {
+      const saveUrl = `${window.baseUrl}order/returnOrder?token=${token}`;
+      console.log(order);
+      const { data } = await axios.post(saveUrl, {
+        order: order,
+      }); // never send price directly. Instead send product ID and handle the rest from backend
+      console.log(data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div
       style={{
@@ -50,7 +69,7 @@ const OrderDetail = () => {
         padding: "2px",
       }}
     >
-      {loading ? (
+      {loadingOrder ? (
         <div style={{ height: "80vh", width: "80vw" }} className="centerClass">
           <ImSpinner2
             className="spin"
@@ -80,10 +99,16 @@ const OrderDetail = () => {
 
             <div>
               <Button
-                buttonColor={"orange"}
+                buttonColor={"black"}
                 children={"Track order"}
                 style={{ color: "white" }}
                 onClick={() => trackOrder()}
+              />
+              <Button
+                buttonColor={"orange"}
+                children={"Return order"}
+                style={{ color: "white" }}
+                onClick={() => returnOrder(order)}
               />
             </div>
           </div>

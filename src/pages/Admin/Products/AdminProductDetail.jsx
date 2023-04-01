@@ -48,6 +48,7 @@ const AdminProductDetail = () => {
     <div>
       <NavComponent
         personsName={"Admin"}
+        isBackButton={true}
         showNotification={true}
         // handleClick={handleClick}
         pageTitle={`Product Detail>> ${product_name}`}

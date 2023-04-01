@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import ProfilePicsComponent from "../../../../components/ProfilePicsComponent/ProfilePicsComponent";
 import useUser from "../../../../useUser";
 
@@ -12,8 +13,11 @@ function NavComponent({
   showNotification,
   setHandleNotData,
   isSticky,
+  isBackButton,
 }) {
   const { user, setUser } = useUser();
+  const navigate = useNavigate();
+
   let isOnline;
   // const data = await fetch(window.baseUrl + "getCurrentUser?token=" + token)
   //     .then((ddd) => ddd.json())
@@ -27,20 +31,28 @@ function NavComponent({
           isSticky ? "nav-cmpt-section withstickybar " : "nav-cmpt-section"
         }
       >
-        {window.innerWidth < 960 && (
-          <>
-            <Icon
-              icon="bxs:category"
-              style={{ color: "grey", fontSize: "20px" }}
-              onClick={handleClick}
-            />
-            <img
-              className="sidebar-logo"
-              style={{ height: 60 }}
-              src="/images/conterize.png"
-              alt=""
-            />
-          </>
+        {isBackButton ? (
+          <Icon
+            icon="material-symbols:arrow-back-ios-new"
+            style={{ color: "grey", fontSize: "20px" }}
+            onClick={() => navigate(-1)}
+          />
+        ) : (
+          window.innerWidth < 960 && (
+            <>
+              <Icon
+                icon="bxs:category"
+                style={{ color: "grey", fontSize: "20px" }}
+                onClick={handleClick}
+              />
+              <img
+                className="sidebar-logo"
+                style={{ height: 60 }}
+                src="/images/conterize.png"
+                alt=""
+              />
+            </>
+          )
         )}
         <div className="nav-title-wrapper">
           {<h2>{pageTitle ?? "Dashboard"}</h2>}
