@@ -89,7 +89,8 @@ button:disabled {
 .cart-container .cart-with-items .item .top > div > img {
   width: 64px;
   height: 96px;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: top;
 }
 .cart-container .cart-with-items .item .top > div > div {
   display: flex;

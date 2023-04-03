@@ -54,6 +54,11 @@ const OrderDetail = () => {
       }); // never send price directly. Instead send product ID and handle the rest from backend
       console.log(data);
       setLoading(false);
+      handleNot({
+        title: "Tracking info",
+        message: data["message"],
+        backgroundColor: "var(--success)",
+      });
     } catch (error) {
       console.log(error);
     } finally {
@@ -108,6 +113,7 @@ const OrderDetail = () => {
                 buttonColor={"orange"}
                 children={"Return order"}
                 style={{ color: "white" }}
+                loading={loading}
                 onClick={() => returnOrder(order)}
               />
             </div>
@@ -117,6 +123,15 @@ const OrderDetail = () => {
           <div style={{ padding: "2rem", border: "1px solid grey" }}>
             <h3>Shipping Information:</h3>
             {<BillingAddress address={order.billing_address} />}
+            <p>
+              Status:{" "}
+              <span
+                className={order.order_status == "Active" ? "blue" : "orange"}
+                style={{ padding: "7px", borderRadius: "10px", color: "white" }}
+              >
+                {order.order_status}
+              </span>
+            </p>
           </div>
           <div style={{ padding: "2rem" }}>
             <h3>Items:</h3>

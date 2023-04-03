@@ -8,6 +8,7 @@ import NavComponent from "../../Dashboard/components/NavComponent/NavComponent";
 import ProductDetail from "../../../components/Featured/ProductDetail";
 import useToken from "../../../useToken";
 import axios from "axios";
+import handleNot from "../../../components/HandleNotification/HandleNot";
 
 const AdminProductDetail = () => {
   const [loading, setLoading] = useState(false);
@@ -37,6 +38,11 @@ const AdminProductDetail = () => {
         product_id: product._id,
       }); // never send price directly. Instead send product ID and handle the rest from backend
       console.log(data);
+      handleNot({
+        title: "Deleted",
+        message: data["message"],
+        backgroundColor: "var(--success)",
+      });
       setLoading(false);
     } catch (error) {
       console.log(error);

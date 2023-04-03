@@ -58,7 +58,7 @@ const Reviews = ({ reviews, isAdmin, deleteReview, loadingDelete }) => {
             <h3>
               {reviews == undefined || reviews?.length == 0
                 ? ""
-                : `${calcTotalReview(reviews)}/5`}
+                : `${calcTotalReview(reviews).toFixed(1)}/5`}
             </h3>
             <RatingStars
               rating={

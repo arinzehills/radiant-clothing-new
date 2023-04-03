@@ -108,6 +108,7 @@ const ProductItem = ({ item, productsSet, loading }) => {
           className="product-item-image"
           alt=""
         />
+
         {/* this is body contents */}
         <div
           style={{

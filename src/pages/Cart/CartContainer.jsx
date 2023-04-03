@@ -67,7 +67,7 @@ const CartContainer = ({ currencyFormater }) => {
               >
                 <div className="top">
                   <div key={idx}>
-                    <img src={item.images[0]} />
+                    <img src={item.images[0]} style={{ marginBottom: 5 }} />
                     <div>
                       <div
                         style={{

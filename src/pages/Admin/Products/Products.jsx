@@ -41,7 +41,7 @@ const Products = ({ setHandleNotData }) => {
         <div className="class_justify_contents_row">
           <Button
             buttonColor={"black"}
-            children={"Editss"}
+            children={"Edits"}
             style={{ background: "var(--success)", width: "100px" }}
           />
           <Icon
@@ -90,8 +90,10 @@ const Products = ({ setHandleNotData }) => {
           <Button
             buttonColor={"black"}
             children={"Edit"}
-            onClick={() => {
-              setProduct(product), setOpenModal(true);
+            onClick={(e) => {
+              e.stopPropagation();
+              setProduct(product);
+              setOpenModal(true);
             }}
             style={{ background: "var(--success)", width: "100px" }}
           />
@@ -99,12 +101,13 @@ const Products = ({ setHandleNotData }) => {
             icon="ic:baseline-delete"
             color="var(--danger)"
             style={{ fontSize: "1.2rem" }}
-            onClick={() =>
+            onClick={(e) => {
+              e.stopPropagation();
               handleDelete(
                 window.baseUrl + "admin/deleteProduct?id=" + product._id,
                 setOpenModal
-              )
-            }
+              );
+            }}
           />
         </div>
       );

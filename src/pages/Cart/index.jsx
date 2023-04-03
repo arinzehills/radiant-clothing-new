@@ -140,6 +140,7 @@ const Cart = () => {
     data.user_id = user._id;
     data.billing_address = selectedAddress;
     data.products = cartItems;
+    data.shipping_charges = shippingFee;
     data.sub_total = getTotalPrice() + getTotalGst();
     var res = await axios.post(`${API_URL}without-verify`, data);
     if (res.data.success) {
@@ -158,18 +159,18 @@ const Cart = () => {
       currency: data.currency,
       amount: data.amount,
       name: "Radiant Clothing",
-      description: "Super amamzing description...",
+      description: "Super amazing description...",
       handler: async (response) => {
         selectedAddress.email = user.email;
         response.amount = data.amount;
         response.user_id = user._id;
         response.billing_address = selectedAddress;
+        response.shipping_charges = shippingFee;
         response.products = cartItems;
         response.sub_total = getTotalPrice() + getTotalGst();
 
         try {
           const { data } = axios.post(`${API_URL}verify`, response);
-
           window.localStorage.removeItem("radiant_cart_item");
           navigate("/payment-success");
         } catch (err) {
@@ -196,14 +197,13 @@ const Cart = () => {
   };
 
   const paymentHandler = async () => {
-    setLoading(true);
+    // setLoading(true);
     try {
       const orderUrl = `${API_URL}order`;
       console.log("totalAmount");
-      let totalAmount = getTotalPrice() + getTotalGst() + shippingFee;
+      let totalAmount = getTotalPrice() + getTotalGst();
       console.log(totalAmount);
       const { data } = await axios.post(orderUrl, { amount: totalAmount }); // never send price directly. Instead send product ID and handle the rest from backend
-
       initPayment(data.data);
     } catch (error) {
       console.log(error);
