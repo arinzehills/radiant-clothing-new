@@ -1,11 +1,13 @@
 .product-item {
-  height: 280px;
+  min-height: 280px;
   width: 250px;
 }
 .product-item:hover {
   scale: 1.05;
-  transition: all 0.2s ease;
+  transition: all 0.5s ease;
   cursor: pointer;
+  padding-bottom: 1rem;
+
   box-shadow: var(--box-shadow);
 }
 .product-list-item {
