@@ -112,9 +112,9 @@
   .product-item-image {
     width: 230px;
     height: 130px;
-
-    max-height: 250px;
-    min-height: 250px;
+    aspect-ratio: 5/3;
+    max-height: 190px;
+    min-height: 190px;
   }
   .product-item-name {
     width: 100px;
