@@ -5,7 +5,7 @@ import GradientHeaders from "../../components/GradientHeaders/GradientHeaders";
 import Hero from "../../components/Hero/Hero";
 import useFetch from "../../useFetch";
 
-const Categorypage = () => {
+const Categorypage = ({ image }) => {
   const { category } = useParams();
   const {
     data: categoriesData,
@@ -24,6 +24,17 @@ const Categorypage = () => {
     // secondParam: activeRow,
   });
 
+  const [products, setProducts] = useState([]);
+
+  !loading &&
+    productsData?.products.forEach((product, index) => {
+      product.image = product.images[0];
+    });
+  !loadingCategory &&
+    categoriesData?.categories.forEach((cat, index) => {
+      // cat.image = cat.images[0];
+      console.log(cat.category);
+    });
   const homeData = {
     headline: category,
     description:
@@ -41,21 +52,19 @@ const Categorypage = () => {
     buttonLabel: ["Shop", "back to home"],
     imgStart: "start",
   };
-  const [products, setProducts] = useState([]);
-
-  !loading &&
-    productsData?.products.forEach((product, index) => {
-      product.image = product.images[0];
-    });
-  !loadingCategory &&
-    categoriesData?.categories.forEach((cat, index) => {
-      // cat.image = cat.images[0];
-      console.log(cat.category);
-    });
+  console.log(
+    categoriesData?.categories.filter((cat) => cat.category === category)[0]
+      .image
+  );
   return (
     <div>
       <Hero
         {...homeData}
+        img={
+          categoriesData?.categories.filter(
+            (cat) => cat.category === category
+          )[0].image
+        }
         bgheight="450px"
         bgColor="#31A7FE"
         marginfrBg="-3rem"
