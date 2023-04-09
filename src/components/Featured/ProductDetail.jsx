@@ -98,10 +98,11 @@ const ProductDetail = ({ prd, deleteReview, loadingDelete }) => {
           </h3>
           <div
             style={{
-              fontSize: "2.8w",
+              fontSize: "10px",
               display: "flex",
               gap: "5px",
               fontWeight: "bold",
+              alignItems: "center",
             }}
           >
             <div className="more_pop">In Stock:</div>
@@ -110,7 +111,7 @@ const ProductDetail = ({ prd, deleteReview, loadingDelete }) => {
           {/* <div style={{ w }}></div> */}
 
           <pre
-            style={{ textAlign: "left" }}
+            style={{ textAlign: "left", fontSize: "13px" }}
             className={"avenir_class gold_color_text"}
           >
             CATEGORY- {product.category ?? "HTML/CSS"}
@@ -121,7 +122,9 @@ const ProductDetail = ({ prd, deleteReview, loadingDelete }) => {
               "  " +
               (parseFloat(product.discount_price) + parseFloat(product.gst))}
           </h4>
-          <p style={{ color: "var(--dark-gold)" }}>Inclusive of all taxes</p>
+          <p style={{ color: "var(--dark-gold)", fontSize: "13px" }}>
+            Inclusive of all taxes
+          </p>
           <div style={{ display: "flex", alignItems: "center" }}>
             <p
               style={{
@@ -131,7 +134,9 @@ const ProductDetail = ({ prd, deleteReview, loadingDelete }) => {
             >
               {getSymbolFromCurrency("INR") + "  " + product.price}
             </p>
-            <p className="more_pop">{(percetage * 100).toFixed(0) + "%"}</p>
+            <p className="more_pop" style={{ fontWeight: "bold" }}>
+              {(percetage * 100).toFixed(0) + "%"}
+            </p>
           </div>
           <div>
             <h2>Sizes</h2>
@@ -177,8 +182,11 @@ const ProductDetail = ({ prd, deleteReview, loadingDelete }) => {
               overflowWrap: "break-word",
             }}
           >
-            <h3>Product Details</h3>
-            <p className="avenir_class" style={{ lineHeight: "inherit" }}>
+            <h2>Product Details</h2>
+            <p
+              className="avenir_class"
+              style={{ lineHeight: "inherit", fontSize: "13px" }}
+            >
               {product.description}
             </p>
           </div>
