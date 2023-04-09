@@ -11,14 +11,10 @@
   box-shadow: var(--box-shadow);
 }
 .product-list-item {
-  padding: 3rem 3rem 4rem;
-  width: 92vw;
+  padding: 7rem 0rem 4rem 3rem;
+  /* width: 100vw; */
   display: grid;
-  grid-template-columns: 300px repeat(3, auto);
-  /* grid-template-columns: 300px 4fr; */
-  /* gap: 1rem; */
-  /* justify-content: center; */
-  row-gap: 4rem;
+  grid-template-columns: repeat(5, 1fr);
 }
 .product-item-image {
   width: 250px;

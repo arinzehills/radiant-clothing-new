@@ -121,13 +121,13 @@ const ProductItem = ({ item, productsSet, loading }) => {
           <div>
             {/* first cart content */}
             <pre
-              style={{ textAlign: "left", lineHeight: 0 }}
+              style={{ textAlign: "left", lineHeight: 0, fontSize: "16px" }}
               className={"avenir_class gold_color_text"}
             >
               {item.category ?? "HTML/CSS"}
             </pre>
             <h3
-              style={{ textAlign: "left", maxLines: 1 }}
+              style={{ textAlign: "left", maxLines: 1, fontSize: "15px" }}
               className="product-item-name"
             >
               {item.product_name ?? "HTML/CSS"}

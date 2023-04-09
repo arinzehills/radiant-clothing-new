@@ -66,7 +66,7 @@ const ProductImages = ({ images, isAdmin }) => {
             <img
               src={image}
               alt=""
-              height={window.innerWidth < 700 ? "60px" : "80px"}
+              height={window.innerWidth < 700 ? "80px" : "100px"}
               width={window.innerWidth < 700 ? "60px" : "80px"}
             />
           </div>
@@ -81,8 +81,8 @@ const ProductImages = ({ images, isAdmin }) => {
           src={currentImage}
           alt=""
           style={{
+            height: window.innerWidth < 700 ? 250 : isAdmin ? 250 : 600,
             width: window.innerWidth < 700 ? 200 : isAdmin ? 350 : 500,
-            height: window.innerWidth < 700 ? 200 : isAdmin ? 250 : 450,
           }}
         />
       </div>

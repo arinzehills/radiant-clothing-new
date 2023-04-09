@@ -150,12 +150,14 @@ const Featured = () => {
           showSubHeader={true}
         />
       </div>
-      <ProductListItem
-        // colorClass={productsSet.colorClass}
-        // imgSrc={productsSet.image}
-        loading={loading}
-        products={productsData?.products.slice(0, 12)}
-      />
+      <div className="centerClass">
+        <ProductListItem
+          // colorClass={productsSet.colorClass}
+          // imgSrc={productsSet.image}
+          loading={loading}
+          products={productsData?.products.slice(0, 12)}
+        />
+      </div>
       <div
         className="class_justify_contents_row"
         style={{
