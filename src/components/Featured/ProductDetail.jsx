@@ -192,7 +192,7 @@ const ProductDetail = ({ prd, deleteReview, loadingDelete }) => {
           </div>
         </div>
       </div>
-      <div style={{ padding: "2rem" }}>
+      <div style={{ padding: window.innerWidth < 700 ? "0.5rem" : "2rem" }}>
         <h2>Product Reviews</h2>
         <Reviews
           reviews={product?.reviews}
