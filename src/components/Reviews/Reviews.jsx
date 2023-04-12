@@ -50,7 +50,7 @@ const Reviews = ({ reviews, isAdmin, deleteReview, loadingDelete }) => {
             style={{
               background: "var(--grey2)",
               minHeight: "400px",
-              padding: window.innerWidth < 700 ? "0.5rem" : "2rem",
+              padding: "2rem",
               flexDirection: "column",
             }}
             className="centerClass"
