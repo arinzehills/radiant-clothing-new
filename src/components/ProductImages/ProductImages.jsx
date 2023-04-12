@@ -38,7 +38,7 @@ export const ProductImageSlider = ({ images, currentImage, hoverHandler }) => {
           objectFit: "contain",
           marginLeft: "-10px",
         }}
-        width={window.innerWidth < 700 ? "80%" : "100%"}
+        width={window.innerWidth < 700 ? "100%" : "100%"}
       />
     </div>
   );

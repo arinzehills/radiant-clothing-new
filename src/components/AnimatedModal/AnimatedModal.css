@@ -38,5 +38,11 @@
   .animatedmodal_content_wrapper {
     height: 90%;
     width: 90%;
+    max-width: 99vw;
+    /* background: aqua; */
+    /* display: none; */
+  }
+  .full_backdrop {
+    width: 100vw;
   }
 }
