@@ -5,7 +5,14 @@ import AnimatedModal from "../AnimatedModal/AnimatedModal";
 
 export const ProductImageSlider = ({ images, currentImage, hoverHandler }) => {
   return (
-    <div>
+    <div
+      style={
+        {
+          // height: window.innerWidth < 700 && "10vh",
+          // background: "black",
+        }
+      }
+    >
       <div
         style={{ position: "absolute" }}
         className="class_justify_contents_column"
@@ -26,8 +33,12 @@ export const ProductImageSlider = ({ images, currentImage, hoverHandler }) => {
         src={currentImage}
         alt=""
         height={"100%"}
-        style={{ minHeight: window.innerWidth < 700 ? "600px" : "900px" }}
-        width="100%"
+        style={{
+          minHeight: window.innerWidth < 700 ? "100px" : "800px",
+          objectFit: "contain",
+          marginLeft: "-10px",
+        }}
+        width={window.innerWidth < 700 ? "80%" : "100%"}
       />
     </div>
   );

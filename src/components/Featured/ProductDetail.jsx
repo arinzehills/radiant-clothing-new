@@ -139,7 +139,7 @@ const ProductDetail = ({ prd, deleteReview, loadingDelete }) => {
             </p>
           </div>
           <div>
-            <h2>Sizes</h2>
+            <h3>Sizes</h3>
             <div
               className="class_justify_contents_row"
               style={{ gap: "1rem", justifyContent: "start" }}
@@ -182,7 +182,7 @@ const ProductDetail = ({ prd, deleteReview, loadingDelete }) => {
               overflowWrap: "break-word",
             }}
           >
-            <h2>Product Details</h2>
+            <h3>Product Details</h3>
             <p
               className="avenir_class"
               style={{ lineHeight: "inherit", fontSize: "13px" }}
