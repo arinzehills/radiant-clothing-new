@@ -65,7 +65,7 @@ const Featured = () => {
         }}
       >
         <GradientHeaders
-          fontSize={"4.5vw"}
+          fontSize={"3.2vw"}
           text={"Featured"}
           subHeader={"Shop by Categories"}
           uppercase={true}
@@ -136,14 +136,14 @@ const Featured = () => {
       {/* where the products/content starts */}
       <div
         style={{
-          marginTop: "-8rem",
+          marginTop: "-5rem",
           width: "100vw",
           zIndex: 11,
           position: "absolute",
         }}
       >
         <GradientHeaders
-          fontSize={"4.5vw"}
+          fontSize={"3.2vw"}
           text={"Products"}
           subHeader={"Featured products"}
           uppercase={true}
