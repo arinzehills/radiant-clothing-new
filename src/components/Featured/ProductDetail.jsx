@@ -60,7 +60,7 @@ const ProductDetail = ({ prd, deleteReview, loadingDelete }) => {
         className="class_justify_contents_row"
         style={{
           justifyContent: "left",
-          padding: "2rem",
+          padding: window.innerWidth < 660 ? "1rem" : "2rem",
           alignItems: "start",
           marginTop: "-1rem",
           flexDirection: window.innerWidth < 760 && "column",
@@ -89,7 +89,12 @@ const ProductDetail = ({ prd, deleteReview, loadingDelete }) => {
         </Helmet>
         {/* <img src={product.image} alt="" height={"300px"} /> */}
         <ProductImages images={product?.images} isAdmin={prd && true} />
-        <div style={{ padding: "15px" }}>
+        <div
+          style={{
+            padding: window.innerWidth < 660 ? "4px" : "15px",
+            width: "100%",
+          }}
+        >
           <h3
             style={{ textAlign: "left", margin: 0 }}
             className="product-item-name"
@@ -160,7 +165,9 @@ const ProductDetail = ({ prd, deleteReview, loadingDelete }) => {
           {!prd && (
             <div
               className={window.innerWidth < 569 && "centerClass withColumn"}
-              style={{ width: window.innerWidth < 569 && "87vw" }}
+              style={{
+                width: window.innerWidth < 569 && "100%",
+              }}
             >
               <Button
                 buttonColor={"gold"}
