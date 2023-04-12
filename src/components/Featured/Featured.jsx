@@ -65,7 +65,7 @@ const Featured = () => {
         }}
       >
         <GradientHeaders
-          fontSize={window.innerWidth < 700 ? "5.8vw" : "3.2vw"}
+          fontSize={window.innerWidth < 700 ? "6.8vw" : "3.2vw"}
           text={"Featured"}
           subHeader={"Shop by Categories"}
           uppercase={true}
@@ -143,7 +143,7 @@ const Featured = () => {
         }}
       >
         <GradientHeaders
-          fontSize={window.innerWidth < 700 ? "5.8vw" : "3.2vw"}
+          fontSize={window.innerWidth < 700 ? "6.8vw" : "3.2vw"}
           text={"Products"}
           subHeader={"Featured products"}
           uppercase={true}
